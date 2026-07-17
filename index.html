@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#6C3CE1">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-title" content="عالم الحاسب">
 <title>🌟 عالم الحاسب للأطفال V4</title>
 <style>
@@ -1548,6 +1549,16 @@ function renderStars(){
 
 // ══════ INIT ══════
 renderHome();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(r => console.log('SW ok'))
+      .catch(e => console.log('SW err', e));
+  });
+}
 </script>
 </body>
 </html>
