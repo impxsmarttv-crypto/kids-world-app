@@ -169,6 +169,36 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
 .star-btn{font-size:28px;cursor:pointer;opacity:.35;transition:.2s}
 .star-btn.lit{opacity:1;transform:scale(1.2)}
 
+
+/* STORIES */
+.story-list{padding:13px}
+.story-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;
+  cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3);
+  border-right:4px solid var(--purple);transition:transform .1s}
+.story-card:active{transform:scale(.97)}
+.story-cover{font-size:42px;text-align:center;padding:8px 0}
+.story-title{font-size:16px;font-weight:700;color:var(--yellowL);margin-bottom:4px}
+.story-meta{font-size:12px;color:var(--gray)}
+.story-view{padding:14px}
+.story-header{text-align:center;margin-bottom:16px}
+.story-header .cover{font-size:64px;display:block;margin-bottom:8px}
+.story-header h2{font-size:20px;font-weight:700;color:var(--yellow);line-height:1.4;margin-bottom:4px}
+.story-header .meta{font-size:12px;color:var(--gray)}
+.story-body{background:var(--card);border-radius:16px;padding:18px;margin-bottom:14px}
+.story-body p{font-size:16px;line-height:2.1;color:#eee;margin-bottom:10px}
+.story-line{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;
+  padding:10px;background:rgba(255,255,255,.04);border-radius:10px}
+.story-line .line-num{color:var(--purpleL);font-size:11px;font-weight:700;
+  min-width:22px;margin-top:3px}
+.story-line .line-text{font-size:15px;line-height:1.9;color:#eee}
+.moral-box{background:linear-gradient(135deg,var(--purple),var(--pink));
+  border-radius:14px;padding:14px;margin-bottom:14px;text-align:center}
+.moral-box .moral-icon{font-size:28px;margin-bottom:6px}
+.moral-box .moral-title{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.moral-box .moral-text{font-size:15px;font-weight:700;color:var(--white);line-height:1.5}
+.story-nav{display:flex;gap:8px}
+.story-nav .btn{margin-bottom:0}
+
 </style>
 </head>
 <body>
@@ -188,6 +218,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
   <div id="scramble" class="screen"></div>
   <div id="truefalse" class="screen"></div>
   <div id="stars"    class="screen"></div>
+  <div id="stories"  class="screen"></div>
   <div id="stories"  class="screen"></div>
 </div>
 <script>
@@ -1187,6 +1218,7 @@ function showScreen(id,title){
 function goBack(){
   if(curScreen==='slide'){showScreen('lessons','📚 الدروس');return;}
   if(curScreen==='stories'){renderHome();showScreen('home','🌟 عالم الحاسب');return;}
+  if(curScreen==='stories-view'){renderStories();showScreen('stories','📖 القصص');return;}
   if(['memory','fastquiz','scramble','truefalse'].includes(curScreen)){
     clearInterval(fqTimer);renderGames();showScreen('games','🎮 العب وتعلم');return;
   }
@@ -1215,6 +1247,7 @@ function renderHome(){
     <button class="btn teal"   onclick="renderGames();showScreen('games','🎮 العب وتعلم')">🎮  العب وتعلم — ٤ ألعاب</button>
     <button class="btn pink"   onclick="renderStoryList()">📖  قصص الأطفال — ١٠ قصص شيقة</button>
     <button class="btn yellow" onclick="renderStars();showScreen('stars','⭐ نجومي')">⭐  نجومي وإنجازاتي</button>
+    <button class="btn" style="background:#C62828" onclick="renderStories();showScreen('stories','📖 القصص')">📖  قصص الأطفال — ١٠ قصص</button>
     <div style="text-align:center;padding:8px 0;color:var(--gray);font-size:11px">
       ✅ ${lessonsCompleted.size}/${LESSONS.length} وحدة مكتملة • ${quizzesCompleted} اختبار
     </div>
@@ -1543,6 +1576,60 @@ function renderTFResult(){
   </div></div>`;
 }
 
+
+// ══════ STORIES ══════
+function renderStories(){
+  let html='<div class="story-list">';
+  html+=`<p style="color:var(--gray);font-size:13px;margin-bottom:14px;text-align:center">
+    اختر قصة تقرأها 📖 • ١٠ قصص شيقة ومفيدة
+  </p>`;
+  STORIES.forEach((s,i)=>{
+    html+=`<div class="story-card" style="border-right-color:${s.color}" onclick="renderStory(${i})">
+      <div class="story-cover">${s.cover}</div>
+      <div class="story-title">${s.title}</div>
+      <div class="story-meta">💡 ${s.topic} • ${s.lines.length} سطور</div>
+    </div>`;
+  });
+  html+='</div>';
+  $('stories').innerHTML=html;
+}
+
+function renderStory(idx){
+  const s=STORIES[idx];
+  const prev=idx>0?`<button class="btn gray sm" onclick="renderStory(${idx-1})">→ السابقة</button>`:'';
+  const next=idx<STORIES.length-1?`<button class="btn sm" style="background:${s.color}" onclick="renderStory(${idx+1})">التالية ←</button>`:'';
+  
+  let linesHtml='';
+  s.lines.forEach((line,i)=>{
+    linesHtml+=`<div class="story-line">
+      <div class="line-num">${i+1}</div>
+      <div class="line-text">${line}</div>
+    </div>`;
+  });
+
+  $('stories').innerHTML=`<div class="story-view">
+    <div class="story-header">
+      <span class="cover">${s.cover}</span>
+      <h2>${s.title}</h2>
+      <div class="meta">💡 ${s.topic}</div>
+    </div>
+    <div class="story-body">${linesHtml}</div>
+    <div class="moral-box">
+      <div class="moral-icon">💎</div>
+      <div class="moral-title">الحكمة من القصة</div>
+      <div class="moral-text">${s.moral}</div>
+    </div>
+    <div class="story-nav">
+      ${prev || '<div style="flex:1"></div>'}
+      <button class="btn gray sm" onclick="renderStories();showScreen('stories','📖 القصص')">← القصص</button>
+      ${next || '<div style="flex:1"></div>'}
+    </div>
+  </div>`;
+  
+  showScreen('stories',`${s.cover} ${s.title}`);
+  addScore(5);
+}
+
 // ══════ STARS ══════
 function renderStars(){
   const BADGES=[
@@ -1782,6 +1869,190 @@ function rateStory(storyIdx, stars){
   addScore(stars===5?10:stars>=3?5:2);
   openStory(storyIdx);
 }
+
+
+const STORIES = [
+  {
+    id:1, cover:'🦁', color:'#E65100',
+    title:'الأسد والفأر الصغير',
+    topic:'الوفاء والمعروف',
+    lines:[
+      'في يوم صيفي حار، نام أسد ضخم فوق الحشائش الخضراء في الغابة.',
+      'فجأة، مرّ فأر صغير وجري فوق ظهر الأسد النائم من غير قصد.',
+      'استيقظ الأسد غاضباً وقبض على الفأر الصغير بين مخالبه القوية.',
+      'رجا الفأر قائلاً: أرجوك أطلق سراحي! سأكافئك يوماً ما يا ملك الغابة.',
+      'ضحك الأسد ساخراً: كيف يمكن لفأر صغير مثلك أن يساعد ملك الغابة؟',
+      'لكنه أشفق عليه وأطلق سراحه، فجرى الفأر سعيداً نحو مخبئه الصغير.',
+      'بعد أيام قليلة، وقع الأسد في شبكة صياد محكمة ولم يستطع الخروج منها.',
+      'سمع الفأر أصوات استغاثة الأسد فأسرع إليه بدون تردد.',
+      'نهش الفأر الحبال بأسنانه الحادة حتى قطعها وأنقذ الأسد الكبير.',
+      'قال الأسد بامتنان: أنت صغير الحجم لكن كبير القلب، الشكر لك يا صديقي.',
+    ],
+    moral:'المعروف لا يضيع — كل معروف تصنعه سيعود إليك يوماً ما'
+  },
+  {
+    id:2, cover:'🐢', color:'#2E7D32',
+    title:'الأرنب والسلحفاة',
+    topic:'المثابرة والاجتهاد',
+    lines:[
+      'تفاخر أرنب سريع على سلحفاة بطيئة في الغابة وقال: لا أحد أسرع مني!',
+      'ردّت السلحفاة بهدوء: هل تقبل أن نتسابق حتى الجبل البعيد؟',
+      'ضحك الأرنب وقبل التحدي مستهيناً بالسلحفاة الصغيرة البطيئة.',
+      'انطلقت السلحفاة تمشي بخطوات ثابتة واحدة واحدة بدون توقف.',
+      'ركض الأرنب بسرعة البرق ثم توقف تحت شجرة وقال: لديّ وقت للنوم.',
+      'نام الأرنب قرير العين ظناً منه أن السلحفاة لن تصل قبله أبداً.',
+      'واصلت السلحفاة السير بثبات وجدية ولم تلتفت لأي شيء يشتت انتباهها.',
+      'استيقظ الأرنب متأخراً ففزع وجرى بأقصى سرعته نحو الجبل.',
+      'لكنه وجد السلحفاة جالسة على قمة الجبل تبتسم وترحب به.',
+      'قالت السلحفاة: الثبات والمثابرة تتغلب على السرعة وحدها يا صديقي.',
+    ],
+    moral:'الاجتهاد والثبات يوصلانك للهدف أسرع من الموهبة بدون جهد'
+  },
+  {
+    id:3, cover:'⭐', color:'#1565C0',
+    title:'النجمة التي أرادت أن تلمع',
+    topic:'الثقة بالنفس',
+    lines:[
+      'في السماء الواسعة كانت هناك نجمة صغيرة تشعر أن ضوءها خافت جداً.',
+      'نظرت إلى النجوم الكبيرة المضيئة وقالت: ليتني كنت مثلهن.',
+      'حاولت النجمة الصغيرة أن تضيء بكل قوتها ليلة بعد ليلة.',
+      'قال لها القمر الحكيم: لماذا تحزنين يا نجمتي الجميلة؟',
+      'أجابت: أنا صغيرة وضوئي لا يُرى بين كل هذه النجوم الكبيرة.',
+      'ابتسم القمر وقال: انظري إلى الأرض بعيون الأطفال الصغار.',
+      'نظرت النجمة فرأت طفلاً صغيراً يشير إليها بأصبعه ويقول: تلك نجمتي.',
+      'أدركت النجمة أن كل ضوء صغير يُنير قلباً ما في مكان ما.',
+      'من ذلك اليوم لمعت النجمة بفرح وسعادة ولم تقارن نفسها بأحد.',
+      'وكلما نظر إليها الطفل قبل النوم ابتسمت له بكل نورها الجميل.',
+    ],
+    moral:'أنت مميز كما أنت — لا تقارن نفسك بالآخرين فلكل نجمة ضوؤها'
+  },
+  {
+    id:4, cover:'🌱', color:'#00695C',
+    title:'البذرة الشجاعة',
+    topic:'الصبر والأمل',
+    lines:[
+      'كانت بذرة صغيرة نائمة تحت الأرض في الشتاء البارد القارس.',
+      'حولها ظلام دامس وصخور ثقيلة تضغط عليها من كل الجهات.',
+      'همست البذرة لنفسها: هل سأبقى هنا في الظلام إلى الأبد؟',
+      'جاء الربيع وأرسل مطراً دافئاً نقر الأرض برفق وحنان.',
+      'شعرت البذرة بدفء يسري فيها وبدأت تتحرك نحو الأعلى بشجاعة.',
+      'كانت الصخور عائقاً لكن البذرة لفّت حولها ومضت بلا يأس.',
+      'في صباح مشرق خرج أول بُرعم أخضر يُطل على ضوء الشمس.',
+      'قالت الشمس: أهلاً بك! لقد صبرت وصارعت حتى وصلت.',
+      'كبرت البذرة وصارت شجرة وارفة يجلس في ظلها المسافرون.',
+      'وكلما هبّت ريح قالت الشجرة: الصبر مفتاح كل شيء جميل.',
+    ],
+    moral:'الصبر والمثابرة يحولان أصعب الظروف إلى نجاح رائع'
+  },
+  {
+    id:5, cover:'🐟', color:'#0277BD',
+    title:'السمكة التي حلمت بالبحر',
+    topic:'الشجاعة والمغامرة',
+    lines:[
+      'في بركة صغيرة هادئة عاشت سمكة صفراء صغيرة منذ صغرها.',
+      'كانت تنظر كل يوم إلى النهر البعيد وتحلم بالوصول إليه.',
+      'قالت لها أمها: البركة آمنة يا صغيرتي، لماذا تريدين المغامرة؟',
+      'أجابت السمكة: أريد أن أرى العالم الكبير وأتعلم ما لا أعرفه.',
+      'في يوم مطير جاء نهر كبير يمر بجانب البركة فقفزت السمكة.',
+      'خافت أول الأمر من الماء السريع والأعماق المجهولة المظلمة.',
+      'لكنها تعلمت السباحة ضد التيار وعرفت أصدقاء من كل أنواع الأسماك.',
+      'رأت الشعاب المرجانية الملونة والطحالب الخضراء الطويلة الجميلة.',
+      'عادت يوماً للبركة لتحكي لأمها عن رحلتها المدهشة الجميلة.',
+      'قالت الأم وهي فخورة: الشجاعة تفتح أبواباً لم نكن نعلم بوجودها.',
+    ],
+    moral:'الشجاعة تفتح عوالم جديدة — لا تخف من المجهول فهو مصدر التعلم'
+  },
+  {
+    id:6, cover:'🎨', color:'#6A1B9A',
+    title:'الفنان الصغير',
+    topic:'الإبداع والإصرار',
+    lines:[
+      'كان سامي طفلاً يحب الرسم لكن ريشته لا تنتج ما يتمنى.',
+      'رسم طيراً فبدا كبقعة، ورسم شجرة فبدت كعصا معوجة.',
+      'استهزأ أطفال الفصل بلوحاته وضحكوا منها بصوت عالٍ.',
+      'جلس سامي وحيداً يبكي ويفكر في التوقف عن الرسم للأبد.',
+      'جاءه معلمه القديم وقال: أرني لوحاتك يا سامي بدون خجل.',
+      'نظر المعلم طويلاً ثم قال: أرى فيها خيالاً واسعاً وروحاً مبدعة.',
+      'أهداه المعلم كتاباً عن الرسم وقال: التدريب يصنع الفنان العظيم.',
+      'رسم سامي كل يوم بلا انقطاع حتى تحسنت لوحاته تدريجياً.',
+      'بعد عام عُرضت لوحاته في معرض المدرسة وأعجبت كل من رآها.',
+      'قال سامي: الاستهزاء لم يوقفني بل جعلني أعمل أكثر وأصر أكثر.',
+    ],
+    moral:'الإصرار على الحلم يحوّل الفشل إلى نجاح رائع يُدهش الجميع'
+  },
+  {
+    id:7, cover:'🌧️', color:'#37474F',
+    title:'الغيمة التي تعلمت العطاء',
+    topic:'الكرم والعطاء',
+    lines:[
+      'كانت غيمة بيضاء تطير عالياً وتراقب الأرض من بعيد باستمتاع.',
+      'رأت الزهور تذبل والأشجار تعطش والحيوانات تلهث من الحر.',
+      'قالت الغيمة لنفسها: لديّ ماء كثير، لكن لماذا أعطيه للآخرين؟',
+      'فكّرت طويلاً وهي تطير فوق القرى الجافة والحقول المتشققة.',
+      'نادتها الشمس: يا غيمة، كنزك لا يفيدك وحدك أعطِه للأرض.',
+      'قاومت الغيمة أول الأمر ثم نزلت بالمطر على الأرض المتعطشة.',
+      'تفتّحت الزهور وغنّت الطيور وركض الأطفال في المطر فرحاً.',
+      'نظرت الغيمة وقد خفّ حملها فشعرت بفرح لم تعرفه من قبل.',
+      'قالت الشمس: العطاء يملأ القلب لا يُفرّغه يا صديقتي العزيزة.',
+      'من ذلك اليوم أحبّت الغيمة أن تُمطر كلما رأت الأرض محتاجة.',
+    ],
+    moral:'العطاء يُسعد المعطي قبل الآخذ — أعطِ بسخاء وستجد السعادة الحقيقية'
+  },
+  {
+    id:8, cover:'🤝', color:'#C62828',
+    title:'أصابع اليد الخمسة',
+    topic:'التعاون والوحدة',
+    lines:[
+      'تشاجرت أصابع اليد الخمسة يوماً كل واحد يقول أنا الأهم.',
+      'قال الإبهام الكبير: أنا أهم منكم جميعاً لأنني أشير للأشياء.',
+      'قال السبابة: لا بل أنا الأهم فبدوني لا تستطيع الإمساك بشيء.',
+      'صاح الوسطى: أنا أطولكم وأقواكم فأنا الأجدر بالرئاسة.',
+      'قال البنصر بهدوء: لكن الخاتم الذهبي يُوضع عليّ وحدي.',
+      'وقال الخنصر الصغير وهو يضحك: أنا أدخل في الأماكن الضيقة.',
+      'بينما كانوا يتشاجرون سقطت كرة أمامهم على الأرض.',
+      'حاول كل إصبع وحده أن يمسك الكرة فلم يستطع أي منهم.',
+      'فاتفقوا معاً وقبضوا على الكرة بقوة وسهولة.',
+      'قالوا في صوت واحد: قوتنا في اتحادنا وليس في التفاخر.',
+    ],
+    moral:'قوة الفريق تتفوق على قوة الفرد — التعاون يصنع المستحيل'
+  },
+  {
+    id:9, cover:'📚', color:'#1A237E',
+    title:'الكتاب الحزين',
+    topic:'حب القراءة والمعرفة',
+    lines:[
+      'في مكتبة قديمة كان كتاب صغير يجلس على الرف منسياً مغبراً.',
+      'مرّت الأيام والأطفال يختارون الكتب الكبيرة الملونة الجميلة.',
+      'حزن الكتاب وقال: ما فائدة المعرفة التي بداخلي إن لم يقرأني أحد؟',
+      'في يوم ماطر جاء طفل اسمه يوسف يبحث عن كتاب في المكتبة.',
+      'لم يجد كتاباً فانتبه للكتاب الصغير المغبر في آخر الرف.',
+      'فتحه فوجد قصصاً عن نجوم الفضاء والغابات العميقة والبحار.',
+      'جلس يوسف ساعات يقرأ بشغف ولم يلتفت لشيء حوله.',
+      'قرأه مرتين وأحضره في اليوم التالي لأصدقائه ليقرؤوه معه.',
+      'ابتسم الكتاب وقال: وجدت أخيراً من يفهم كنزي الثمين.',
+      'قال يوسف: في كل كتاب قديم خبايا رائعة تنتظر من يكتشفها.',
+    ],
+    moral:'القراءة تفتح عقلك على عوالم لا نهاية لها — في كل كتاب كنز ينتظرك'
+  },
+  {
+    id:10, cover:'🌙', color:'#4527A0',
+    title:'نجمة الأمنيات',
+    topic:'الحلم والعمل',
+    lines:[
+      'كانت ليلى تجلس كل ليلة عند نافذتها تنظر إلى نجمة لامعة.',
+      'تمنّت أن تصبح طبيبة تداوي المرضى وتُخفف ألمهم يوماً ما.',
+      'قالت لأمها: أتمنى كثيراً لكنني أخشى أن يكون الطريق صعباً.',
+      'أجابت الأم وهي تحضنها: الأمنية بدون عمل مجرد حلم في الهواء.',
+      'من تلك الليلة بدأت ليلى تدرس بجد وتسأل معلمتها باستمرار.',
+      'في الامتحانات كانت تستيقظ مبكراً وتراجع دروسها بشغف.',
+      'رسبت مرة في مادة العلوم فبكت لكنها عادت وحاولت من جديد.',
+      'مرّت السنوات وليلى تعمل وتتعلم لا تعرف الكسل ولا الملل.',
+      'في يوم تخرّجت ليلى طبيبة وأمسكت شهادتها بيدين مرتجفتين.',
+      'نظرت للنجمة ليلاً وقالت: شكراً، الأمنية تحققت لأنني عملت.',
+    ],
+    moral:'الأمنية تحتاج عملاً وجهداً — احلم بقوة ثم اعمل بنفس القوة'
+  },
+];
 
 // ══════ INIT ══════
 renderHome();
