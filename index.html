@@ -138,6 +138,37 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
 .shake{animation:shake .28s ease}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .bounce{animation:bounce .4s ease}
+
+/* STORIES */
+.story-list{padding:13px}
+.story-item{display:flex;align-items:center;gap:12px;background:var(--card);
+  border-radius:14px;padding:13px;margin-bottom:10px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(0,0,0,.25);border-right:4px solid var(--pink);
+  transition:transform .1s}
+.story-item:active{transform:scale(.97)}
+.story-icon{font-size:32px;flex-shrink:0}
+.story-title{font-size:14px;font-weight:700;margin-bottom:2px}
+.story-meta{font-size:11px;color:var(--gray)}
+.story-moral{font-size:10px;color:var(--pinkL);margin-top:2px;font-weight:700}
+.story-page{padding:14px}
+.story-cover{text-align:center;font-size:64px;padding:12px 0}
+.story-heading{font-size:20px;font-weight:900;color:var(--yellowL);
+  text-align:center;margin-bottom:4px}
+.story-sub{font-size:12px;color:var(--pinkL);text-align:center;margin-bottom:14px}
+.story-body{background:var(--card);border-radius:16px;padding:16px;
+  font-size:15px;line-height:2.1;color:#eee;margin-bottom:12px;
+  border-right:4px solid var(--pink)}
+.story-body p{margin-bottom:10px}
+.story-moral-box{background:linear-gradient(135deg,#E8368F22,#6C3CE122);
+  border:1px solid var(--pink);border-radius:14px;padding:13px;
+  text-align:center;margin-bottom:14px}
+.story-moral-box .label{font-size:11px;color:var(--gray);margin-bottom:4px}
+.story-moral-box .text{font-size:15px;font-weight:700;color:var(--yellowL);line-height:1.5}
+.story-nav{display:flex;gap:8px}
+.story-stars{display:flex;justify-content:center;gap:6px;margin:10px 0}
+.star-btn{font-size:28px;cursor:pointer;opacity:.35;transition:.2s}
+.star-btn.lit{opacity:1;transform:scale(1.2)}
+
 </style>
 </head>
 <body>
@@ -157,6 +188,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
   <div id="scramble" class="screen"></div>
   <div id="truefalse" class="screen"></div>
   <div id="stars"    class="screen"></div>
+  <div id="stories"  class="screen"></div>
 </div>
 <script>
 const LESSONS = [
@@ -1154,6 +1186,7 @@ function showScreen(id,title){
 }
 function goBack(){
   if(curScreen==='slide'){showScreen('lessons','📚 الدروس');return;}
+  if(curScreen==='stories'){renderHome();showScreen('home','🌟 عالم الحاسب');return;}
   if(['memory','fastquiz','scramble','truefalse'].includes(curScreen)){
     clearInterval(fqTimer);renderGames();showScreen('games','🎮 العب وتعلم');return;
   }
@@ -1180,6 +1213,7 @@ function renderHome(){
     <button class="btn purple" onclick="renderLessons();showScreen('lessons','📚 الدروس')">📚  ابدأ التعلم — ${LESSONS.length} وحدات</button>
     <button class="btn pink"   onclick="startQuiz()">🎯  اختبر نفسك — ${QUIZ_QS.length} سؤالاً</button>
     <button class="btn teal"   onclick="renderGames();showScreen('games','🎮 العب وتعلم')">🎮  العب وتعلم — ٤ ألعاب</button>
+    <button class="btn pink"   onclick="renderStoryList()">📖  قصص الأطفال — ١٠ قصص شيقة</button>
     <button class="btn yellow" onclick="renderStars();showScreen('stars','⭐ نجومي')">⭐  نجومي وإنجازاتي</button>
     <div style="text-align:center;padding:8px 0;color:var(--gray);font-size:11px">
       ✅ ${lessonsCompleted.size}/${LESSONS.length} وحدة مكتملة • ${quizzesCompleted} اختبار
@@ -1545,6 +1579,208 @@ function renderStars(){
          ✅❌ صح/خطأ = ١٢ كل سؤال</p>
     </div>
   </div>`;
+}
+
+
+// ══════ STORIES DATA ══════
+const STORIES = [
+ {icon:'🦁', title:'الأسد والفأرة', genre:'حكمة وصداقة', moral:'المعروف لا يضيع أبداً — كن لطيفاً مع الجميع',
+  lines:[
+   'في غابة خضراء كبيرة، كان هناك أسد قوي يرقد تحت شجرة ضخمة.',
+   'فجأة، مرّت فأرة صغيرة وركضت فوق أنف الأسد وأيقظته من نومه.',
+   'غضب الأسد وأمسك الفأرة بين مخالبه الضخمة وقال: سآكلك الآن!',
+   'بكت الفأرة وقالت: أرجوك يا ملك الغابة، اعفُ عني وسأكافئك يوماً ما.',
+   'ضحك الأسد ساخراً: أنتِ صغيرة جداً، كيف ستكافئينني؟ لكنه أطلق سراحها.',
+   'بعد أيام، وقع الأسد في شبكة صيادين قوية ولم يستطع الخروج منها.',
+   'سمعت الفأرة زئيره من بعيد وأسرعت نحوه دون تردد.',
+   'بدأت الفأرة تقضم الحبال الغليظة بأسنانها الصغيرة الحادة.',
+   'بعد برهة، انقطعت الحبال وخرج الأسد حراً طليقاً.',
+   'قال الأسد بامتنان: صدقتِ يا صديقتي، لكل إنسان أو حيوان قيمة خاصة!',
+  ]},
+
+ {icon:'🐢', title:'السلحفاة والأرنب', genre:'مثابرة وعزيمة', moral:'الثبات والصبر يتغلبان على السرعة والغرور',
+  lines:[
+   'كان الأرنب السريع يتباهى بسرعته أمام جميع حيوانات الغابة كل يوم.',
+   'قالت السلحفاة الهادئة: أنا أتحداك في سباق إلى قمة الجبل يا أرنب.',
+   'ضحك الأرنب بصوت عالٍ: أنتِ؟ تتحدينني؟ هذا مضحك جداً!',
+   'بدأ السباق وانطلق الأرنب كالريح وتركها خلفه بعيداً جداً.',
+   'وصل الأرنب لمنتصف الطريق وقرر الاستراحة تحت ظل شجرة.',
+   'قال لنفسه ساخراً: السلحفاة لن تصل قبل ساعات، سأنام قليلاً.',
+   'وبينما نام الأرنب نوماً عميقاً، مشت السلحفاة ببطء ثابت دون توقف.',
+   'صحا الأرنب فجأة وركض بكل قوته نحو القمة.',
+   'لكن عندما وصل، وجد السلحفاة تجلس هناك بهدوء تبتسم له.',
+   'قال الأرنب بخجل: عفواً، تعلمت اليوم أن الاجتهاد أهم من الموهبة.',
+  ]},
+
+ {icon:'🌱', title:'البذرة الصغيرة الشجاعة', genre:'أمل وإصرار', moral:'من صبر وثابر نال ما يريد',
+  lines:[
+   'كانت بذرة صغيرة نائمة في باطن التراب الدافئ في فصل الشتاء.',
+   'أيقظها صوت قطرات المطر وهي تدق على الأرض كأنها موسيقى.',
+   'فكرت البذرة: أريد أن أرى الشمس وأتنفس الهواء النقي.',
+   'حاولت الصعود لكن التراب كان ثقيلاً فوقها ويصعب اختراقه.',
+   'قالت لنفسها: لن أستسلم، سأحاول كل يوم حتى أصل.',
+   'مرت أيام وأسابيع والبذرة تدفع وتدفع بكل ما أوتيت من قوة.',
+   'ذات صباح مشرق، لمعت نقطة خضراء صغيرة فوق سطح التراب.',
+   'أحست البذرة بدفء الشمس الجميلة يلامس أوراقها الصغيرة الرقيقة.',
+   'شربت المطر وامتصت نور الشمس وكبرت يوماً بعد يوم.',
+   'أصبحت شجرة باسقة توفر الظل لكل المارة وتعطي ثمارها بسخاء.',
+  ]},
+
+ {icon:'⭐', title:'النجم الصغير الخجول', genre:'ثقة بالنفس', moral:'كل واحد منا يملك نوراً خاصاً به',
+  lines:[
+   'في السماء الزرقاء، كانت تسكن آلاف النجوم المتلألئة الجميلة.',
+   'كان هناك نجم صغير خجول يخاف أن يضيء خشية أن يسخر منه الآخرون.',
+   'قال له القمر الكبير بصوت دافئ: لماذا أراك مطفأً كل ليلة يا صغير؟',
+   'أجاب النجم بحزن: نجومي أكبر مني وأجمل، ضوئي ضعيف وخافت.',
+   'ابتسم القمر وقال: كل نجم له ضوءه الخاص الذي لا يشبه أحداً.',
+   'في تلك الليلة، شجّعه القمر فأضاء النجم الصغير بكل ما لديه.',
+   'رأى في الأرض طفلة صغيرة تبحث عن الطريق في الظلام.',
+   'اهتدت الطفلة بضوئه وقالت بفرح: انظر يا أمي، نجم جميل يضيء لي.',
+   'امتلأ قلب النجم الصغير بالسعادة والدفء والثقة.',
+   'من تلك الليلة، أضاء النجم كل يوم بكل ما لديه ليضيء الطريق للآخرين.',
+  ]},
+
+ {icon:'🐝', title:'النحلة المجتهدة', genre:'عمل جماعي', moral:'العمل بجد وتعاون يصنع المعجزات',
+  lines:[
+   'في حقل أزهار ملوّن، كانت تعيش مجموعة من النحلات في خلية دافئة.',
+   'كانت نحلة صغيرة اسمها نورة تعمل من الفجر حتى الغسق دون توقف.',
+   'كل يوم تطير نورة لمئات الأزهار وتجمع الرحيق الحلو بعناية فائقة.',
+   'سألتها صديقتها: ألا تتعبين يا نورة؟ لماذا لا تستريحين أحياناً؟',
+   'قالت نورة ببسمة: عملنا يصنع العسل الذي يُفرح الناس ويشفي المرضى.',
+   'في أحد الأيام، مرضت ملكة الخلية وأصبحت الخلية حزينة وقلقة.',
+   'تذكرت نورة أن زهرة السنديان بها عسل طبي نادر يشفي المرضى.',
+   'طارت نورة وحدها في العاصفة وجلبت العسل الشافي بشجاعة.',
+   'شُفيت الملكة وعاد الفرح للخلية من جديد وعادت النحل للعمل.',
+   'قالت الملكة: نورة، اجتهادك وشجاعتك أنقذا الخلية كلها.',
+  ]},
+
+ {icon:'🌊', title:'الموجة الشجاعة', genre:'مغامرة وجرأة', moral:'الجرأة تفتح أبواباً لم نكن نعرف وجودها',
+  lines:[
+   'في البحر الواسع، كانت هناك موجة صغيرة تحلم برؤية الشاطئ البعيد.',
+   'قالت لها الموجات الكبيرة: الشاطئ بعيد ومليء بالصخور، ابقي هنا.',
+   'لكن الموجة الصغيرة كانت تحمل في قلبها شوقاً لا يهدأ.',
+   'في يوم هادئ، قررت الموجة الصغيرة الانطلاق في رحلتها.',
+   'مرّت بجانب مراكب الصيادين وبقايا السفن القديمة.',
+   'رأت أسماكاً ملوّنة وأعشاباً خضراء تتراقص في الماء.',
+   'وصلت أخيراً للشاطئ الذهبي وهي تلمع في ضوء الشمس.',
+   'عانقت الرمال وتركت عليها لآلئ صغيرة كهدية للأطفال.',
+   'فرح الأطفال بها ولعبوا بالصدف التي أحضرتها معها.',
+   'عادت الموجة للبحر سعيدة وقالت للموجات: الجرأة تستحق كل شيء!',
+  ]},
+
+ {icon:'🦉', title:'البومة الحكيمة والصياد', genre:'ذكاء وحكمة', moral:'الكلمة الطيبة تُغيّر قلوباً',
+  lines:[
+   'في غابة كثيفة، كانت تسكن بومة حكيمة عمرها مئة عام.',
+   'جاء صياد ماهر إلى الغابة حاملاً فخاخه وشباكه.',
+   'رأت البومة الصياد يضع الفخاخ للطيور البريئة فأحزنها ذلك.',
+   'هبطت بهدوء بجواره وقالت: يا صياد، ماذا ستفعل بهذه الطيور؟',
+   'قال الصياد: أبيعها في السوق لأطعم أطفالي الجائعين.',
+   'فكّرت البومة ثم قالت: هل تعلم أن هذه الطيور تأكل الحشرات الضارة؟',
+   'تابعت البومة: بدونها ستنتشر الحشرات وتهلك المحاصيل والأشجار.',
+   'صمت الصياد طويلاً وهو يفكر في كلام البومة الحكيمة.',
+   'قال الصياد: لم أفكر في هذا من قبل، كيف أطعم أطفالي إذن؟',
+   'علّمته البومة زراعة الخضراوات فأصبح مزارعاً ماهراً يعيش بكرامة.',
+  ]},
+
+ {icon:'🌈', title:'الألوان المتشاجرة', genre:'تعاون وتسامح', moral:'التنوع جمال والتعاون قوة',
+  lines:[
+   'في يوم ممطر، اختلفت ألوان قوس قزح واحدة بعد الأخرى.',
+   'قال الأحمر بغرور: أنا أجمل لون، بدوني لا توجد ورود ولا قلوب.',
+   'رد الأزرق: أنا أعظم، أنا لون السماء والبحر والحرية والهدوء.',
+   'صرخ الأصفر: بل أنا أهم، أنا لون الشمس التي تُحيي الأرض.',
+   'تشاجرت الألوان واحدة واحدة وقررت كل منها الاختفاء وحدها.',
+   'أصبحت السماء رمادية كئيبة والأرض حزينة بدت بلا حياة.',
+   'بكى الأطفال وقالوا: أين قوس قزح الجميل الذي نحبه؟',
+   'سمعت الألوان بكاء الأطفال فشعرت بالخجل والندم.',
+   'عاد كل لون لمكانه وتعانقت الألوان مكوّنةً القوس الجميل.',
+   'قالت الألوان معاً: معاً نصنع الجمال، وحدنا لا نساوي شيئاً.',
+  ]},
+
+ {icon:'🐟', title:'السمكة الصغيرة وحلم البحر', genre:'شجاعة وحلم', moral:'لا تخف من الأحلام الكبيرة',
+  lines:[
+   'في نهر صغير هادئ، كانت تعيش سمكة صغيرة اسمها لؤلؤة.',
+   'كانت لؤلؤة تحلم دائماً برؤية البحر الكبير الذي سمعت عنه.',
+   'قال لها أبوها: البحر بعيد وخطير، ابقي في نهرنا الآمن.',
+   'لكن قلب لؤلؤة كان يشتاق للمجهول الجميل الشاسع.',
+   'في يوم ممطر، ارتفع الماء وحمل لؤلؤة في تياره القوي السريع.',
+   'خافت في البداية ثم قررت الاستمتاع بالرحلة المثيرة.',
+   'مرّت بقرى وأحراش وصخور وأسماك لم ترَها من قبل.',
+   'وأخيراً رأت البحر الأزرق الواسع يلمع تحت الشمس.',
+   'غاصت في أعماقه ورأت مرجانة وألواناً لم تخطر ببالها.',
+   'أدركت لؤلؤة أن الشجاعة تفتح أبواب عوالم لا نهاية لها.',
+  ]},
+
+ {icon:'🤝', title:'الحطّاب الأمين', genre:'أمانة وصدق', moral:'الأمانة طريق البركة والنجاح',
+  lines:[
+   'كان يعيش في قرية صغيرة حطّاب فقير يعمل بكد واجتهاد كل يوم.',
+   'ذات يوم، وبينما كان يقطع الحطب، سقطت فأسه في النهر.',
+   'جلس على الضفة وبكى: يا إلهي، هذه فأسي الوحيدة وعليها رزقي.',
+   'فجأة، ظهرت جنية النهر وبيدها فأس من الذهب اللامع.',
+   'سألته الجنية: هل هذه فأسك يا حطّاب؟',
+   'أجاب الحطّاب بصدق: لا يا سيدتي، فأسي من الحديد العادي لا الذهب.',
+   'ابتسمت الجنية وأخرجت فأساً من الفضة: هل هذه فأسك؟',
+   'أجاب الحطّاب مرة أخرى: لا، هذه أيضاً ليست لي.',
+   'أخرجت الجنية الفأس الحديدية: هل هذه فأسك؟ قال: نعم! هذه فأسي.',
+   'قالت الجنية: صدقك يستحق المكافأة، خذ الثلاث جميعاً هدية لأمانتك.',
+  ]},
+];
+let storyRatings = {};
+
+
+// ══════ STORIES ══════
+function renderStoryList(){
+  let html='<div class="story-list">';
+  STORIES.forEach((s,i)=>{
+    const rating = storyRatings[i] || 0;
+    const stars = rating > 0 ? '⭐'.repeat(rating) : '';
+    html+=`<div class="story-item" onclick="openStory(${i})">
+      <div class="story-icon">${s.icon}</div>
+      <div style="flex:1">
+        <div class="story-title">${s.title} ${stars}</div>
+        <div class="story-meta">${s.genre}</div>
+        <div class="story-moral">💡 ${s.moral.substring(0,35)}...</div>
+      </div>
+      <div style="color:var(--gray);font-size:16px">←</div>
+    </div>`;
+  });
+  html+='</div>';
+  $('stories').innerHTML=html;
+  showScreen('stories','📖 قصص الأطفال');
+}
+
+function openStory(i){
+  const s=STORIES[i];
+  const rating=storyRatings[i]||0;
+  let linesHTML='';
+  s.lines.forEach((line,li)=>{
+    linesHTML+=`<p>${line}</p>`;
+  });
+  $('stories').innerHTML=`<div class="story-page">
+    <div class="story-cover">${s.icon}</div>
+    <div class="story-heading">${s.title}</div>
+    <div class="story-sub">${s.genre}</div>
+    <div class="story-body">${linesHTML}</div>
+    <div class="story-moral-box">
+      <div class="label">💡 الدرس المستفاد</div>
+      <div class="text">${s.moral}</div>
+    </div>
+    <div style="text-align:center;font-size:13px;color:var(--gray);margin-bottom:8px">قيّم القصة:</div>
+    <div class="story-stars">
+      ${[1,2,3,4,5].map(n=>`<span class="star-btn${rating>=n?' lit':''}" onclick="rateStory(${i},${n})">⭐</span>`).join('')}
+    </div>
+    <div class="story-nav">
+      <button class="btn gray sm" onclick="renderStoryList();showScreen('stories','📖 قصص الأطفال')">← القصص</button>
+      ${i>0?`<button class="btn pink sm" onclick="openStory(${i-1})">السابقة →</button>`:''}
+      ${i<STORIES.length-1?`<button class="btn purple sm" onclick="openStory(${i+1})">← التالية</button>`:''}
+    </div>
+  </div>`;
+  showScreen('stories','📖 '+s.title);
+}
+
+function rateStory(storyIdx, stars){
+  storyRatings[storyIdx]=stars;
+  addScore(stars===5?10:stars>=3?5:2);
+  openStory(storyIdx);
 }
 
 // ══════ INIT ══════
