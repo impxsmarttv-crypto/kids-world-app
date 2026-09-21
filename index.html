@@ -82,7 +82,7 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
   <div class="install-card"><div class="appicon">🌈</div><h2 id="installTitle">ثبّت عالم الأطفال 📲</h2><p id="installText">اجعل عالم الأطفال مثل تطبيق على جهازك للوصول إليه بسرعة، مع تجربة أفضل وبدون شريط المتصفح.</p><button class="install-main" id="installNow">📲 تثبيت التطبيق</button><div class="ios-steps" id="iosSteps">على iPhone أو iPad: اضغط <b>مشاركة ⬆️</b> ثم اختر <b>إضافة إلى الشاشة الرئيسية</b>، وبعدها اختر <b>إضافة</b>.</div><button class="close-install" id="closeInstall">ليس الآن</button></div>
 </div>
 <script>
-const API_BASE_URL="https://kids-ai-gateway.impxsmarttv.workers.dev";
+const API_BASE_URL="https://kids-ai-gateway.impxsmarttv.workers.dev/chat";
 let age=9,recognition=null,recording=false,voiceEnabled=false,deferredInstallPrompt=null;
 const $=id=>document.getElementById(id);
 const ages=[["3–4","🌱","صغير"],["5–7","🧸","مبتدئ"],["7–9","🚀","مستكشف"],["10–12","🧠","متقدم"],["13–15","🌟","يافع"]];
