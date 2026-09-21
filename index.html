@@ -27,9 +27,8 @@ button,input,textarea{font:inherit}button{cursor:pointer}.app{width:100%;max-wid
 footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14px}
 .install{display:none;border:0;border-radius:12px;background:#22c55e;color:#fff;padding:9px 12px;font-weight:900;font-size:11px}
 @media(max-width:800px){.hero{min-height:280px;padding:25px}.hero-content{max-width:62%}.character{transform:scale(.8);transform-origin:bottom left;left:-5px}.features{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.app{padding:8px 10px 20px}.top{padding-top:max(4px,env(safe-area-inset-top))}.hero{min-height:390px;border-radius:26px;padding:24px 20px}.hero-content{max-width:100%;text-align:center}.hero h1{font-size:44px}.hero p{font-size:14px}.hero-actions{justify-content:center}.character{left:50%;transform:translateX(-50%) scale(.65);transform-origin:bottom center;bottom:-10px}.ages{grid-template-columns:repeat(3,1fr)}.age:nth-child(4),.age:nth-child(5){display:none}.features{grid-template-columns:1fr 1fr;gap:9px}.feature{min-height:132px;padding:13px}.feature .ico{font-size:34px}.feature h3{font-size:16px}.feature p{font-size:10px}.settings{grid-template-columns:1fr}.section-title h2{font-size:20px}.chat{min-height:calc(100dvh - 16px)}.msg{max-width:92%;font-size:14px}.iconbtn{width:46px;height:46px}.input{min-height:46px}}
-@media(max-width:380px){.features{grid-template-columns:1fr}.hero h1{font-size:38px}.ages{gap:6px}}
-
+@media(max-width:600px){.app{padding:8px 10px 20px}.top{padding-top:max(4px,env(safe-area-inset-top))}.hero{min-height:390px;border-radius:26px;padding:24px 20px}.hero-content{max-width:100%;text-align:center}.hero h1{font-size:44px}.hero p{font-size:14px}.hero-actions{justify-content:center}.character{left:50%;transform:translateX(-50%) scale(.65);transform-origin:bottom center}.ages{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.age{padding:12px 5px;min-width:0}.age .avatar{font-size:32px;margin-bottom:4px}.age b{font-size:16px}.age span{font-size:10px}.features{grid-template-columns:1fr 1fr;gap:9px}.feature{min-height:132px;padding:13px}.feature .ico{font-size:34px}.feature h3{font-size:16px}.feature p{font-size:10px}.settings{grid-template-columns:1fr}.section-title h2{font-size:20px}.chat{min-height:calc(100dvh - 16px)}.msg{max-width:92%;font-size:14px}.iconbtn{width:46px;height:46px}.input{min-height:46px}}
+@media(max-width:380px){.features{grid-template-columns:1fr}.hero h1{font-size:38px}.ages{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.age{padding:10px 3px}.age .avatar{font-size:29px}.age b{font-size:15px}.age span{font-size:9px}}
 .install-modal{display:none;position:fixed;inset:0;z-index:9999;background:#0b1b3dcc;backdrop-filter:blur(7px);align-items:center;justify-content:center;padding:20px}
 .install-card{width:min(520px,100%);background:#fff;border-radius:28px;padding:24px;color:#17366d;box-shadow:0 25px 80px #0005;text-align:center}
 .install-card .appicon{font-size:56px;margin-bottom:4px}.install-card h2{margin:5px 0 8px;font-size:27px}.install-card p{margin:0 0 16px;color:#5d6b86;line-height:1.8;font-size:14px}.install-card .install-main{width:100%;border:0;border-radius:16px;background:#2563eb;color:#fff;padding:14px;font-weight:950;font-size:16px}.install-card .close-install{margin-top:9px;width:100%;border:0;background:#eef4ff;color:#31517f;border-radius:14px;padding:11px;font-weight:800}.ios-steps{display:none;margin:12px 0 0;padding:13px;background:#f4f7fb;border-radius:16px;line-height:1.9;font-size:13px}.ios-steps b{color:#2563eb}
@@ -45,24 +44,18 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
     <button class="install" id="install">📲 تثبيت</button>
   </div>
 </header>
-
 <main id="home">
 <section class="hero">
   <div class="hero-content">
     <div class="tag">✨ مساعد ذكي وآمن للأطفال</div>
     <h1>عالم الأطفال</h1>
     <p>تعلم بطريقة ممتعة، اسأل براحتك، واكتشف أشياء جديدة كل يوم مع صديقك الذكي 🤖💙</p>
-    <div class="hero-actions">
-      <button class="primary" id="startChat">🧠 اسألني الآن</button>
-      <button class="secondary" id="talkBtn">🎤 تحدث معي</button>
-    </div>
+    <div class="hero-actions"><button class="primary" id="startChat">🧠 اسألني الآن</button><button class="secondary" id="talkBtn">🎤 تحدث معي</button></div>
   </div>
   <div class="character" aria-hidden="true"><div class="kid"><i class="eye a"></i><i class="eye b"></i><i class="smile"></i></div><div class="robot"><div class="screen"></div></div></div>
 </section>
-
 <div class="section-title"><h2>👧 كم عمرك؟</h2><span>اختر عمرك لنقدم لك تجربة مناسبة</span></div>
 <div class="ages" id="ages"></div>
-
 <div class="section-title"><h2>🚀 ماذا تريد أن تفعل؟</h2><span>اختر نشاطًا</span></div>
 <div class="features">
   <button class="feature blue" data-action="chat"><div class="ico">💬</div><h3>تحدث معي</h3><p>اسأل أي سؤال وتحدث مع المساعد الذكي</p><span class="go">←</span></button>
@@ -72,90 +65,46 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
   <button class="feature pink" data-action="creative"><div class="ico">🎨</div><h3>الإبداع والفن</h3><p>أفكار للرسم والتلوين والمشاريع الممتعة</p><span class="go">←</span></button>
   <button class="feature cyan" data-action="stories"><div class="ico">💡</div><h3>قصص وحكايات</h3><p>قصص جميلة وقيم مفيدة وممتعة</p><span class="go">←</span></button>
 </div>
-
 <div class="settings" id="settings">
   <div class="setting"><div style="display:flex;gap:12px;align-items:center"><div class="sico">🔊</div><div><h3>قراءة الإجابة بصوت</h3><p>يمكن تشغيل أو إيقاف الصوت في أي وقت</p></div></div><button class="switch" id="voiceSwitch" aria-label="الصوت"></button></div>
   <div class="setting"><div style="display:flex;gap:12px;align-items:center"><div class="sico">🛡️</div><div><h3>محتوى آمن للأطفال</h3><p>المساعد مصمم بإرشادات مناسبة للصغار</p></div></div><span>✅</span></div>
 </div>
 <footer>💙 عالم الأطفال — نتعلم ونكتشف ونستمتع معًا</footer>
 </main>
-
 <section class="chat" id="chat">
   <div class="chat-head"><div><b>🤖 صديقك الذكي</b><small style="display:block;opacity:.8">جاهز لمساعدتك</small></div><button class="back" id="back">العودة ←</button></div>
   <div class="messages" id="messages"></div>
-  <div class="chips">
-    <button class="chip">ليش السماء زرقاء؟ 🌈</button><button class="chip">ساعدني في الواجب 📚</button><button class="chip">قل لي معلومة 🤓</button>
-  </div>
+  <div class="chips"><button class="chip">ليش السماء زرقاء؟ 🌈</button><button class="chip">ساعدني في الواجب 📚</button><button class="chip">قل لي معلومة 🤓</button></div>
   <div class="composer"><div class="status" id="status"></div><div class="row"><button class="iconbtn mic" id="mic">🎤</button><textarea class="input" id="input" rows="1" placeholder="اكتب سؤالك هنا..."></textarea><button class="iconbtn" id="send">➤</button></div></div>
 </section>
 </div>
-
 <div class="install-modal" id="installModal" role="dialog" aria-modal="true" aria-labelledby="installTitle">
-  <div class="install-card">
-    <div class="appicon">🌈</div>
-    <h2 id="installTitle">ثبّت عالم الأطفال 📲</h2>
-    <p id="installText">اجعل عالم الأطفال مثل تطبيق على جهازك للوصول إليه بسرعة، مع تجربة أفضل وبدون شريط المتصفح.</p>
-    <button class="install-main" id="installNow">📲 تثبيت التطبيق</button>
-    <div class="ios-steps" id="iosSteps">على iPhone أو iPad: اضغط <b>مشاركة ⬆️</b> ثم اختر <b>إضافة إلى الشاشة الرئيسية</b>، وبعدها اختر <b>إضافة</b>.</div>
-    <button class="close-install" id="closeInstall">ليس الآن</button>
-  </div>
+  <div class="install-card"><div class="appicon">🌈</div><h2 id="installTitle">ثبّت عالم الأطفال 📲</h2><p id="installText">اجعل عالم الأطفال مثل تطبيق على جهازك للوصول إليه بسرعة، مع تجربة أفضل وبدون شريط المتصفح.</p><button class="install-main" id="installNow">📲 تثبيت التطبيق</button><div class="ios-steps" id="iosSteps">على iPhone أو iPad: اضغط <b>مشاركة ⬆️</b> ثم اختر <b>إضافة إلى الشاشة الرئيسية</b>، وبعدها اختر <b>إضافة</b>.</div><button class="close-install" id="closeInstall">ليس الآن</button></div>
 </div>
-
 <script>
 const API_BASE_URL="https://kids-ai-gateway.impxsmarttv.workers.dev";
 let age=9,recognition=null,recording=false,voiceEnabled=false,deferredInstallPrompt=null;
 const $=id=>document.getElementById(id);
 const ages=[["3–4","🌱","صغير"],["5–7","🧸","مبتدئ"],["7–9","🚀","مستكشف"],["10–12","🧠","متقدم"],["13–15","🌟","يافع"]];
 ages.forEach((a,i)=>{const b=document.createElement("button");b.className="age"+(i===2?" active":"");b.innerHTML='<span class="avatar">'+a[1]+'</span><b>'+a[0]+'</b><span>'+a[2]+'</span>';b.onclick=()=>{age=[4,6,8,11,14][i];document.querySelectorAll(".age").forEach(x=>x.classList.remove("active"));b.classList.add("active")};$("ages").appendChild(b)});
-
 function add(text,who="bot"){const d=document.createElement("div");d.className="msg "+who;d.textContent=text;$("messages").appendChild(d);requestAnimationFrame(()=>$("messages").scrollTop=$("messages").scrollHeight)}
 function speak(text){if(!voiceEnabled||!("speechSynthesis"in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="ar-SA";u.rate=age<=7?.9:1;speechSynthesis.speak(u)}
 function setVoice(on){voiceEnabled=on;$("voiceToggle").textContent=on?"🔊":"🔇";$("voiceSwitch").classList.toggle("on",on);if(!on&&"speechSynthesis"in window)speechSynthesis.cancel()}
 function openChat(prompt){$("home").style.display="none";$("chat").style.display="flex";if(!$("messages").children.length)add("مرحبًا! 🌟 عمرك "+age+" سنوات. أنا صديقك الذكي! اسألني أو اضغط 🎤 وتحدث معي.");if(prompt){$("input").value=prompt;$("input").focus()}}
 async function ask(q){if(!q.trim())return;add(q,"user");$("input").value="";$("status").textContent="يفكر... 🧠";try{const r=await fetch(API_BASE_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({age:age,message:q})});if(!r.ok)throw new Error("API");const j=await r.json();const a=j.answer||"لم أفهم السؤال، حاول مرة أخرى 😊";add(a);speak(a)}catch(e){add("حدثت مشكلة في الاتصال بالمساعد. حاول مرة أخرى بعد قليل 😊")}finally{$("status").textContent=""}}
-$("startChat").onclick=()=>openChat();
-$("talkBtn").onclick=()=>{openChat();setTimeout(()=>$("mic").click(),200)};
-$("back").onclick=()=>{$("chat").style.display="none";$("home").style.display="block"};
-$("voiceToggle").onclick=()=>setVoice(!voiceEnabled);
-$("voiceSwitch").onclick=()=>setVoice(!voiceEnabled);
-$("settingsBtn").onclick=()=>document.getElementById("settings").scrollIntoView({behavior:"smooth"});
+$("startChat").onclick=()=>openChat();$("talkBtn").onclick=()=>{openChat();setTimeout(()=>$("mic").click(),200)};$("back").onclick=()=>{$("chat").style.display="none";$("home").style.display="block"};$("voiceToggle").onclick=()=>setVoice(!voiceEnabled);$("voiceSwitch").onclick=()=>setVoice(!voiceEnabled);$("settingsBtn").onclick=()=>document.getElementById("settings").scrollIntoView({behavior:"smooth"});
 document.querySelectorAll(".feature").forEach(b=>b.onclick=()=>{const a=b.dataset.action;if(a==="games"){openChat("أعطني لعبة تعليمية بسيطة وممتعة تناسب عمري.");return}if(a==="homework"){openChat("ساعدني في واجبي وشرح لي خطوة بخطوة.");return}if(a==="creative"){openChat("أعطني فكرة فنية وإبداعية تناسب عمري.");return}if(a==="stories"){openChat("احكِ لي قصة قصيرة جميلة ومفيدة تناسب عمري.");return}openChat()});
-$("send").onclick=()=>ask($("input").value);
-$("input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask($("input").value)}});
-document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>ask(c.textContent));
+$("send").onclick=()=>ask($("input").value);$("input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask($("input").value)}});document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>ask(c.textContent));
 $("mic").onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("المتصفح لا يدعم التعرف الصوتي. جرّب Chrome على Android.");return}if(recording){recognition.stop();return}recognition=new SR();recognition.lang="ar-SA";recognition.interimResults=true;recognition.continuous=false;recognition.onstart=()=>{recording=true;$("mic").classList.add("recording");$("status").textContent="أسمعك... تحدث الآن 🎙️"};recognition.onresult=e=>{let t="";for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;$("input").value=t;if(e.results[e.results.length-1].isFinal)ask(t)};recognition.onerror=()=>{$("status").textContent="تعذر استخدام المايكروفون"};recognition.onend=()=>{recording=false;$("mic").classList.remove("recording");setTimeout(()=>$("status").textContent="",500)};recognition.start()};
-
 const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
 const isStandalone=window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
 const installModal=$("installModal"),installNow=$("installNow"),closeInstall=$("closeInstall"),iosSteps=$("iosSteps"),installText=$("installText");
-function closeInstallModal(){installModal.style.display="none";localStorage.setItem("kidsInstallDismissed","1")}
-function showInstallModal(){if(isStandalone)return;installModal.style.display="flex"}
-window.addEventListener("beforeinstallprompt",e=>{
-  e.preventDefault();
-  deferredInstallPrompt=e;
-  $("install").style.display="block";
-  if(!localStorage.getItem("kidsInstallDismissed"))setTimeout(showInstallModal,900);
-});
+function closeInstallModal(){$("installModal").style.display="none";localStorage.setItem("kidsInstallDismissed","1")}function showInstallModal(){if(isStandalone)return;$("installModal").style.display="flex"}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;$("install").style.display="block";if(!localStorage.getItem("kidsInstallDismissed"))setTimeout(showInstallModal,900)});
 $("install").onclick=()=>showInstallModal();
-installNow.onclick=async()=>{
-  if(isIOS){
-    iosSteps.style.display="block";
-    installNow.textContent="📌 اتبع الخطوات أعلاه";
-    return;
-  }
-  if(!deferredInstallPrompt)return;
-  const result=await deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt=null;
-  $("install").style.display="none";
-  closeInstallModal();
-};
+installNow.onclick=async()=>{if(isIOS){iosSteps.style.display="block";installNow.textContent="📌 اتبع الخطوات أعلاه";return}if(!deferredInstallPrompt)return;await deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;$("install").style.display="none";closeInstallModal()};
 closeInstall.onclick=closeInstallModal;
-if(isIOS&&!isStandalone&&!localStorage.getItem("kidsInstallDismissed")){
-  iosSteps.style.display="block";
-  installNow.textContent="📌 طريقة التثبيت";
-  setTimeout(showInstallModal,900);
-}
+if(isIOS&&!isStandalone&&!localStorage.getItem("kidsInstallDismissed")){iosSteps.style.display="block";installNow.textContent="📌 طريقة التثبيت";setTimeout(showInstallModal,900)}
 window.addEventListener("appinstalled",()=>{$("install").style.display="none";closeInstallModal()});
 if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 </script>
