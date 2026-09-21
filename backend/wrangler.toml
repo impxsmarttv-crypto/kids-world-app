@@ -1,0 +1,8 @@
+name = "kids-ai-gateway"
+main = "worker.js"
+compatibility_date = "2026-09-21"
+
+[vars]
+OPENROUTER_MODEL = "openrouter/free"
+APP_URL = "https://impxsmarttv-crypto.github.io/kids-world-app/"
+ALLOWED_ORIGIN = "https://impxsmarttv-crypto.github.io"
