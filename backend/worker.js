@@ -1,9 +1,4 @@
-const DEFAULT_FREE_MODELS = [
-  "nvidia/nemotron-3-ultra:free",
-  "poolside/laguna-s-2.1:free",
-  "inclusionai/ling-3.0-flash:free",
-  "openrouter/free"
-];
+const DEFAULT_FREE_MODEL = "openrouter/free";
 
 const json = (data, status = 200, origin = "*") =>
   new Response(JSON.stringify(data), {
@@ -66,8 +61,12 @@ export default {
         return json({answer:"هذا موضوع يحتاج مساعدة شخص بالغ تثق به. خلّنا نتكلم عن شيء آمن ومفيد 😊",blocked:true},200,origin);
       }
 
-      const configured = String(env.OPENROUTER_MODEL || "openrouter/free").trim();
-      const models = [...new Set([configured,...DEFAULT_FREE_MODELS])];
+      // Use OpenRouter's official free router as the primary route.
+      // It automatically selects an available free model and avoids stale model IDs.
+      const configured = String(env.OPENROUTER_MODEL || DEFAULT_FREE_MODEL).trim();
+      const model = configured.endsWith(":free") || configured === "openrouter/free"
+        ? configured
+        : DEFAULT_FREE_MODEL;
 
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions",{
         method:"POST",
@@ -78,8 +77,7 @@ export default {
           "X-Title":"Kids World - Safe AI"
         },
         body:JSON.stringify({
-          model:models[0],
-          models:models.slice(1),
+          model,
           messages:[{role:"system",content:system},{role:"user",content:message}],
           temperature:0.35,
           max_tokens:500
@@ -91,7 +89,8 @@ export default {
       try { data = JSON.parse(raw); } catch {}
 
       if (!response.ok) {
-        return json({error:"AI provider error",code:"OPENROUTER_ERROR",providerStatus:response.status},502,origin);
+        let providerCode = data?.error?.code || data?.error?.type || null;
+        return json({error:"AI provider error",code:"OPENROUTER_ERROR",providerStatus:response.status,providerCode},502,origin);
       }
 
       let answer = data?.choices?.[0]?.message?.content?.trim();
