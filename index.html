@@ -32,6 +32,13 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
 .install-modal{display:none;position:fixed;inset:0;z-index:9999;background:#0b1b3dcc;backdrop-filter:blur(7px);align-items:center;justify-content:center;padding:20px}
 .install-card{width:min(520px,100%);background:#fff;border-radius:28px;padding:24px;color:#17366d;box-shadow:0 25px 80px #0005;text-align:center}
 .install-card .appicon{font-size:56px;margin-bottom:4px}.install-card h2{margin:5px 0 8px;font-size:27px}.install-card p{margin:0 0 16px;color:#5d6b86;line-height:1.8;font-size:14px}.install-card .install-main{width:100%;border:0;border-radius:16px;background:#2563eb;color:#fff;padding:14px;font-weight:950;font-size:16px}.install-card .close-install{margin-top:9px;width:100%;border:0;background:#eef4ff;color:#31517f;border-radius:14px;padding:11px;font-weight:800}.ios-steps{display:none;margin:12px 0 0;padding:13px;background:#f4f7fb;border-radius:16px;line-height:1.9;font-size:13px}.ios-steps b{color:#2563eb}
+
+/* Unified Kids World + Computer Training */
+.training-modal{display:none;position:fixed;inset:0;z-index:10000;background:#08142eef;padding:8px}
+.training-modal.open{display:flex;align-items:stretch;justify-content:center}
+.training-frame{width:100%;height:100%;border:0;border-radius:22px;background:#0D0B2A;box-shadow:0 25px 80px #0008}
+.training-close{position:absolute;top:16px;right:16px;z-index:10001;width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:#17366d;font-size:22px;font-weight:900;box-shadow:0 6px 20px #0005}
+@media(max-width:600px){.training-modal{padding:0}.training-frame{border-radius:0}.training-close{top:10px;right:10px}}
 </style>
 </head>
 <body>
@@ -59,7 +66,9 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
 <div class="section-title"><h2>🚀 ماذا تريد أن تفعل؟</h2><span>اختر نشاطًا</span></div>
 <div class="features">
   <button class="feature blue" data-action="chat"><div class="ico">💬</div><h3>تحدث معي</h3><p>اسأل أي سؤال وتحدث مع المساعد الذكي</p><span class="go">←</span></button>
-  <button class="feature orange" data-action="homework"><div class="ico">📚</div><h3>ساعدني في الواجب</h3><p>اشرح لي الدرس وحل معي المسألة خطوة بخطوة</p><span class="go">←</span></button>
+  <button class="feature orange" data-action="homework"><div class="ico">📚
+  <button class="feature purple" id="computerTrainingBtn" type="button"><div class="ico">💻</div><h3>تعلم الكمبيوتر</h3><p>دروس تفاعلية، اختبارات وألعاب لتعلم الحاسب والتقنية</p><span class="go">←</span></button>
+</div><h3>ساعدني في الواجب</h3><p>اشرح لي الدرس وحل معي المسألة خطوة بخطوة</p><span class="go">←</span></button>
   <button class="feature purple" data-action="ask"><div class="ico">🧠</div><h3>اسألني</h3><p>معلومات وأجوبة بسيطة تناسب عمرك</p><span class="go">←</span></button>
   <button class="feature green" data-action="games"><div class="ico">🎮</div><h3>ألعاب تعليمية</h3><p>أنشطة وأفكار للعب والتعلم في نفس الوقت</p><span class="go">←</span></button>
   <button class="feature pink" data-action="creative"><div class="ico">🎨</div><h3>الإبداع والفن</h3><p>أفكار للرسم والتلوين والمشاريع الممتعة</p><span class="go">←</span></button>
@@ -107,6 +116,16 @@ closeInstall.onclick=closeInstallModal;
 if(isIOS&&!isStandalone&&!localStorage.getItem("kidsInstallDismissed")){iosSteps.style.display="block";installNow.textContent="📌 طريقة التثبيت";setTimeout(showInstallModal,900)}
 window.addEventListener("appinstalled",()=>{$("install").style.display="none";closeInstallModal()});
 if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+
+const trainingModal=document.getElementById('trainingModal');
+const trainingBtn=document.getElementById('computerTrainingBtn');
+const trainingClose=document.getElementById('trainingClose');
+function openComputerTraining(){trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function closeComputerTraining(){trainingModal.classList.remove('open');trainingModal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+if(trainingBtn)trainingBtn.addEventListener('click',openComputerTraining);
+if(trainingClose)trainingClose.addEventListener('click',closeComputerTraining);
+trainingModal?.addEventListener('click',e=>{if(e.target===trainingModal)closeComputerTraining()});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&trainingModal?.classList.contains('open'))closeComputerTraining()});
 </script>
 </body>
 </html>
