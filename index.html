@@ -39,6 +39,96 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
 .training-frame{width:100%;height:100%;border:0;border-radius:22px;background:#0D0B2A;box-shadow:0 25px 80px #0008}
 .training-close{position:absolute;top:16px;right:16px;z-index:10001;width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:#17366d;font-size:22px;font-weight:900;box-shadow:0 6px 20px #0005}
 @media(max-width:600px){.training-modal{padding:0}.training-frame{border-radius:0}.training-close{top:10px;right:10px}}
+
+/* ===== Kids World visual refresh ===== */
+:root{
+ --blue:#2563eb;--blue2:#3b82f6;--purple:#7c3aed;--cyan:#06b6d4;
+ --green:#16a34a;--pink:#ec4899;--yellow:#f59e0b;
+ --ink:#17315f;--muted:#64748b;--bg:#f5f8ff;--card:#ffffff;
+}
+html{background:#f5f8ff}
+body{
+ background:
+ radial-gradient(circle at 8% 4%,#dbeafe 0,transparent 24%),
+ radial-gradient(circle at 92% 12%,#ede9fe 0,transparent 23%),
+ linear-gradient(180deg,#f7faff 0,#f4f8ff 58%,#f7fbf8 100%);
+ color:var(--ink);
+}
+.app{max-width:1180px;padding:16px 22px 34px}
+.top{padding:4px 2px 16px}
+.brand{font-size:22px;letter-spacing:-.3px}
+.brand small{font-size:11px;color:#7183a0}
+.round{background:#fff;border:1px solid #e6edf8;box-shadow:0 6px 18px #294b8512}
+.hero{
+ min-height:330px;border-radius:34px;padding:34px 40px 28px;
+ background:linear-gradient(135deg,#1d4ed8 0%,#4f46e5 52%,#7c3aed 100%);
+ box-shadow:0 24px 55px #294b8526;
+}
+.hero:before{background:#ffffff12}.hero:after{background:#ffffff12}
+.hero-content{max-width:57%}
+.hero .tag{background:#fef3c7;color:#7c4a03;border-radius:999px;padding:8px 15px;font-size:14px;box-shadow:0 5px 16px #00000010}
+.hero h1{font-size:clamp(42px,6vw,70px);text-shadow:0 5px 0 #173b91;letter-spacing:-1px}
+.hero p{font-size:17px;line-height:1.75;color:#f7f9ff}
+.primary{background:#fff;color:#1d4ed8;border-radius:14px;padding:12px 20px}
+.secondary{border:1px solid #ffffff45;background:#ffffff14;border-radius:14px}
+.section-title{margin:28px 4px 13px}
+.section-title h2{font-size:22px;letter-spacing:-.3px}
+.section-title span{font-size:11px;color:#7183a0}
+.ages{gap:12px}
+.age{
+ border:1px solid #e6edf7;border-radius:20px;padding:15px 9px;
+ background:rgba(255,255,255,.92);box-shadow:0 8px 22px #294b8510;
+ color:var(--ink)
+}
+.age.active{
+ transform:translateY(-3px);outline:3px solid #bfdbfe;
+ box-shadow:0 14px 28px #2563eb20;background:#eff6ff
+}
+.age .avatar{font-size:36px}
+.age b{font-size:17px}
+.features{gap:14px}
+.feature{
+ border:1px solid #e7edf7;border-radius:22px;padding:18px;
+ min-height:150px;background:#fff;box-shadow:0 10px 25px #294b8510;
+}
+.feature:hover{transform:translateY(-4px);box-shadow:0 16px 30px #294b8518}
+.feature .ico{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;font-size:30px;background:#eef4ff}
+.feature h3{margin:10px 0 4px;font-size:18px}
+.feature p{font-size:11px;line-height:1.7}
+.feature .go{width:32px;height:32px;display:grid;place-items:center;bottom:14px;left:14px}
+.blue,.orange,.purple,.green,.pink,.cyan{background:#fff}
+.blue .ico{background:#dbeafe}.orange .ico{background:#ffedd5}.purple .ico{background:#ede9fe}
+.green .ico{background:#dcfce7}.pink .ico{background:#fce7f3}.cyan .ico{background:#cffafe}
+.blue .go{background:#2563eb}.orange .go{background:#f97316}.purple .go{background:#7c3aed}
+.green .go{background:#16a34a}.pink .go{background:#ec4899}.cyan .go{background:#0891b2}
+.settings{gap:14px;margin-top:16px}
+.setting{border:1px solid #e7edf7;box-shadow:0 8px 22px #294b8510}
+.chat{border:1px solid #e4ebf6;box-shadow:0 24px 55px #294b851c}
+.chat-head{background:linear-gradient(135deg,#1d4ed8,#4f46e5)}
+.messages{background:linear-gradient(180deg,#f5f9ff,#fff)}
+.bot{background:#eef4ff;color:#17315f}
+.user{background:#2563eb}
+.chip{background:#eef4ff;border:1px solid #dbe7fa}
+.input{background:#f7f9fc;border:1px solid #dfe7f2}
+.training-modal{background:#0f1d3be8}
+.training-frame{border:1px solid #dbe5f5;box-shadow:0 25px 80px #0009}
+.training-close{background:#fff;border:2px solid #e6edf8}
+.install-card{border:1px solid #e4ebf6;box-shadow:0 25px 80px #142a55aa}
+footer{color:#7183a0}
+@media(max-width:600px){
+ .app{padding:8px 11px 22px}
+ .hero{min-height:390px;border-radius:28px;padding:25px 19px}
+ .hero h1{font-size:43px}
+ .hero p{font-size:13px}
+ .ages{gap:7px}
+ .age{border-radius:17px;padding:11px 4px}
+ .age .avatar{font-size:30px}.age b{font-size:15px}
+ .features{gap:9px}
+ .feature{min-height:145px;border-radius:19px;padding:13px}
+ .feature .ico{width:44px;height:44px;font-size:27px;border-radius:13px}
+ .feature h3{font-size:15px}
+}
+
 </style>
 </head>
 <body>
