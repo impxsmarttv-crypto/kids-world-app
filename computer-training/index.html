@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#6C3CE1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="عالم الحاسب">
+<title>🌟 عالم الحاسب للأطفال V4</title>
+<style>
+:root{--bg:#0D0B2A;--purple:#6C3CE1;--purpleL:#C8B4FF;--pink:#E8368F;--pinkL:#FFB8DC;--orange:#FF7043;--teal:#00BFA5;--tealL:#80DFD4;--blue:#1E88E5;--blueL:#BBDEFB;--green:#43A047;--greenL:#C8E6C9;--yellow:#FFB300;--yellowL:#FFE082;--white:#FFF;--dark:#13112E;--card:#1E1C42;--gray:#607D8B;--red:#E53935}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:var(--white);user-select:none}
+#app{width:100%;height:100%;display:flex;flex-direction:column}
+.topbar{background:var(--dark);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;min-height:52px;flex-shrink:0;border-bottom:2px solid var(--purple);gap:8px}
+.topbar-title{font-size:14px;color:var(--purpleL);font-weight:700;flex:1;text-align:center;line-height:1.3}
+.score-pill{background:var(--purple);border-radius:20px;padding:4px 10px;font-size:13px;font-weight:700;color:var(--yellow);white-space:nowrap}
+.back-btn{background:var(--card);border:1px solid var(--gray);color:var(--white);padding:6px 11px;border-radius:9px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0}
+.screen{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none}
+.screen.active{display:block}
+.pad{padding:13px}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px 11px;border:none;border-radius:15px;font-size:16px;font-weight:700;color:var(--white);cursor:pointer;margin-bottom:10px;box-shadow:0 4px 12px rgba(0,0,0,.35);transition:transform .1s,filter .1s;font-family:inherit;line-height:1.3;text-align:center}
+.btn:active{transform:scale(.95);filter:brightness(.85)}
+.btn.sm{padding:9px 12px;font-size:14px;border-radius:11px;margin-bottom:7px}
+.btn.xs{padding:6px 10px;font-size:12px;border-radius:9px;margin-bottom:5px}
+.purple{background:var(--purple)}.pink{background:var(--pink)}.teal{background:var(--teal);color:#000}.yellow{background:var(--yellow);color:#000}.green{background:var(--green)}.orange{background:var(--orange)}.blue{background:var(--blue)}.gray{background:var(--gray)}.red{background:var(--red)}
+.card{background:var(--card);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.card h3{font-size:15px;margin-bottom:8px;font-weight:700}
+.card p{font-size:13px;line-height:1.8;color:#ddd}
+.home-hero{text-align:center;padding:16px 14px 10px}
+.home-hero .star{font-size:48px}
+.home-hero h1{font-size:22px;color:var(--yellow);margin:7px 0 3px;font-weight:900}
+.home-hero p{font-size:12px;color:var(--purpleL)}
+.home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:11px 0}
+.stat-box{background:var(--card);border-radius:11px;padding:9px 3px;text-align:center}
+.stat-box .sn{font-size:20px;font-weight:900;color:var(--yellow)}
+.stat-box .sl{font-size:9px;color:var(--gray);margin-top:1px}
+.lesson-item{display:flex;align-items:center;gap:11px;background:var(--card);border-radius:14px;padding:12px;margin-bottom:10px;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.25);border-right:4px solid var(--purple);transition:transform .1s}
+.lesson-item:active{transform:scale(.97)}
+.li-icon{font-size:28px;flex-shrink:0}
+.li-title{font-size:14px;font-weight:700;margin-bottom:2px}
+.li-sub{font-size:11px;color:var(--gray)}
+.li-slides{font-size:10px;color:var(--teal);margin-top:1px;font-weight:700}
+.slide-wrap{padding:12px}
+.slide-emoji{font-size:54px;text-align:center;padding:8px 0;display:block}
+.slide-head{font-size:18px;font-weight:700;color:var(--yellowL);text-align:center;margin-bottom:12px;line-height:1.4}
+.slide-body{font-size:13px;line-height:1.9;color:#eee;margin-bottom:10px}
+.slide-body ul{padding-right:13px;list-style:none}
+.slide-body ul li::before{content:"← ";color:var(--teal)}
+.slide-body li{margin-bottom:4px}
+.info-box{border-radius:12px;padding:10px 12px;margin-bottom:9px;font-size:12px;line-height:1.7}
+.info-box.yellow{background:rgba(255,179,0,.18);border-right:3px solid var(--yellow);color:var(--yellowL)}
+.info-box.blue{background:rgba(30,136,229,.18);border-right:3px solid var(--blue);color:var(--blueL)}
+.info-box.teal{background:rgba(0,191,165,.18);border-right:3px solid var(--teal);color:var(--tealL)}
+.info-box.orange{background:rgba(255,112,67,.18);border-right:3px solid var(--orange);color:#FFD0C0}
+.info-box.purple{background:rgba(108,60,225,.18);border-right:3px solid var(--purple);color:var(--purpleL)}
+.info-box.green{background:rgba(67,160,71,.18);border-right:3px solid var(--green);color:var(--greenL)}
+.info-box.pink{background:rgba(232,54,143,.18);border-right:3px solid var(--pink);color:var(--pinkL)}
+.info-box.red{background:rgba(229,57,53,.18);border-right:3px solid var(--red);color:#FFCDD2}
+.fact-box{background:var(--purple);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--yellowL);margin-bottom:12px;line-height:1.6}
+.example-box{background:var(--dark);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:#aaa;border-right:3px solid var(--teal);line-height:1.7}
+.example-box strong{color:var(--tealL)}
+.step-list{margin-bottom:10px}
+.step-row{display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;background:var(--card);border-radius:10px;padding:9px}
+.step-num{background:var(--purple);color:var(--white);border-radius:50%;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-text{font-size:12px;line-height:1.7;color:#ddd}
+.step-text strong{color:var(--yellowL)}
+.word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.word-card{background:var(--card);border-radius:10px;padding:8px;text-align:center}
+.word-en{font-size:12px;font-weight:700;color:var(--tealL);margin-bottom:2px}
+.word-ar{font-size:11px;color:#ccc}
+.dots{display:flex;justify-content:center;gap:5px;padding:8px 0;flex-wrap:wrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gray);transition:.2s;flex-shrink:0}
+.dot.active{background:var(--purple);transform:scale(1.5)}
+.nav-row{display:flex;gap:7px;margin-top:8px}
+.nav-row .btn{margin-bottom:0}
+.progress-bar{height:5px;background:var(--gray);border-radius:3px;margin-bottom:10px;overflow:hidden}
+.progress-fill{height:100%;background:var(--purple);border-radius:3px;transition:width .4s}
+.quiz-unit{font-size:36px;text-align:center;padding:6px 0}
+.quiz-q-text{font-size:15px;font-weight:700;text-align:center;line-height:1.6;color:var(--white);padding:12px;background:var(--card);border-radius:14px;margin-bottom:12px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.opt{padding:12px 7px;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;box-shadow:0 3px 8px rgba(0,0,0,.25);line-height:1.4;color:#fff}
+.opt:active{transform:scale(.94)}
+.opt.A{background:#1565C0}.opt.B{background:#00695C}.opt.C{background:#E65100}.opt.D{background:#4A148C}
+.opt.correct{background:var(--green)!important}.opt.wrong{background:var(--red)!important}.opt.dim{opacity:.4}
+.feedback{text-align:center;font-size:16px;font-weight:700;padding:6px;min-height:36px}
+.feedback.ok{color:var(--green)}.feedback.err{color:var(--red)}
+.feedback-detail{font-size:11px;color:#aaa;text-align:center;padding:4px;min-height:20px}
+.mem-stats{display:flex;justify-content:space-between;padding:6px 2px;font-size:13px;color:var(--yellowL);font-weight:700;margin-bottom:8px}
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.mem-card{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;background:var(--card);border:2px solid var(--gray);transition:.15s;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.mem-card:active{transform:scale(.9)}
+.mem-card.flipped{background:var(--purple);border-color:var(--purple)}
+.mem-card.matched{background:var(--green);border-color:var(--green)}
+.timer-bar{height:7px;background:var(--gray);border-radius:4px;margin-bottom:10px;overflow:hidden}
+.timer-fill{height:100%;background:var(--teal);border-radius:4px;transition:width .1s linear}
+.timer-fill.warn{background:var(--orange)}.timer-fill.danger{background:var(--red)}
+.fq-q{font-size:16px;font-weight:700;text-align:center;padding:12px;background:var(--card);border-radius:14px;margin-bottom:12px;line-height:1.5}
+.fq-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fq-opt{padding:13px 7px;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:#fff;transition:.15s}
+.fq-opt:active{transform:scale(.94)}
+.fq-opt.correct{background:var(--green)!important}.fq-opt.wrong{background:var(--red)!important}.fq-opt.dim{opacity:.4}
+/* Word Scramble Game */
+.scramble-word{font-size:44px;font-weight:900;text-align:center;letter-spacing:8px;color:var(--yellowL);padding:16px;background:var(--card);border-radius:16px;margin-bottom:14px}
+.scramble-hint{text-align:center;font-size:15px;color:var(--purpleL);margin-bottom:14px}
+.letter-bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
+.letter-btn{width:44px;height:44px;border:none;border-radius:10px;background:var(--purple);color:#fff;font-size:20px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit}
+.letter-btn:active{transform:scale(.88)}
+.letter-btn.used{opacity:.25;pointer-events:none}
+.answer-slots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;min-height:52px}
+.slot{width:44px;height:44px;border:2px dashed var(--gray);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--white);cursor:pointer;transition:.15s}
+.slot.filled{border-color:var(--teal);background:rgba(0,191,165,.2)}
+/* True/False Game */
+.tf-question{font-size:17px;font-weight:700;text-align:center;padding:18px;background:var(--card);border-radius:16px;margin-bottom:16px;line-height:1.6;color:var(--white)}
+.tf-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.tf-btn{padding:20px;border:none;border-radius:16px;font-size:22px;font-weight:900;cursor:pointer;font-family:inherit;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.tf-btn:active{transform:scale(.93)}
+.tf-true{background:var(--green);color:#fff}
+.tf-false{background:var(--red);color:#fff}
+.tf-btn.correct{transform:scale(1.08);box-shadow:0 0 20px rgba(67,160,71,.6)}
+.tf-btn.wrong{opacity:.4}
+/* Stars */
+.big-score{text-align:center;padding:16px;background:var(--card);border-radius:18px;margin-bottom:12px}
+.big-score .snum{font-size:52px;font-weight:900;color:var(--yellow)}
+.badges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.badge-card{border-radius:13px;padding:11px;text-align:center;opacity:.3;transition:.3s}
+.badge-card.earned{opacity:1}
+.badge-card .bi{font-size:28px}.badge-card .bn{font-size:11px;font-weight:700;margin-top:4px}
+.badge-card .br{font-size:9px;color:rgba(255,255,255,.6);margin-top:2px}
+.result{text-align:center;padding:24px 13px}
+.result .big{font-size:60px}
+.result h2{font-size:22px;color:var(--yellow);margin:10px 0 6px}
+.result p{font-size:14px;color:#ccc;margin-bottom:16px;line-height:1.7}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.pop{animation:pop .28s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake .28s ease}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.bounce{animation:bounce .4s ease}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <button class="back-btn" id="back-btn" style="display:none" onclick="goBack()">🏠</button>
+    <div class="topbar-title" id="screen-title">🌟 عالم الحاسب</div>
+    <div class="score-pill">⭐ <span id="score-val">0</span></div>
+  </div>
+  <div id="home"     class="screen active"></div>
+  <div id="lessons"  class="screen"></div>
+  <div id="slide"    class="screen"></div>
+  <div id="quiz"     class="screen"></div>
+  <div id="games"    class="screen"></div>
+  <div id="memory"   class="screen"></div>
+  <div id="fastquiz" class="screen"></div>
+  <div id="scramble" class="screen"></div>
+  <div id="truefalse" class="screen"></div>
+  <div id="stars"    class="screen"></div>
+</div>
+<script>
+const LESSONS = [
+
+// ══════════════════════════════════════════
+// وحدة ١: الحاسب — ١٥ شريحة
+// ══════════════════════════════════════════
+{icon:'💻', title:'الحاسب والتقنية', color:'#1E88E5', slides:[
+{emoji:'💻',head:'ما هو الحاسب؟ — التعريف الكامل',
+ body:`<p>الحاسب آلة إلكترونية ذكية تستطيع استقبال المعلومات ومعالجتها وإخراج النتائج بسرعة خارقة. الكلمة من "حسب" أي حساب لأن أول وظيفته كانت الحساب الرياضي السريع.</p>`,
+ info:[{t:'blue',x:'💡 الحاسب لا يفكر كالإنسان — هو ينفذ تعليماتك بدقة مطلقة لا يتعب ولا ينسى'},{t:'teal',x:'🔢 الحاسب يفهم لغة واحدة فقط: الأصفار والآحاد (0 و1) تُسمى النظام الثنائي Binary'},{t:'purple',x:'⚡ معالج حديث ينفذ ٥ مليار عملية كل ثانية — أسرع من أي عقل بشري بملايين المرات'}],
+ example:'اضغط حرف "أ" ← إشارة كهربائية ← المعالج يُعالجها ← الشاشة تعرض الحرف. كل هذا في جزء من المليون من الثانية!',
+ fact:'كلمة Computer الإنجليزية كانت تعني شخصاً يقوم بالحساب قبل أن تنتقل للآلة!',
+ words:[{en:'Computer',ar:'حاسب'},{en:'Calculate',ar:'يحسب'},{en:'Electronic',ar:'إلكتروني'},{en:'Digital',ar:'رقمي'},{en:'Binary',ar:'ثنائي'},{en:'Data',ar:'بيانات'},{en:'Smart',ar:'ذكي'},{en:'Machine',ar:'آلة'}]},
+
+{emoji:'📜',head:'تاريخ الحاسب — من الأبجدية للذكاء الاصطناعي',
+ body:`<p>الحاسب لم يُولد كاملاً — تطور عبر عقود من الاختراعات والأفكار المتراكمة:</p>`,
+ info:[{t:'blue',x:'١٨٤٢م — Ada Lovelace تكتب أول خوارزمية في التاريخ، قبل وجود الحاسب!'},{t:'teal',x:'١٩٤٥م — ENIAC أول حاسب إلكتروني. وزنه ٣٠ طناً وحجمه ١٦٧ متراً مربعاً!'},{t:'orange',x:'١٩٧٥م — Bill Gates و Paul Allen يؤسسان Microsoft في مرآب سيارات'},{t:'purple',x:'١٩٨٤م — Apple تُطلق Mac أول حاسب شخصي بواجهة رسومية للعامة'},{t:'green',x:'١٩٩١م — Tim Berners-Lee يخترع الويب World Wide Web ويُغير العالم'},{t:'yellow',x:'٢٠٢٣م — الذكاء الاصطناعي ChatGPT يُحدث ثورة في التفاعل مع الحاسب'}],
+ fact:'Ada Lovelace ابنة الشاعر Byron كانت أول مبرمجة في التاريخ قبل ١٨٠ سنة!',
+ words:[{en:'History',ar:'التاريخ'},{en:'Invention',ar:'اختراع'},{en:'Pioneer',ar:'رائد'},{en:'Revolution',ar:'ثورة'},{en:'Generation',ar:'جيل'},{en:'Innovation',ar:'ابتكار'},{en:'Evolution',ar:'تطور'},{en:'Milestone',ar:'محطة مهمة'}]},
+
+{emoji:'🖥️',head:'الشاشة — نافذتك على العالم الرقمي',
+ body:`<p>الشاشة هي أهم وسيلة إخراج في الحاسب. كل ما تفعله يظهر عليها. دعنا نتعرف عليها بعمق:</p>`,
+ info:[{t:'blue',x:'📐 الدقة Resolution — عدد النقاط على الشاشة. 1920×1080 = Full HD. كلما زادت كانت الصورة أوضح'},{t:'teal',x:'📏 الحجم — يُقاس قطرياً بالبوصة. 24 إنش للمكتب • 15 إنش للابتوب • 6 إنش للهاتف'},{t:'orange',x:'🔄 معدل التحديث Hz — كم مرة تتجدد الصورة في الثانية. 60Hz عادي • 144Hz للألعاب'},{t:'purple',x:'🌈 نوع الشاشة — IPS ألوان رائعة • OLED أسود عميق • TN سريعة رخيصة'},{t:'green',x:'🔆 السطوع والتباين — اضبطهما لراحة عينيك. عينك ستشكرك بعد ساعات العمل'}],
+ steps:[{n:'نصيحة',text:'المسافة المثالية بينك وبين الشاشة = ذراع ممدودة (50-70 سم). وأعلاها في مستوى عينيك'}],
+ fact:'الشاشات OLED في هاتفك تُنتج الضوء من كل بكسل منفرداً — لهذا الأسود عميق جداً!',
+ words:[{en:'Resolution',ar:'الدقة'},{en:'Screen',ar:'الشاشة'},{en:'Pixel',ar:'البكسل'},{en:'Brightness',ar:'السطوع'},{en:'Contrast',ar:'التباين'},{en:'Refresh Rate',ar:'معدل التحديث'},{en:'OLED',ar:'أوليد'},{en:'Monitor',ar:'الشاشة'}]},
+
+{emoji:'⌨️',head:'لوحة المفاتيح — تشريح كامل',
+ body:`<p>لوحة المفاتيح أعمق مما تتخيل! دعنا نتعرف على كل قسم فيها:</p>`,
+ info:[{t:'blue',x:'🔢 صف الأرقام — الصف الأعلى. الأرقام 1-0 والرموز الخاصة مثل ! @ # $ %'},{t:'teal',x:'📝 الصف الأوسط ASDF — الصف الرئيسي للكتابة. ضع أصابعك هنا دائماً'},{t:'orange',x:'⌨️ مفاتيح Function F1-F12 — مفاتيح خاصة. F5 تحديث • F11 شاشة كاملة • F12 أدوات المطور'},{t:'purple',x:'🔢 لوحة الأرقام Numpad — يمين اللوحة. للمحاسبين والمبرمجين. NumLock يفعّلها'},{t:'green',x:'🧭 مفاتيح التنقل — الأسهم والـ Home وEnd وPage Up وPage Down للتنقل في النصوص'}],
+ fact:'أسرع لوحة مفاتيح في العالم تُسمى Das Keyboard تصنع لاستخدامات المحترفين فقط!',
+ words:[{en:'Keyboard',ar:'لوحة المفاتيح'},{en:'Function Key',ar:'مفتاح وظيفي'},{en:'Numpad',ar:'لوحة الأرقام'},{en:'Arrow Key',ar:'مفتاح السهم'},{en:'Modifier',ar:'مفتاح التعديل'},{en:'Layout',ar:'التخطيط'},{en:'Mechanical',ar:'ميكانيكي'},{en:'Wireless',ar:'لاسلكي'}]},
+
+{emoji:'🖱️',head:'الفأرة — التحكم الدقيق',
+ body:`<p>الفأرة تُترجم حركات يدك إلى حركات السهم على الشاشة. تعلّم استخدامها باحتراف:</p>`,
+ info:[{t:'blue',x:'👆 نقرة يسار واحدة — اختيار وتحديد العنصر'},{t:'teal',x:'👆👆 نقرتان يسار — فتح الملف أو البرنامج'},{t:'orange',x:'👆 نقرة يمين — قائمة السياق بخيارات متعددة. نقرة يمين على سطح المكتب لتخصيصه'},{t:'purple',x:'🔄 عجلة التمرير — التمرير للأعلى والأسفل في الصفحات. اضغطها للتمرير التلقائي'},{t:'green',x:'🖱️ حساسية DPI — كلما زادت تحرك السهم أسرع. للألعاب 800-1600 DPI مناسب'},{t:'yellow',x:'✋ Drag & Drop — اضغط واستمر واسحب. لنقل الملفات وتحريك الأيقونات'}],
+ fact:'الفأرة الأولى اخترعها Douglas Engelbart سنة 1964 وكانت خشبية بعجلتين!',
+ words:[{en:'Mouse',ar:'الفأرة'},{en:'Click',ar:'نقر'},{en:'Double Click',ar:'نقر مزدوج'},{en:'Right Click',ar:'نقر يمين'},{en:'Scroll',ar:'التمرير'},{en:'Drag',ar:'سحب'},{en:'DPI',ar:'حساسية الفأرة'},{en:'Wireless Mouse',ar:'فأرة لاسلكية'}]},
+
+{emoji:'🧠',head:'المعالج CPU — دماغ الحاسب',
+ body:`<p>المعالج هو أهم قطعة في الحاسب. كل أمر تعطيه يمر عبره. دعنا نفهمه بعمق:</p>`,
+ info:[{t:'blue',x:'⚡ السرعة GHz — جيجاهرتز. 1 GHz = مليار دورة في الثانية. المعالجات الحديثة 3-5 GHz'},{t:'teal',x:'🔢 الأنوية Cores — كل نواة تُعالج مهمة مستقلة. 4 أنوية = 4 مهام في نفس الوقت'},{t:'orange',x:'🏢 شركات المعالجات — Intel (Core i3, i5, i7, i9) و AMD (Ryzen 3, 5, 7, 9)'},{t:'purple',x:'📱 معالج الهاتف — Apple M2 و Snapdragon 8 و Exynos. أصغر لكن أكثر كفاءة'},{t:'green',x:'🌡️ الحرارة — المعالج يُولّد حرارة. يحتاج مروحة أو مُبرد مائي Liquid Cooler'}],
+ example:'تخيّل المعالج كمطعم. الأنوية Cores هي عدد الطهاة. كل طاهٍ يطبخ وجبة مستقلة في نفس الوقت!',
+ fact:'معالج M2 من Apple يحتوي 20 مليار ترانزستور في رقاقة أصغر من ظفرك!',
+ words:[{en:'CPU',ar:'المعالج'},{en:'Core',ar:'النواة'},{en:'GHz',ar:'جيجاهرتز'},{en:'Cache',ar:'الذاكرة المؤقتة'},{en:'Processor',ar:'المعالج'},{en:'Intel',ar:'إنتل'},{en:'AMD',ar:'أي إم دي'},{en:'Performance',ar:'الأداء'}]},
+
+{emoji:'💾',head:'الذاكرة RAM — مكتب العمل',
+ body:`<p>RAM هي الذاكرة العشوائية — المكان الذي يُخزّن الحاسب فيه البيانات أثناء العمل مؤقتاً:</p>`,
+ info:[{t:'blue',x:'📋 مؤقتة — عند إيقاف الحاسب تُمسح RAM تلقائياً. لهذا تحفظ عملك قبل الإيقاف!'},{t:'teal',x:'⚡ سريعة جداً — أسرع بـ ١٠٠٠ مرة من القرص الصلب. لهذا تحفظ البرامج النشطة فيها'},{t:'orange',x:'📏 الحجم — 4GB الحد الأدنى • 8GB مناسب لمعظم الاستخدامات • 16GB+ للألعاب والبرمجة'},{t:'purple',x:'🔄 كثرة البرامج — فتح برامج كثيرة يملأ RAM ويُبطئ الحاسب. أغلق ما لا تحتاجه'},{t:'green',x:'📊 Task Manager — اضغط Ctrl+Shift+Esc لرؤية استهلاك RAM. أي برنامج يأكل أكثر؟'}],
+ fact:'اسم RAM اختصار لـ Random Access Memory — تستطيع الوصول لأي خلية فيها في نفس الوقت!',
+ words:[{en:'RAM',ar:'ذاكرة العمل'},{en:'Memory',ar:'الذاكرة'},{en:'Gigabyte',ar:'جيجابايت'},{en:'Temporary',ar:'مؤقت'},{en:'Speed',ar:'السرعة'},{en:'Capacity',ar:'السعة'},{en:'Upgrade',ar:'ترقية'},{en:'Slot',ar:'منفذ'}]},
+
+{emoji:'💿',head:'التخزين — أين تعيش ملفاتك؟',
+ body:`<p>التخزين يحفظ بياناتك دائماً حتى بعد إيقاف الحاسب. أنواع مختلفة لاستخدامات مختلفة:</p>`,
+ info:[{t:'blue',x:'🔵 HDD القرص الصلب المغناطيسي — رخيص لكن بطيء. تسمع دوراناً عند العمل. 1TB = ~500 ريال'},{t:'teal',x:'⚡ SSD القرص الإلكتروني — سريع جداً وصامت. يُقلّص وقت تشغيل الحاسب من دقيقة لـ ١٠ ثوانٍ!'},{t:'orange',x:'☁️ السحابة Cloud — تخزين على الإنترنت. OneDrive وGoogle Drive وiCloud. آمن وتصل له من أي مكان'},{t:'purple',x:'🔌 USB Flash — وحدة تخزين محمولة. اختر USB 3.0 (أزرق) أسرع بـ ١٠ أضعاف من USB 2.0'},{t:'green',x:'💳 MicroSD — بطاقة صغيرة للهاتف والكاميرا. حتى 1TB في حجم ظفرك!'}],
+ fact:'أكبر SSD في العالم سعته 100 TB = يمكنه حفظ 20,000 فيلم كامل!',
+ words:[{en:'Storage',ar:'التخزين'},{en:'HDD',ar:'قرص صلب مغناطيسي'},{en:'SSD',ar:'قرص إلكتروني'},{en:'Terabyte',ar:'تيرابايت'},{en:'Flash',ar:'فلاش'},{en:'Cloud',ar:'السحابة'},{en:'Backup',ar:'نسخ احتياطي'},{en:'Portable',ar:'محمول'}]},
+
+{emoji:'📡',head:'المحيطات Peripherals — ملحقات الحاسب',
+ body:`<p>الحاسب يمكن توسيعه بأجهزة إضافية تُسمى المحيطات تزيد من قدراته وإمكانياته:</p>`,
+ info:[{t:'blue',x:'🖨️ الطابعة Printer — Inkjet لصور ملونة • Laser لمستندات سريعة • 3D طباعة ثلاثية الأبعاد!'},{t:'teal',x:'📷 الكاميرا Webcam — للمكالمات المرئية. 1080p = جودة ممتازة. بعضها يصل 4K'},{t:'orange',x:'🎧 السماعات والميكروفون — للاستماع والتحدث. Gaming headset دقيقة جداً'},{t:'purple',x:'🎮 الجويستيك والعصا — لألعاب السيارات والطيران. تجربة واقعية مذهلة'},{t:'green',x:'✍️ اللوح الرسومي Wacom — رسم رقمي احترافي. يستخدمه المصممون والرسامون'},{t:'yellow',x:'📡 المودم والراوتر — يوصلك بالإنترنت. Fiber الأسرع • 5G لاسلكي سريع جداً'}],
+ fact:'الطابعة ثلاثية الأبعاد تستطيع طباعة أعضاء بشرية اصطناعية وأجزاء طائرات!',
+ words:[{en:'Printer',ar:'الطابعة'},{en:'Scanner',ar:'الماسح'},{en:'Webcam',ar:'كاميرا الويب'},{en:'Headset',ar:'سماعة الرأس'},{en:'Drawing Tablet',ar:'لوح الرسم'},{en:'Joystick',ar:'عصا التحكم'},{en:'Router',ar:'الراوتر'},{en:'Modem',ar:'المودم'}]},
+
+{emoji:'📱',head:'الحواسيب المحمولة — مقارنة شاملة',
+ body:`<p>من أكبر حاسب لأصغره — كل نوع مُصمَّم لاستخدام مختلف:</p>`,
+ info:[{t:'blue',x:'🖥️ Tower Desktop — الأقوى والأسرع. للألعاب الثقيلة والتصميم والبرمجة. غير محمول'},{t:'teal',x:'💻 Gaming Laptop — قوي ومحمول. ثقيل وبطارية ضعيفة. ROG وAlienware الأشهر'},{t:'orange',x:'💼 Business Laptop — خفيف وبطارية ٨-١٢ ساعة. ThinkPad وDell XPS الأمتن'},{t:'purple',x:'📱 iPad Pro — يُستبدل اللابتوب للكثيرين. مع Keyboard وApple Pencil أداة إبداع كاملة'},{t:'green',x:'📱 Chromebook — يعمل بـ ChromeOS. رخيص وبسيط. مثالي للمدارس والاستخدام العادي'},{t:'yellow',x:'🌟 MacBook — قوي وأنيق. يعمل بـ macOS. مفضّل المصممين والمطورين'}],
+ fact:'MacBook Air M2 يدوم 18 ساعة على بطارية واحدة — أطول لابتوب استقراراً في العالم!',
+ words:[{en:'Laptop',ar:'لابتوب'},{en:'Portable',ar:'محمول'},{en:'Battery Life',ar:'عمر البطارية'},{en:'Lightweight',ar:'خفيف الوزن'},{en:'Ultrabook',ar:'أولترابوك'},{en:'Gaming',ar:'ألعاب'},{en:'Business',ar:'أعمال'},{en:'Chromebook',ar:'كروم بوك'}]},
+
+{emoji:'🔌',head:'التوصيلات والمنافذ — دليل كامل',
+ body:`<p>الحاسب يحتوي منافذ متعددة لتوصيل الأجهزة المختلفة. تعرّف عليها:</p>`,
+ info:[{t:'blue',x:'🔵 USB-A — المنفذ المستطيل الكلاسيكي. USB 2.0 (أسود) بطيء • USB 3.0 (أزرق) سريع'},{t:'teal',x:'🔵 USB-C — المنفذ البيضاوي الحديث. يعمل من أي اتجاه! للشحن ونقل البيانات والفيديو'},{t:'orange',x:'⚡ Thunderbolt — أسرع منفذ. يُستخدم في Mac. سرعة 40 Gbps = ينقل فيلم في ثانية!'},{t:'purple',x:'🖥️ HDMI وDisplayPort — لتوصيل الشاشات. 4K وحتى 8K. HDMI في التلفاز والشاشات'},{t:'green',x:'🎧 منفذ الصوت 3.5mm — للسماعات والميكروفون. بعض الهواتف أزالته!'},{t:'yellow',x:'💻 SD Card Reader — لبطاقات الكاميرا والهواتف. مدمج في بعض اللابتوبات'}],
+ fact:'منفذ USB-C الواحد يستطيع شحن الجهاز ونقل البيانات وإرسال صورة 8K كلها في نفس الوقت!',
+ words:[{en:'USB-A',ar:'يو إس بي أيه'},{en:'USB-C',ar:'يو إس بي سي'},{en:'HDMI',ar:'إتش دي إم آي'},{en:'Thunderbolt',ar:'ثاندربولت'},{en:'Port',ar:'منفذ'},{en:'Cable',ar:'كابل'},{en:'Adapter',ar:'محول'},{en:'Hub',ar:'موزع'}]},
+
+{emoji:'⚡',head:'أداء الحاسب — كيف تُسرّعه؟',
+ body:`<p>حاسبك يبطأ مع الوقت؟ إليك الأسباب والحلول الاحترافية:</p>`,
+ info:[{t:'red',x:'🐌 أسباب البطء: كثرة البرامج النشطة • RAM ممتلئة • قرص HDD قديم • فيروسات • تحديثات متراكمة'},{t:'blue',x:'🔄 الحل الأول — أعِد التشغيل. يُنظّف RAM ويُحل ٩٠٪ من المشاكل المؤقتة'},{t:'teal',x:'🧹 Disk Cleanup — يحذف الملفات المؤقتة ويُوفّر مساحة. ابحث عنه في شريط البحث'},{t:'orange',x:'📋 Task Manager — Ctrl+Shift+Esc. أغلق البرامج التي تستهلك أكثر بالضغط عليها ثم End Task'},{t:'green',x:'⬆️ الترقية الأفضل — استبدال HDD بـ SSD! يُضاعف سرعة الحاسب بتكلفة منخفضة'},{t:'purple',x:'🛡️ Windows Defender — مدمج ومجاني. يكفي للحماية المنزلية. تأكد أنه مُفعَّل'}],
+ fact:'استبدال HDD بـ SSD هو أفضل ترقية يمكنك عملها للحاسب القديم — يبدو كجهاز جديد!',
+ words:[{en:'Performance',ar:'الأداء'},{en:'Optimize',ar:'تحسين'},{en:'Boost',ar:'تسريع'},{en:'Clean',ar:'تنظيف'},{en:'Upgrade',ar:'ترقية'},{en:'Task Manager',ar:'مدير المهام'},{en:'Startup',ar:'بدء التشغيل'},{en:'Defrag',ar:'إلغاء التجزؤ'}]},
+
+{emoji:'🛡️',head:'حماية الحاسب — دليل شامل للأمان',
+ body:`<p>الحماية الرقمية ضرورة لا خيار. إليك كل ما تحتاج معرفته:</p>`,
+ info:[{t:'red',x:'🦠 الفيروسات Viruses — تتسلل عبر الإنترنت والـ USB وتُلحق الضرر. الحل: Antivirus محدّث'},{t:'orange',x:'🎣 التصيد Phishing — رسائل تبدو من جهات موثوقة لسرقة كلمات مرورك. لا تضغط روابط مجهولة'},{t:'blue',x:'🔒 كلمة مرور قوية — 12+ حرف • حروف كبيرة وصغيرة • أرقام • رموز. مختلفة لكل حساب!'},{t:'teal',x:'🔐 التحقق بخطوتين 2FA — حتى لو سُرقت كلمة مرورك لن يصلوا لحسابك. فعّله دائماً'},{t:'green',x:'💾 النسخ الاحتياطي 3-2-1 — 3 نسخ • 2 وسائط مختلفة • 1 خارج المنزل (السحابة)'},{t:'purple',x:'🔄 التحديثات — ثبّتها فوراً. تُصلح ثغرات أمنية يستغلها المهاجمون'}],
+ fact:'في كل ٣٩ ثانية يحدث هجوم إلكتروني في مكان ما حول العالم. الوقاية خير من العلاج!',
+ words:[{en:'Security',ar:'الأمان'},{en:'Antivirus',ar:'مكافح الفيروسات'},{en:'Firewall',ar:'جدار الحماية'},{en:'Encryption',ar:'التشفير'},{en:'Phishing',ar:'التصيد'},{en:'2FA',ar:'التحقق بخطوتين'},{en:'VPN',ar:'الشبكة الخاصة'},{en:'Backup',ar:'نسخ احتياطي'}]},
+
+{emoji:'🌍',head:'الحاسب في حياتنا — كل مكان',
+ body:`<p>الحاسبات تحيط بنا من كل جهة — حتى في أماكن لا نتوقعها:</p>`,
+ info:[{t:'blue',x:'🏥 الطب — روبوتات جراحية دقيقة تُجري عمليات معقدة • تحليل الأشعة بالذكاء الاصطناعي'},{t:'teal',x:'✈️ الطيران — الطيار الآلي يقود الطائرة معظم الرحلة • نظام التحكم الجوي يُنسّق آلاف رحلات'},{t:'orange',x:'🚗 السيارات — Tesla تحتوي حاسباً أقوى من معظم اللابتوبات. تقود نفسها جزئياً!'},{t:'purple',x:'🎬 السينما — كل مؤثرات CGI في أفلام Marvel وAvatar مصنوعة بالحاسب'},{t:'green',x:'🌾 الزراعة — طائرات مسيّرة تُراقب المحاصيل • ري ذكي يوفر ٤٠٪ من الماء'},{t:'yellow',x:'🏙️ المدن الذكية — إشارات مرور ذكية • إدارة كهرباء • أنظمة صرف صحي ذكية'}],
+ fact:'سيارة حديثة تحتوي أكثر من 100 مليون سطر كود برمجي — أكثر من نظام Windows كاملاً!',
+ words:[{en:'Technology',ar:'التقنية'},{en:'Artificial Intelligence',ar:'الذكاء الاصطناعي'},{en:'Automation',ar:'الأتمتة'},{en:'Smart City',ar:'مدينة ذكية'},{en:'Robot',ar:'روبوت'},{en:'Sensor',ar:'مستشعر'},{en:'Innovation',ar:'ابتكار'},{en:'Future',ar:'المستقبل'}]},
+
+{emoji:'🤖',head:'مستقبل الحاسب — ماذا ينتظرنا؟',
+ body:`<p>التقنية تتطور بسرعة مذهلة. إليك ما سيغير حياتك في السنوات القادمة:</p>`,
+ info:[{t:'purple',x:'🤖 الذكاء الاصطناعي AI — يُعالج الصور ويفهم الكلام ويُبدع الفن والموسيقى. ChatGPT مجرد البداية!'},{t:'blue',x:'⚛️ الحوسبة الكمومية Quantum — أقوى بـ مليون مرة من أسرع حاسب حالي لبعض المهام'},{t:'teal',x:'🥽 الواقع الافتراضي VR والمعزز AR — مدارس وعيادات ومتاجر في العالم الرقمي'},{t:'orange',x:'🧠 الحوسبة العصبية — Neuralink تربط الدماغ بالحاسب مباشرة. المستقبل هنا!'},{t:'green',x:'🌐 الإنترنت الكمي — أمان لا يمكن كسره. كل البيانات محمية بالفيزياء نفسها'},{t:'yellow',x:'🏠 المنزل الذكي — كل جهاز في بيتك متصل ومتحكم به من مكان واحد'}],
+ fact:'يُتوقع أن يكون الذكاء الاصطناعي أذكى من مجموع البشر بحلول 2045 — تُسمى هذه اللحظة Singularity!',
+ words:[{en:'AI',ar:'الذكاء الاصطناعي'},{en:'Quantum',ar:'الكم'},{en:'Virtual Reality',ar:'الواقع الافتراضي'},{en:'Neural',ar:'عصبي'},{en:'Smart Home',ar:'المنزل الذكي'},{en:'Metaverse',ar:'الميتافيرس'},{en:'Blockchain',ar:'البلوك تشين'},{en:'Singularity',ar:'نقطة التفرد'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٢: Windows — ١٤ شريحة
+// ══════════════════════════════════════════
+{icon:'🪟', title:'Windows — نظام التشغيل', color:'#6C3CE1', slides:[
+{emoji:'🪟',head:'نظام التشغيل — المحرك الخفي',
+ body:`<p>نظام التشغيل OS هو البرنامج الأساسي الذي يُشغّل الحاسب. بدونه الجهاز مجرد قطع إلكترونية بلا روح!</p>`,
+ info:[{t:'blue',x:'🪟 Windows — يُستخدم في 75% من حاسبات العالم. سهل وواسع الانتشار'},{t:'teal',x:'🍎 macOS — خاص بأجهزة Apple Mac. جميل ومستقر. مفضّل المصممين والمطورين'},{t:'orange',x:'🐧 Linux — مجاني ومفتوح المصدر. مُستخدم في الخوادم والأنظمة المدمجة'},{t:'purple',x:'📱 Android وiOS — أنظمة الهواتف. Android مفتوح • iOS حصري لأجهزة Apple'},{t:'green',x:'🌐 ChromeOS — نظام Google. خفيف وسريع. مثالي للمدارس والاستخدام البسيط'}],
+ fact:'Linux يُشغّل 96.3% من أقوى 500 حاسب عملاق في العالم!',
+ words:[{en:'Operating System',ar:'نظام التشغيل'},{en:'Windows',ar:'ويندوز'},{en:'macOS',ar:'ماك أو إس'},{en:'Linux',ar:'لينكس'},{en:'Android',ar:'أندرويد'},{en:'iOS',ar:'أي أو إس'},{en:'Interface',ar:'الواجهة'},{en:'Version',ar:'الإصدار'}]},
+
+{emoji:'🖥️',head:'سطح المكتب — الخريطة الكاملة',
+ body:`<p>سطح المكتب هو بيئة عملك في Windows. كل عنصر فيه له وظيفة محددة:</p>`,
+ info:[{t:'blue',x:'🖼️ الأيقونات Icons — رموز صغيرة تمثل الملفات والبرامج. انقر مرتين لفتحها'},{t:'teal',x:'📌 شريط المهام — الشريط الأسفل. به: ابدأ، البحث، الأجهزة المفضلة، الساعة، الإشعارات'},{t:'orange',x:'🔔 مركز الإشعارات — أسفل اليمين. اضغط عليه لرؤية التنبيهات والإعدادات السريعة'},{t:'purple',x:'🔍 شريط البحث — اكتب أي شيء: برامج، ملفات، إعدادات، أسئلة. يجيب فوراً'},{t:'green',x:'🗑️ سلة المهملات — الملفات المحذوفة هنا. أفرغها لتوفير مساحة. انتبه: لا استعادة بعدها!'},{t:'yellow',x:'⚙️ إعدادات سريعة — WiFi وBluetooth والصوت والسطوع. اضغط على أيقوناتها في شريط المهام'}],
+ fact:'يمكنك وضع حتى 1000 أيقونة على سطح المكتب لكن لا يُنصح! الفوضى تُبطئ تفكيرك!',
+ words:[{en:'Desktop',ar:'سطح المكتب'},{en:'Icon',ar:'أيقونة'},{en:'Taskbar',ar:'شريط المهام'},{en:'Notification',ar:'إشعار'},{en:'Shortcut',ar:'اختصار'},{en:'Wallpaper',ar:'خلفية'},{en:'Recycle Bin',ar:'سلة المهملات'},{en:'System Tray',ar:'منطقة النظام'}]},
+
+{emoji:'⊞',head:'قائمة ابدأ — كل شيء بنقرة واحدة',
+ body:`<p>قائمة ابدأ Start Menu هي بوابتك الرئيسية لكل شيء في Windows:</p>`,
+ info:[{t:'blue',x:'⊞ فتحها — اضغط زر Windows في لوحة المفاتيح أو أيقونة ⊞ أسفل اليسار'},{t:'teal',x:'🔍 البحث المباشر — ابدأ الكتابة فوراً بعد فتح القائمة. يُبحث في كل شيء تلقائياً'},{t:'orange',x:'📌 التثبيت — Pin to Start. أضف برامجك المفضلة للوصول السريع دائماً'},{t:'purple',x:'🕐 المستخدم مؤخراً — الملفات والبرامج الأخيرة تظهر تلقائياً للوصول السريع'},{t:'green',x:'⚙️ الإعدادات — أيقونة الترس داخل القائمة. أو Win+I مباشرة'},{t:'yellow',x:'🔴 الطاقة — إيقاف التشغيل وإعادة التشغيل والسكون. دائماً أنهِ عملك أولاً!'}],
+ steps:[{n:'تلميح',text:'ابحث بالعربية والإنجليزية. مثل: "الحاسبة" أو "Calculator" — كلاهما يجد نفس البرنامج'}],
+ fact:'Windows 95 عند إطلاقه سنة 1995 بيع مليون نسخة في 4 أيام فقط — طابور أمام المحلات!',
+ words:[{en:'Start Menu',ar:'قائمة ابدأ'},{en:'Pin',ar:'تثبيت'},{en:'Search',ar:'بحث'},{en:'Recent',ar:'الأخيرة'},{en:'All Apps',ar:'كل البرامج'},{en:'Power',ar:'الطاقة'},{en:'Account',ar:'الحساب'},{en:'Settings',ar:'الإعدادات'}]},
+
+{emoji:'🗂️',head:'إدارة النوافذ — تحكم احترافي',
+ body:`<p>النوافذ Windows (المقصود بها نوافذ البرامج) هي أساس العمل في Windows. تعلّم إدارتها كالمحترفين:</p>`,
+ info:[{t:'blue',x:'➖ تصغير Minimize — يُخفي النافذة في شريط المهام. البرنامج يعمل في الخلفية. اضغطه في الشريط لإعادته'},{t:'teal',x:'□ تكبير Maximize — يملأ النافذة الشاشة كاملة. Win+↑ كذلك. مرة أخرى لإعادة الحجم'},{t:'orange',x:'✕ إغلاق Close — يُنهي البرنامج. إذا لم تحفظ سيسألك. Alt+F4 اختصاره'},{t:'purple',x:'⇔ Snap — اسحب أي نافذة لحافة الشاشة. Win+← أو → لتقسيم الشاشة نصفين'},{t:'green',x:'👁️ Task View Win+Tab — يعرض كل النوافذ المفتوحة وأسطح المكتب الافتراضية'},{t:'yellow',x:'🔄 Alt+Tab — انتقل بسرعة بين النوافذ. اضغط مرات متعددة للتنقل'}],
+ fact:'Snap Layouts في Windows 11 يتيح تقسيم الشاشة لـ 6 نوافذ في نفس الوقت!',
+ words:[{en:'Minimize',ar:'تصغير'},{en:'Maximize',ar:'تكبير'},{en:'Restore',ar:'استعادة'},{en:'Snap',ar:'تجانب'},{en:'Virtual Desktop',ar:'سطح مكتب افتراضي'},{en:'Multitasking',ar:'تعدد المهام'},{en:'Focus',ar:'التركيز'},{en:'Cascade',ar:'متتالي'}]},
+
+{emoji:'📁',head:'مستكشف الملفات — جولة عميقة',
+ body:`<p>File Explorer مستكشف الملفات هو مدير الملفات الرسمي في Windows. افتحه بـ Win+E:</p>`,
+ info:[{t:'blue',x:'📌 الوصول السريع — أعلى القائمة اليسرى. يعرض المجلدات الأكثر استخداماً تلقائياً'},{t:'teal',x:'💻 هذا الحاسب — يعرض كل الأقراص (C:, D:) والمجلدات الرئيسية مثل Documents وDownloads'},{t:'orange',x:'☁️ OneDrive — التخزين السحابي مدمج. الملفات محفوظة محلياً وعلى الإنترنت في آن واحد'},{t:'purple',x:'🔍 شريط البحث — أعلى اليمين. ابحث بالاسم أو النوع. *.jpg يجد كل الصور'},{t:'green',x:'👁️ طريقة العرض View — قائمة List أو شبكة Tiles أو تفاصيل Details. اختر المناسب'},{t:'yellow',x:'📊 فرز Sort — رتّب حسب الاسم أو التاريخ أو الحجم. مفيد لإيجاد أحدث ملف'}],
+ steps:[{n:'نصيحة',text:'اضغط Alt+D للانتقال لشريط العنوان Address Bar. اكتب مسار المجلد مباشرة للانتقال الفوري'}],
+ fact:'يمكنك فتح علامات تبويب Tabs في File Explorer منذ Windows 11 — مثل المتصفح تماماً!',
+ words:[{en:'File Explorer',ar:'مستكشف الملفات'},{en:'Navigation',ar:'التنقل'},{en:'Address Bar',ar:'شريط العنوان'},{en:'View',ar:'طريقة العرض'},{en:'Sort',ar:'ترتيب'},{en:'Filter',ar:'تصفية'},{en:'Breadcrumb',ar:'مسار التنقل'},{en:'Preview',ar:'معاينة'}]},
+
+{emoji:'⚙️',head:'الإعدادات — تحكم كامل بالنظام',
+ body:`<p>Settings الإعدادات = مركز التحكم في كل جانب من جوانب Windows. Win+I لفتحها:</p>`,
+ info:[{t:'blue',x:'🖥️ الشاشة Display — الدقة والسطوع والتكبير وترتيب الشاشات المتعددة'},{t:'teal',x:'🔊 الصوت Sound — مستوى الصوت لكل تطبيق على حدة! ميزة رائعة قل من يعلمها'},{t:'orange',x:'📶 الشبكة Network — WiFi والإيثرنت وVPN وإعدادات البروكسي'},{t:'purple',x:'🎨 التخصيص Personalization — الخلفية والألوان وشريط المهام والقائمة'},{t:'green',x:'👤 الحسابات Accounts — إضافة حسابات وتغيير كلمة المرور وWindows Hello'},{t:'yellow',x:'♿ إمكانية الوصول Accessibility — تكبير النص والتباين وقارئ الشاشة للمعاقين بصرياً'}],
+ fact:'Windows يحتوي أكثر من 2000 إعداد مخفي! يمكن الوصول للمتقدم منها عبر Registry Editor.',
+ words:[{en:'Settings',ar:'الإعدادات'},{en:'Display',ar:'الشاشة'},{en:'Sound',ar:'الصوت'},{en:'Network',ar:'الشبكة'},{en:'Personalization',ar:'التخصيص'},{en:'Account',ar:'الحساب'},{en:'Accessibility',ar:'إمكانية الوصول'},{en:'Privacy',ar:'الخصوصية'}]},
+
+{emoji:'⌨️',head:'اختصارات Windows — المستوى الاحترافي',
+ body:`<p>الاختصارات تحول عمل دقائق لثوانٍ. هذه الأهم في Windows:</p>`,
+ info:[{t:'blue',x:'📋 Ctrl: C نسخ • V لصق • X قص • Z تراجع • Y إعادة • A تحديد الكل • F بحث • S حفظ • P طباعة'},{t:'teal',x:'🪟 Win: E مستكشف • I إعدادات • D سطح المكتب • L قفل • R تشغيل • Tab عرض المهام'},{t:'orange',x:'📸 Win+Shift+S لقطة منطقة • PrtSc لقطة كاملة • Win+PrtSc احفظ لقطة تلقائياً'},{t:'purple',x:'🗂️ Alt: Tab تبديل النوافذ • F4 إغلاق • Enter خصائص الملف المحدد'},{t:'green',x:'⌨️ في المستعرض: Ctrl+T تبويب جديد • Ctrl+W إغلاق • Ctrl+R تحديث • F12 أدوات المطور'},{t:'yellow',x:'🔧 متقدمة: Ctrl+Shift+Esc مدير المهام • Win+X قائمة المطورين • Ctrl+Alt+Delete الأمان'}],
+ fact:'تعلم 10 اختصارات فقط يوفر 64 ساعة عمل سنوياً — وفقاً لدراسة Brainscape!',
+ words:[{en:'Shortcut',ar:'اختصار'},{en:'Hotkey',ar:'مفتاح ساخن'},{en:'Ctrl',ar:'تحكم'},{en:'Alt',ar:'بديل'},{en:'Win Key',ar:'مفتاح ويندوز'},{en:'Clipboard',ar:'الحافظة'},{en:'Screenshot',ar:'لقطة الشاشة'},{en:'Productivity',ar:'الإنتاجية'}]},
+
+{emoji:'🔧',head:'أدوات Windows المدمجة — كنوز مخفية',
+ body:`<p>Windows مليء بأدوات مجانية مُدمجة لا يعرفها كثيرون. دعنا نكتشفها:</p>`,
+ info:[{t:'blue',x:'📝 Notepad — محرر نصوص بسيط وسريع. مثالي للملاحظات السريعة والكودات'},{t:'teal',x:'🖌️ Paint — برنامج رسم بسيط. Paint 3D للرسم ثلاثي الأبعاد'},{t:'orange',x:'🔢 Calc Calculator — آلة حاسبة علمية ومحول وحدات وحاسبة تاريخية'},{t:'purple',x:'✂️ Snipping Tool — أداة قص الشاشة المحسّنة. Win+Shift+S. أفضل من PrtSc'},{t:'green',x:'🎵 Media Player — مشغل الموسيقى والفيديو الجديد. أنيق وسريع'},{t:'yellow',x:'💻 Windows Terminal — نافذة الأوامر الحديثة. PowerShell وCMD وLinux في نفس المكان'}],
+ fact:'WSL Windows Subsystem for Linux يتيح تشغيل Linux داخل Windows بالكامل — مجاناً!',
+ words:[{en:'Notepad',ar:'المفكرة'},{en:'Paint',ar:'الرسام'},{en:'Calculator',ar:'الآلة الحاسبة'},{en:'Terminal',ar:'الطرفية'},{en:'Snipping Tool',ar:'أداة القص'},{en:'Media Player',ar:'مشغل الوسائط'},{en:'Built-in',ar:'مدمج'},{en:'Free Tool',ar:'أداة مجانية'}]},
+
+{emoji:'🔄',head:'تحديثات Windows — لماذا مهمة؟',
+ body:`<p>تحديثات Windows ليست مجرد ميزات جديدة — هي درع حمايتك:</p>`,
+ info:[{t:'blue',x:'🛡️ التصحيحات الأمنية Security Patches — تُسد ثغرات يستغلها المهاجمون. حرجية ومهمة'},{t:'teal',x:'✨ الميزات الجديدة — تحسينات في الأداء وواجهة المستخدم وبرامج مدمجة جديدة'},{t:'orange',x:'🔧 إصلاح الأخطاء Bug Fixes — تُصلح مشاكل أبلغ عنها المستخدمون'},{t:'purple',x:'⏰ توقيت التحديث — يمكن جدولته لساعات لا تحتاج الحاسب. Settings ← Update'},{t:'green',x:'📋 سجل التحديثات — يمكنك رؤية كل تحديث ثُبِّت وإلغاء الأخطاء منها إن أحدثت مشكلة'}],
+ steps:[{n:'نصيحة',text:'فعّل التحديثات التلقائية لكن أخبره بإعادة التشغيل في وقت مناسب لك. Active Hours في الإعدادات'}],
+ fact:'Windows 10 نهى دعمه في أكتوبر 2025. من لم يُحدِّث لـ Windows 11 سيكون بلا تحديثات أمنية!',
+ words:[{en:'Update',ar:'تحديث'},{en:'Security Patch',ar:'تصحيح أمني'},{en:'Bug Fix',ar:'إصلاح خطأ'},{en:'Automatic',ar:'تلقائي'},{en:'Restart',ar:'إعادة تشغيل'},{en:'History',ar:'السجل'},{en:'Schedule',ar:'جدولة'},{en:'Optional',ar:'اختياري'}]},
+
+{emoji:'👤',head:'الحسابات والمستخدمون',
+ body:`<p>Windows يدعم مستخدمين متعددين على نفس الجهاز — كل واحد له بيئته الخاصة:</p>`,
+ info:[{t:'blue',x:'👑 Administrator — مدير النظام. يمكنه تثبيت البرامج وتغيير الإعدادات الجوهرية'},{t:'teal',x:'👤 Standard User — مستخدم عادي. يحتاج إذن المدير لتثبيت البرامج. أكثر أماناً!'},{t:'orange',x:'👶 Child Account — حساب الأطفال. يمكن تقييد الوقت والمواقع وتتبع النشاط'},{t:'purple',x:'🔑 كلمة المرور وPIN — احمِ حسابك دائماً. Windows Hello يستخدم الوجه أو البصمة'},{t:'green',x:'☁️ Microsoft Account — حساب مرتبط بـ outlook.com. يُزامن إعداداتك بين الأجهزة'}],
+ fact:'يمكن تشغيل حتى 9999 حساب مستخدم على Windows واحد — رقم نظري بالطبع!',
+ words:[{en:'User Account',ar:'حساب المستخدم'},{en:'Administrator',ar:'المدير'},{en:'Password',ar:'كلمة المرور'},{en:'PIN',ar:'رمز سري'},{en:'Biometric',ar:'بيومتري'},{en:'Sync',ar:'مزامنة'},{en:'Permission',ar:'إذن'},{en:'Profile',ar:'الملف الشخصي'}]},
+
+{emoji:'🎨',head:'تخصيص Windows — اجعله ملكك',
+ body:`<p>اجعل حاسبك يعكس شخصيتك وذوقك — التخصيص لا يؤثر على الأداء:</p>`,
+ info:[{t:'blue',x:'🖼️ الخلفية Wallpaper — صورة أو لون أو شريحة عرض. كليك يمين على سطح المكتب ← Personalize'},{t:'teal',x:'🌙 الوضع الداكن Dark Mode — أريح للعيون ليلاً ويوفر البطارية. Settings ← Colors'},{t:'orange',x:'🎨 لون التمييز Accent Color — لون أيقونات Windows والنوافذ. اختر ما يناسب ذوقك'},{t:'purple',x:'📌 شريط المهام — أضف أو أزل البرامج. يمين على البرنامج ← Pin to taskbar'},{t:'green',x:'🔤 حجم النص — Settings ← Accessibility ← Text Size. للعيون الضعيفة مفيد جداً'},{t:'yellow',x:'🌈 Themes — حزمة تخصيص كاملة. Windows Store يحتوي مئات المظاهر المجانية'}],
+ fact:'Windows 11 أضاف تأثيرات شفافية Mica وAcrylic تجعل النوافذ تبدو مثل الزجاج!',
+ words:[{en:'Theme',ar:'النمط'},{en:'Dark Mode',ar:'الوضع الداكن'},{en:'Wallpaper',ar:'الخلفية'},{en:'Accent Color',ar:'لون التمييز'},{en:'Transparency',ar:'الشفافية'},{en:'Font Size',ar:'حجم الخط'},{en:'Customize',ar:'تخصيص'},{en:'Aesthetic',ar:'جمالي'}]},
+
+{emoji:'🔒',head:'أمان Windows — حماية شاملة',
+ body:`<p>Windows Security مركز الأمان المدمج. افتحه وتأكد أن كل شيء أخضر:</p>`,
+ info:[{t:'blue',x:'🛡️ Windows Defender — مكافح الفيروسات المدمج. فعّال وكافٍ للاستخدام المنزلي. محدَّث تلقائياً'},{t:'teal',x:'🔥 Firewall — يمنع الاتصالات غير المصرح بها. لا تُعطّله أبداً!'},{t:'orange',x:'🔐 BitLocker — يُشفّر القرص الصلب كاملاً. إذا سُرق الحاسب البيانات محمية'},{t:'purple',x:'👁️ Family Safety — راقب نشاط أطفالك وحدد وقت الشاشة والمواقع المسموحة'},{t:'green',x:'🕵️ Reputation Protection — يحمي من التطبيقات والمواقع السيئة تلقائياً'},{t:'yellow',x:'📊 تقرير الحماية — يعرض تاريخ التهديدات والفحوصات. Check monthly!'}],
+ fact:'Windows Security يمسح فيروسات في أقل من 30 ثانية للملفات العادية!',
+ words:[{en:'Antivirus',ar:'مكافح الفيروسات'},{en:'Firewall',ar:'جدار الحماية'},{en:'Encryption',ar:'التشفير'},{en:'Scan',ar:'فحص'},{en:'Threat',ar:'تهديد'},{en:'Quarantine',ar:'عزل'},{en:'Protection',ar:'الحماية'},{en:'Defender',ar:'ديفندر'}]},
+
+{emoji:'🔧',head:'استكشاف الأخطاء وإصلاحها',
+ body:`<p>حاسبك لا يعمل كما ينبغي؟ إليك دليل التشخيص والإصلاح خطوة بخطوة:</p>`,
+ info:[{t:'blue',x:'١ — أعِد التشغيل أولاً! يُحل 90% من المشاكل المؤقتة. بسيطة لكن سحرية'},{t:'teal',x:'٢ — تحقق من Windows Update. التحديثات المعلقة تُسبب مشاكل'},{t:'orange',x:'٣ — تحقق من مساحة القرص. إذا أقل من 10% القرص يبدأ الإبطاء'},{t:'purple',x:'٤ — Task Manager — أي برنامج يستهلك 100% من المعالج؟ قد يكون فيروساً'},{t:'green',x:'٥ — Event Viewer — سجل مفصل لكل خطأ. ابحث في الإنترنت عن كود الخطأ'},{t:'yellow',x:'٦ — Startup Repair — Windows يُصلح نفسه. Advanced Startup ← Troubleshoot'}],
+ steps:[{n:'درجة أخيرة',text:'Reset this PC — يُعيد Windows لحالته الأصلية مع الاحتفاظ بملفاتك. Settings ← System ← Recovery'}],
+ fact:'معظم مشاكل Windows تُحل بالترتيب: إعادة تشغيل ← تحديث ← فحص فيروسات ← إصلاح ← إعادة ضبط',
+ words:[{en:'Troubleshoot',ar:'استكشاف الأخطاء'},{en:'Diagnose',ar:'تشخيص'},{en:'Fix',ar:'إصلاح'},{en:'Event Viewer',ar:'عارض الأحداث'},{en:'Recovery',ar:'الاسترداد'},{en:'Reset',ar:'إعادة ضبط'},{en:'Safe Mode',ar:'الوضع الآمن'},{en:'Error Code',ar:'كود الخطأ'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٣: الملفات — ١٣ شريحة
+// ══════════════════════════════════════════
+{icon:'📁', title:'الملفات والتنظيم الرقمي', color:'#43A047', slides:[
+{emoji:'📁',head:'الملفات — الوحدة الأساسية للبيانات',
+ body:`<p>كل شيء في الحاسب ملف. النصوص والصور والبرامج والأغاني — كلها ملفات بأشكال مختلفة!</p>`,
+ info:[{t:'blue',x:'📄 اسم الملف — يجب أن يصف محتواه. "تقرير_علوم_الفصل2_2025" أفضل من "ملف1"'},{t:'teal',x:'🔤 الامتداد Extension — بعد النقطة. يُخبر الحاسب كيف يفتح الملف ويُعرض'},{t:'orange',x:'📏 الحجم — بالبايت. 1 KB = ألف بايت • 1 MB = مليون بايت • 1 GB = مليار بايت'},{t:'purple',x:'📅 التاريخ — متى أُنشئ ومتى عُدِّل آخر مرة. مفيد جداً لإيجاد أحدث نسخة'},{t:'green',x:'🔒 الخصائص — كليك يمين ← Properties. تجد الحجم والتاريخ والصلاحيات والتفاصيل'}],
+ fact:'أطول اسم ملف مسموح في Windows هو 255 حرفاً! في الواقع 4-5 كلمات واضحة تكفي.',
+ words:[{en:'File',ar:'ملف'},{en:'Filename',ar:'اسم الملف'},{en:'Extension',ar:'الامتداد'},{en:'Size',ar:'الحجم'},{en:'Date',ar:'التاريخ'},{en:'Properties',ar:'الخصائص'},{en:'Format',ar:'الصيغة'},{en:'Metadata',ar:'البيانات الوصفية'}]},
+
+{emoji:'🌳',head:'المجلدات — هيكل التنظيم',
+ body:`<p>المجلدات Folders تُنظّم الملفات في هيكل شجري منطقي. فهمها يجعل حياتك أسهل:</p>`,
+ info:[{t:'blue',x:'🌳 الهيكل الشجري — C: → Users → اسمك → Documents → مشاريعك → ملفاتك'},{t:'teal',x:'📌 مجلدات Windows الافتراضية — Documents للمستندات • Downloads للتنزيلات • Pictures للصور'},{t:'orange',x:'📂 إنشاء مجلد — كليك يمين في أي مكان ← New ← Folder ← اكتب الاسم ← Enter'},{t:'purple',x:'🔗 المسار Path — عنوان الملف الكامل: C:\\Users\\ahmed\\Documents\\تقريري.docx'},{t:'green',x:'⭐ المفضلة Quick Access — اسحب مجلداتك الأكثر استخداماً لـ Quick Access في File Explorer'}],
+ steps:[{n:'تنظيم مثالي',text:'مجلد رئيسي باسمك → داخله مجلدات: دراسة، مشاريع، صور، ترفيه → داخل كل واحد مجلدات فرعية'}],
+ fact:'نظام ملفات NTFS في Windows يدعم حتى 4 مليار مجلد على قرص واحد!',
+ words:[{en:'Folder',ar:'مجلد'},{en:'Directory',ar:'دليل'},{en:'Path',ar:'المسار'},{en:'Tree',ar:'الشجرة'},{en:'Root',ar:'الجذر'},{en:'Subfolder',ar:'مجلد فرعي'},{en:'Navigate',ar:'تنقل'},{en:'Structure',ar:'الهيكل'}]},
+
+{emoji:'🛠️',head:'عمليات الملفات — شاملة',
+ body:`<p>إتقان عمليات الملفات يوفر عليك وقتاً وجهداً كل يوم:</p>`,
+ info:[{t:'blue',x:'📋 Copy Ctrl+C — ينسخ. الأصل يبقى في مكانه. النسخة تذهب للمكان الجديد عند اللصق'},{t:'teal',x:'✂️ Cut Ctrl+X — يقص. يختفي الأصل فور اللصق في المكان الجديد'},{t:'orange',x:'📌 Paste Ctrl+V — يلصق في الموقع الحالي. يعمل بعد النسخ أو القص'},{t:'purple',x:'🗑️ Delete — يرسل للمهملات. Shift+Delete حذف نهائي لا يذهب للمهملات!'},{t:'green',x:'✏️ Rename F2 — حدد الملف ← F2 ← اكتب الاسم الجديد ← Enter'},{t:'yellow',x:'🔗 Shortcut — كليك يمين ← Create Shortcut. اختصار يشير للملف الأصلي من مكان آخر'}],
+ fact:'Ctrl+Z يعمل حتى في File Explorer! إذا حذفت ملفاً بالخطأ، Ctrl+Z يعيده!',
+ words:[{en:'Copy',ar:'نسخ'},{en:'Cut',ar:'قص'},{en:'Paste',ar:'لصق'},{en:'Delete',ar:'حذف'},{en:'Rename',ar:'إعادة تسمية'},{en:'Move',ar:'نقل'},{en:'Shortcut',ar:'اختصار'},{en:'Undo',ar:'تراجع'}]},
+
+{emoji:'📄',head:'صيغ الملفات — دليل شامل',
+ body:`<p>كل امتداد له قصة وغرض. تعرّف على أهمها:</p>`,
+ info:[{t:'blue',x:'📝 المستندات: .docx Word • .xlsx Excel • .pptx PowerPoint • .pdf قراءة فقط • .txt نص بسيط'},{t:'teal',x:'🖼️ الصور: .jpg فوتو مضغوط • .png شفاف عالي جودة • .gif متحرك • .svg متجهي • .raw RAW'},{t:'orange',x:'🎵 الصوت: .mp3 مضغوط • .wav جودة عالية • .flac بلا فقدان • .aac Apple • .ogg مفتوح'},{t:'purple',x:'🎬 الفيديو: .mp4 الأشيع • .mkv عالي الجودة • .avi قديم • .mov Apple • .webm للإنترنت'},{t:'green',x:'💻 البرامج: .exe Windows • .app Mac • .apk Android • .ipa iOS'},{t:'yellow',x:'📦 المضغوطة: .zip شائع • .rar أقوى ضغطاً • .7z الأقوى • .tar.gz Linux'}],
+ fact:'.pdf اخترعه Adobe عام 1993 وأصبح المعيار الدولي ISO لمشاركة الوثائق!',
+ words:[{en:'Format',ar:'صيغة'},{en:'Compression',ar:'ضغط'},{en:'Lossless',ar:'بلا فقدان'},{en:'Lossy',ar:'مع فقدان'},{en:'Codec',ar:'كودك'},{en:'Container',ar:'حاوية'},{en:'Raw',ar:'خام'},{en:'Archive',ar:'أرشيف'}]},
+
+{emoji:'💡',head:'أسرار تنظيم الملفات — المستوى الاحترافي',
+ body:`<p>المحترفون يتبعون نظاماً صارماً في تنظيم ملفاتهم. إليك منهجهم:</p>`,
+ info:[{t:'green',x:'✅ نظام التسمية بالتاريخ — 2025_01_15_تقرير_علوم.docx. يُرتِّب تلقائياً والتاريخ في الاسم'},{t:'blue',x:'✅ مبدأ PARA — Projects (مشاريع) ← Areas (مجالات) ← Resources (مصادر) ← Archive (أرشيف)'},{t:'teal',x:'✅ نسخة احتياطية 3-2-1 — 3 نسخ على 2 وسائط مختلفة مع 1 في مكان مختلف (سحابة)'},{t:'orange',x:'⚠️ لا تضع كل شيء على سطح المكتب — يُبطئ Windows ويُشتت تفكيرك'},{t:'purple',x:'💡 راجع ملفاتك شهرياً — احذف غير الضروري ورتّب الجديد. 30 دقيقة شهرياً تكفي'},{t:'yellow',x:'🔍 ابحث بدل التنقل — في Windows Search أسرع من فتح مجلدات. ابحث باسم الملف'}],
+ fact:'الإنتاجية تزيد 40% عند العمل في بيئة منظمة! الفوضى الرقمية تستنزف طاقتك الذهنية.',
+ words:[{en:'Organize',ar:'تنظيم'},{en:'Naming Convention',ar:'اتفاقية التسمية'},{en:'Archive',ar:'أرشفة'},{en:'Version Control',ar:'إدارة الإصدارات'},{en:'Backup',ar:'نسخ احتياطي'},{en:'Workflow',ar:'سير العمل'},{en:'Productivity',ar:'الإنتاجية'},{en:'System',ar:'نظام'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٤: الإنترنت — ١٤ شريحة
+// ══════════════════════════════════════════
+{icon:'🌐', title:'الإنترنت والعالم الرقمي', color:'#FF7043', slides:[
+{emoji:'🌐',head:'الإنترنت — كيف يعمل بعمق؟',
+ body:`<p>الإنترنت ليس سحراً — هو بنية تحتية ضخمة. دعنا نفهمها:</p>`,
+ info:[{t:'blue',x:'🔗 IP Address — عنوان فريد لكل جهاز على الإنترنت. مثل رقم المنزل. IPv4: 192.168.1.1'},{t:'teal',x:'🌍 DNS — دليل الهاتف للإنترنت. يُحوّل www.google.com لعنوان IP الحقيقي 142.250.185.46'},{t:'orange',x:'📡 الكابلات البحرية — 400+ كابل تحت المحيطات تحمل 99% من بيانات الإنترنت العالمية'},{t:'purple',x:'☁️ الخوادم Servers — حاسبات ضخمة تحفظ المواقع وتُرسلها لك عند الطلب. 24/7 بلا توقف'},{t:'green',x:'📦 حزم البيانات Packets — البيانات تُقسَّم لحزم صغيرة تسلك مسارات مختلفة ثم تتجمع'}],
+ fact:'إذا وضعت كل كابلات الإنترنت البحرية جنباً لجنب لامتدت ١.٣ مليون كيلومتر — أكثر من ٣ مرات للقمر!',
+ words:[{en:'Internet',ar:'الإنترنت'},{en:'IP Address',ar:'عنوان IP'},{en:'DNS',ar:'نظام أسماء النطاقات'},{en:'Server',ar:'الخادم'},{en:'Packet',ar:'حزمة بيانات'},{en:'Protocol',ar:'البروتوكول'},{en:'Bandwidth',ar:'عرض النطاق'},{en:'Latency',ar:'زمن الاستجابة'}]},
+
+{emoji:'🔍',head:'المتصفح — أداة استكشاف الإنترنت',
+ body:`<p>المتصفح Browser هو بوابتك للإنترنت. اختيار المتصفح الصحيح وإعداده يُغير تجربتك:</p>`,
+ info:[{t:'blue',x:'🔵 Google Chrome — الأشيع عالمياً. سريع وبه إضافات كثيرة. لكنه يستهلك RAM'},{t:'teal',x:'🌊 Microsoft Edge — مدمج في Windows. أفضل من Chrome في الشاشات اللمس وiPad'},{t:'orange',x:'🦊 Mozilla Firefox — مفتوح المصدر. خصوصية أفضل. تحديثات منتظمة'},{t:'purple',x:'🧭 Safari — حصري لأجهزة Apple. بطارية أفضل على Mac وiPhone بكثير'},{t:'green',x:'🌳 Brave — يمنع الإعلانات تلقائياً. أسرع لأنه لا يُحمّل الإعلانات'},{t:'yellow',x:'🔒 Tor Browser — أقصى خصوصية. بطيء جداً. للاستخدام الحساس فقط'}],
+ fact:'Chrome يستهلك RAM بشكل مبالغ — كل تبويب فيه عملية منفصلة في الذاكرة!',
+ words:[{en:'Browser',ar:'المتصفح'},{en:'Tab',ar:'تبويب'},{en:'Bookmark',ar:'إشارة مرجعية'},{en:'History',ar:'السجل'},{en:'Extension',ar:'الإضافة'},{en:'Incognito',ar:'التصفح الخاص'},{en:'Cache',ar:'الكاش'},{en:'Cookie',ar:'الكوكي'}]},
+
+{emoji:'🔒',head:'HTTPS والأمان في الإنترنت',
+ body:`<p>ليس كل الإنترنت آمناً. تعلّم التمييز بين الآمن وغير الآمن:</p>`,
+ info:[{t:'green',x:'🔒 HTTPS — الـ S تعني Secure. البيانات مُشفَّرة بين جهازك والموقع. ابحث عن القفل في الرابط'},{t:'red',x:'🔓 HTTP بدون S — غير مشفر! من يتنصت على شبكتك يرى ما ترسله وتستقبله'},{t:'blue',x:'✅ شهادة SSL — ما يجعل الموقع HTTPS. المواقع الموثوقة تحتويها. انقر القفل لتفاصيلها'},{t:'orange',x:'⚠️ تحذير المتصفح — إذا قال "Not Secure" لا تُدخل كلمات مرور أو بيانات شخصية!'},{t:'purple',x:'🔍 تحقق من العنوان — https://www.bank.com صحيح • https://bank-secur.com خداع!'}],
+ fact:'99% من مواقع Google الأولى تستخدم HTTPS. الموقع بدونها لا يظهر جيداً في البحث!',
+ words:[{en:'HTTPS',ar:'بروتوكول آمن'},{en:'SSL',ar:'شهادة أمان'},{en:'Encryption',ar:'تشفير'},{en:'Certificate',ar:'شهادة'},{en:'Secure',ar:'آمن'},{en:'Padlock',ar:'القفل'},{en:'Domain',ar:'النطاق'},{en:'URL',ar:'الرابط'}]},
+
+{emoji:'🛡️',head:'الأمان الرقمي — القواعد الذهبية',
+ body:`<p>الأمان الرقمي مسؤوليتك الشخصية. القواعد بسيطة لكن الالتزام بها يحميك من 99% من التهديدات:</p>`,
+ info:[{t:'red',x:'🚫 لا تشارك أبداً: كلمات المرور • أرقام البطاقات البنكية • رقم الهوية • عنوان بيتك'},{t:'orange',x:'⚠️ التصيد Phishing — رسائل تتظاهر بأنها من البنك أو Google. دائماً تحقق من المُرسِل قبل الضغط'},{t:'blue',x:'🔑 كلمات المرور القوية — 12+ حرف. حروف كبيرة+صغيرة+أرقام+رموز. مثل: Th!s1sMy#Pass'},{t:'teal',x:'🔐 Password Manager — برنامج يحفظ كلمات مرورك المعقدة. Bitwarden مجاني وآمن'},{t:'green',x:'📱 2FA التحقق بخطوتين — حتى لو سُرقت كلمة مرورك لا يصلون لحسابك. فعّله في كل حساب'},{t:'purple',x:'💻 WiFi عام — لا تدخل حسابات بنكية على WiFi المقهى! استخدم VPN إذا اضطررت'}],
+ fact:'81% من اختراقات البيانات سببها كلمات مرور ضعيفة أو مُعاد استخدامها!',
+ words:[{en:'Phishing',ar:'التصيد'},{en:'Password Manager',ar:'مدير كلمات المرور'},{en:'2FA',ar:'التحقق بخطوتين'},{en:'VPN',ar:'الشبكة الافتراضية'},{en:'Identity Theft',ar:'سرقة الهوية'},{en:'Ransomware',ar:'برامج الفدية'},{en:'Social Engineering',ar:'الهندسة الاجتماعية'},{en:'Zero Day',ar:'ثغرة يوم الصفر'}]},
+
+{emoji:'✉️',head:'البريد الإلكتروني — الاستخدام الاحترافي',
+ body:`<p>البريد الإلكتروني أداة العمل الأولى في العالم. تعلّم استخدامه بذكاء:</p>`,
+ info:[{t:'blue',x:'📧 بنية الإيميل — ahmed.ali@outlook.com. قبل @ اسمك • بعده خادم البريد'},{t:'teal',x:'📤 الحقول — To: المستقبل • CC: نسخة • BCC: نسخة مخفية • Subject: الموضوع الواضح'},{t:'orange',x:'📎 المرفقات — ارفق الملفات. انتبه: Gmail يمنع exe وGmail يمنع ملفات أكبر من 25MB'},{t:'purple',x:'📋 قواعد Filters — رتّب رسائلك تلقائياً. بريد من المدرسة ← مجلد المدرسة. موفّر للوقت!'},{t:'green',x:'🤝 آداب الإيميل — موضوع واضح • مقدمة • الطلب مباشر • إغلاق باسمك. لا للإيميلات الطويلة'},{t:'yellow',x:'🚨 Unsubscribe — أسفل أي بريد غير مرغوب. أفضل من وضعه Spam'}],
+ fact:'يُرسل 333 مليار بريد إلكتروني يومياً. 45% منها spam. فكّر قبل الاشتراك في أي قائمة!',
+ words:[{en:'Email',ar:'البريد الإلكتروني'},{en:'Inbox',ar:'صندوق الوارد'},{en:'CC',ar:'نسخة'},{en:'BCC',ar:'نسخة مخفية'},{en:'Subject',ar:'الموضوع'},{en:'Attachment',ar:'المرفق'},{en:'Filter',ar:'مُرشِّح'},{en:'Unsubscribe',ar:'إلغاء الاشتراك'}]},
+
+{emoji:'📱',head:'التواصل الاجتماعي — الاستخدام الذكي',
+ body:`<p>منصات التواصل تربط العالم. لكنها تحتاج حكمة في الاستخدام:</p>`,
+ info:[{t:'blue',x:'🌟 المنصات الرئيسية — YouTube للفيديو • Instagram للصور • TikTok للقصير • Twitter/X للأخبار'},{t:'teal',x:'👶 المناسب للأطفال — YouTube Kids • Messenger Kids (بإشراف أهلي) • Scratch'},{t:'orange',x:'⚠️ الخصوصية — راجع إعدادات الخصوصية. من يرى منشوراتك؟ هل حسابك عام أم خاص؟'},{t:'purple',x:'🧠 التأثير النفسي — التمرير اللانهائي مُصمَّم ليجعلك تستمر. ضع حداً لوقت الشاشة'},{t:'green',x:'💬 التنمر الإلكتروني — احفظ الدليل (Screenshot) وأبلغ المنصة وأخبر أهلك. لا تصمت'},{t:'yellow',x:'🔍 FOMO — الخوف من الفوات. الحياة الحقيقية خارج الشاشة أهم وأجمل!'}],
+ fact:'المتوسط العالمي لاستخدام التواصل الاجتماعي 2 ساعة و27 دقيقة يومياً — شهراً كاملاً سنوياً!',
+ words:[{en:'Social Media',ar:'التواصل الاجتماعي'},{en:'Privacy',ar:'الخصوصية'},{en:'Cyberbullying',ar:'التنمر الإلكتروني'},{en:'Algorithm',ar:'الخوارزمية'},{en:'Feed',ar:'التغذية الإخبارية'},{en:'Engagement',ar:'التفاعل'},{en:'Viral',ar:'ينتشر بسرعة'},{en:'Influencer',ar:'مؤثر'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٥: Word — ١٣ شريحة
+// ══════════════════════════════════════════
+{icon:'📝', title:'Microsoft Word — الكتابة الاحترافية', color:'#2B579A', slides:[
+{emoji:'📝',head:'Word — التاريخ والإمكانيات',
+ body:`<p>Microsoft Word صدر 1983 وتطور ليصبح أقوى معالج نصوص في العالم:</p>`,
+ info:[{t:'blue',x:'🌐 Word Online — مجاني على word.office.com. لا يحتاج تثبيت. يعمل في المتصفح'},{t:'teal',x:'📱 Word Mobile — تطبيق مجاني لـ iPhone وAndroid. تحرير كامل على الهاتف'},{t:'orange',x:'🖥️ Word Desktop — النسخة الكاملة. تحتاج اشتراك Microsoft 365 أو شراء دائم'},{t:'purple',x:'☁️ الحفظ التلقائي — OneDrive يحفظ كل تغيير. لن تفقد ثانية من عملك'},{t:'green',x:'👥 التعاون — أكثر من 100 شخص يُعدِّلون نفس المستند في نفس الوقت!'}],
+ fact:'Word يفتح 40+ صيغة مختلفة. حتى ملفات Pages من Apple يمكن فتحها في Word!',
+ words:[{en:'Word Processor',ar:'معالج النصوص'},{en:'Document',ar:'مستند'},{en:'Template',ar:'قالب'},{en:'Collaboration',ar:'تعاون'},{en:'Cloud',ar:'السحابة'},{en:'Offline',ar:'بلا إنترنت'},{en:'Subscription',ar:'اشتراك'},{en:'License',ar:'ترخيص'}]},
+
+{emoji:'✍️',head:'الكتابة والتحرير — تقنيات متقدمة',
+ body:`<p>إتقان التحرير في Word يجعلك أسرع وأكثر دقة:</p>`,
+ info:[{t:'blue',x:'🖱️ تحديد متقدم — نقرة واحدة ضع مؤشراً • مرتين حدد كلمة • ثلاثاً حدد فقرة • Ctrl+A كل شيء'},{t:'teal',x:'🔍 Find & Replace Ctrl+H — ابحث وبدّل كلمة في كل المستند دفعة واحدة. موفّر وقت ضخم'},{t:'orange',x:'📋 الحافظة الذكية — Ctrl+C أكثر من مرة يبني قائمة. أسفل Home ← Clipboard لرؤيتها'},{t:'purple',x:'⌨️ حركة سريعة — Ctrl+Home (بداية) • Ctrl+End (نهاية) • Ctrl+G للانتقال لصفحة محددة'},{t:'green',x:'↩️ Undo القوية — Ctrl+Z يتراجع حتى 100 خطوة! Ctrl+Y لإعادة ما تراجعت عنه'},{t:'yellow',x:'📊 Word Count — Tools ← Word Count أو شريط الحالة. يعرض الكلمات والأحرف والصفحات'}],
+ fact:'Record Macro في Word يسجّل أفعالك ويُكررها تلقائياً. موفّر ضخم للمهام المتكررة!',
+ words:[{en:'Find',ar:'بحث'},{en:'Replace',ar:'استبدال'},{en:'Clipboard',ar:'الحافظة'},{en:'Undo',ar:'تراجع'},{en:'Redo',ar:'إعادة'},{en:'Selection',ar:'تحديد'},{en:'Macro',ar:'ماكرو'},{en:'Word Count',ar:'عدد الكلمات'}]},
+
+{emoji:'🎨',head:'التنسيق — فن الكتابة الجميلة',
+ body:`<p>التنسيق يُحوِّل نصاً عادياً لوثيقة احترافية:</p>`,
+ info:[{t:'blue',x:'𝐁 Bold Ctrl+B — للعناوين والمفاهيم المهمة. لا تُبالغ أو يفقد تأثيره'},{t:'teal',x:'𝐼 Italic Ctrl+I — للمصطلحات والكتب والأفلام والكلمات الأجنبية'},{t:'orange',x:'U̲ Underline Ctrl+U — للروابط والعناوين الفرعية. في Word لا يعني رابطاً بالضرورة'},{t:'purple',x:'🔡 Font الخط — وضوح قبل الجمال. Arial وTimes New Roman وCalibri الأوضح'},{t:'green',x:'🎨 Highlight التمييز — لتعليم النصوص بالألوان. مثل القلم الفلوري الرقمي'},{t:'yellow',x:'⬆️ SuperScript/SubScript — للمعادلات والمراجع. x² أو H₂O. Format → Text'}],
+ fact:'خط Calibri أصبح الخط الافتراضي في Word عام 2007 بعد 13 عاماً من Times New Roman!',
+ words:[{en:'Bold',ar:'عريض'},{en:'Italic',ar:'مائل'},{en:'Underline',ar:'تسطير'},{en:'Font',ar:'الخط'},{en:'Highlight',ar:'تمييز'},{en:'Strikethrough',ar:'شطب'},{en:'Superscript',ar:'نص علوي'},{en:'Subscript',ar:'نص سفلي'}]},
+
+{emoji:'📐',head:'تنسيق الصفحة — المظهر الاحترافي',
+ body:`<p>مظهر الصفحة يعكس مستوى احترافيتك:</p>`,
+ info:[{t:'blue',x:'📄 حجم الورق — A4 (21×29.7 سم) معيار عالمي. Letter في أمريكا. Layout ← Size'},{t:'teal',x:'📏 الهوامش Margins — المسافة من حافة الورقة. 2.5 سم مناسب. Layout ← Margins'},{t:'orange',x:'↕️ تباعد الأسطر — 1.5 أو 2.0 لسهولة القراءة. Home ← Line Spacing'},{t:'purple',x:'🔢 ترقيم الصفحات — Insert ← Page Number. ضروري لأي تقرير أكثر من 3 صفحات'},{t:'green',x:'📑 رأس الصفحة وتذييلها — Header وFooter. للعنوان والاسم والتاريخ. Insert ← Header'},{t:'yellow',x:'📋 Columns — نص في عمودين أو أكثر. Layout ← Columns. مثل الجريدة'}],
+ fact:'الورقة A4 أبعادها مشتقة رياضياً بحيث عند طيّها بالنصف يحتفظ الجزء بنفس النسبة!',
+ words:[{en:'Page Size',ar:'حجم الصفحة'},{en:'Margin',ar:'الهامش'},{en:'Header',ar:'رأس الصفحة'},{en:'Footer',ar:'تذييل الصفحة'},{en:'Page Number',ar:'رقم الصفحة'},{en:'Orientation',ar:'الاتجاه'},{en:'Column',ar:'العمود'},{en:'Section',ar:'القسم'}]},
+
+{emoji:'🎯',head:'Styles الأنماط — سلاح المحترفين',
+ body:`<p>Styles أنماط النص هي السر الحقيقي للمستندات الاحترافية:</p>`,
+ info:[{t:'blue',x:'📌 Heading 1 — عنوان رئيسي. خط كبير وعريض تلقائياً. يُضيفه لجدول المحتويات'},{t:'teal',x:'📌 Heading 2 — عنوان فرعي. أصغر من Heading 1. منظم وهرمي'},{t:'orange',x:'📌 Normal — النص العادي. الخط والحجم الافتراضي لكل المستند'},{t:'purple',x:'✨ Quick Styles — في الشريط Home. أنماط جاهزة بنقرة واحدة. جربها!'},{t:'green',x:'🔢 جدول المحتويات — References ← Table of Contents. يتولد تلقائياً من العناوين Heading'},{t:'yellow',x:'🎨 Style Sets — مجموعة أنماط متناسقة للمستند كله. Design ← Themes'}],
+ fact:'Word يُولّد جدول محتويات بـ 3 نقرات إذا استخدمت Headings. ساعات من العمل اليدوي!',
+ words:[{en:'Style',ar:'النمط'},{en:'Heading',ar:'العنوان'},{en:'Table of Contents',ar:'جدول المحتويات'},{en:'Theme',ar:'السمة'},{en:'Paragraph Style',ar:'نمط الفقرة'},{en:'Character Style',ar:'نمط الحرف'},{en:'Quick Style',ar:'نمط سريع'},{en:'Modify Style',ar:'تعديل النمط'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٦: PowerPoint — ١٢ شريحة
+// ══════════════════════════════════════════
+{icon:'📊', title:'PowerPoint — فن التقديم', color:'#C0392B', slides:[
+{emoji:'📊',head:'PowerPoint — أداة الإقناع',
+ body:`<p>PowerPoint ليس مجرد شرائح — هو فن تحويل الأفكار المعقدة لصور بسيطة مقنعة:</p>`,
+ info:[{t:'red',x:'💡 القاعدة الذهبية — شريحة واحدة = فكرة واحدة. لا تجعل جمهورك يقرأ ويستمع في آن واحد'},{t:'orange',x:'📏 قاعدة 10/20/30 — Guy Kawasaki: 10 شرائح • 20 دقيقة • خط 30pt كحد أدنى'},{t:'blue',x:'🖼️ الصور > الكلمات — صورة واحدة تُعبّر عن ألف كلمة. اجعل شرائحك بصرية'},{t:'teal',x:'🌐 PowerPoint Online — مجاني على powerpoint.office.com. مزامنة تلقائية'},{t:'purple',x:'🎬 الشرائح كقصة — مقدمة تجذب • وسط يشرح • نهاية تلخص وتدعو لعمل'}],
+ fact:'في كل ثانية يُقدَّم أكثر من 350 عرض PowerPoint حول العالم — 30 مليون يومياً!',
+ words:[{en:'Presentation',ar:'عرض تقديمي'},{en:'Slide',ar:'شريحة'},{en:'Visual',ar:'بصري'},{en:'Storytelling',ar:'سرد القصة'},{en:'Persuasion',ar:'الإقناع'},{en:'Audience',ar:'الجمهور'},{en:'Message',ar:'الرسالة'},{en:'Impact',ar:'التأثير'}]},
+
+{emoji:'🎨',head:'التصميم المذهل — أسرار المحترفين',
+ body:`<p>التصميم الجيد يجعل جمهورك يتذكر رسالتك. الأسرار هنا:</p>`,
+ info:[{t:'red',x:'🎨 قاعدة الألوان 60-30-10 — 60% لون رئيسي • 30% لون ثانوي • 10% تمييز. توازن مثالي'},{t:'orange',x:'🔤 الخط المناسب — خطان فقط في العرض كله. عنوان: Bold وجذاب. نص: واضح وبسيط'},{t:'blue',x:'⬜ المساحة البيضاء — لا تملأ كل الشريحة. الفراغ يُريح العين ويُبرز المحتوى'},{t:'teal',x:'🌗 التباين Contrast — نص داكن على خلفية فاتحة أو عكسه. لا أبيض على أصفر!'},{t:'green',x:'📸 صور عالية الجودة — Unsplash وPexels صور مجانية احترافية. لا للصور البكسلية'},{t:'purple',x:'📐 محاذاة Alignment — استخدم الشبكة Grid. View ← Guides. الفوضى تُشتت الانتباه'}],
+ fact:'Steve Jobs كان يُبسّط عروضه حتى تبدأ الشريحة بصورة واحدة وكلمة واحدة فقط!',
+ words:[{en:'Color Scheme',ar:'نظام الألوان'},{en:'Typography',ar:'الطباعة'},{en:'Contrast',ar:'التباين'},{en:'Alignment',ar:'المحاذاة'},{en:'White Space',ar:'المساحة البيضاء'},{en:'Grid',ar:'الشبكة'},{en:'Consistency',ar:'الاتساق'},{en:'Brand',ar:'الهوية البصرية'}]},
+
+{emoji:'✨',head:'الحركات والانتقالات — بذكاء',
+ body:`<p>الحركات تُحيي عرضك عندما تُستخدم بذكاء — لكنها تُدمره عند الإفراط:</p>`,
+ info:[{t:'purple',x:'🔄 Transition — التأثير بين الشرائح. Fade أو Push أنيقان. تجنب اللولب والدوامة!'},{t:'blue',x:'✨ Animation — دخول العناصر. Appear أبسط • Fly In جذاب • Float Up أنيق'},{t:'orange',x:'⏱️ التوقيت — 0.3 ثانية للحركات السريعة • 0.5-1 ثانية للظهور التدريجي. لا أطول'},{t:'teal',x:'📋 Animate by Paragraph — ظهور النقاط واحدة واحدة. يُبقي التشويق ويُركّز الانتباه'},{t:'green',x:'🎬 Animation Pane — View ← Animation Pane. تحكم دقيق في ترتيب وتوقيت الحركات'},{t:'red',x:'⚠️ القاعدة — إذا شككت لا تُضف حركة. البساطة دائماً أفضل من الفوضى البصرية'}],
+ fact:'بحث جامعة MIT: الشرائح ذات الحركات الكثيرة تُقلل تذكر المعلومة بـ 50%!',
+ words:[{en:'Transition',ar:'انتقال'},{en:'Animation',ar:'حركة'},{en:'Timing',ar:'توقيت'},{en:'Entrance',ar:'دخول'},{en:'Exit',ar:'خروج'},{en:'Emphasis',ar:'تأكيد'},{en:'Trigger',ar:'مُشغِّل'},{en:'Morph',ar:'تحول'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٧: الكيبورد — ١٢ شريحة
+// ══════════════════════════════════════════
+{icon:'⌨️', title:'الكتابة السريعة والاحترافية', color:'#00BFA5', slides:[
+{emoji:'⌨️',head:'التشريح الكامل للوحة المفاتيح',
+ body:`<p>لوحة المفاتيح أعمق مما تبدو عليه. كل منطقة فيها لها غرض محدد:</p>`,
+ info:[{t:'blue',x:'🔢 صف الأرقام — الصف الأعلى. أرقام 1-0 ورموز ! @ # $ % ^ & * ( )'},{t:'teal',x:'⌨️ الصف الأعلى — QWERTY. اختار هذا الترتيب لمنع تشابك آلة الكتابة القديمة'},{t:'orange',x:'🏠 الصف الأوسط Home Row — ASDF JKL; أهم صف! هنا يبدأ ويعود كل شيء'},{t:'purple',x:'↙️ الصف الأسفل — ZXCVBNM. أصابع اليد اليمنى واليسرى تتعاون هنا'},{t:'green',x:'⬜ الفراغ Space Bar — المفتاح الأطول. يضغطه إبهامك. إضافة مسافة بين الكلمات'},{t:'yellow',x:'🔢 Numpad لوحة الأرقام — يمين اللوحة. للمحاسبين والمبرمجين. NumLock يفعّلها'}],
+ fact:'ترتيب Dvorak أثبت علمياً أنه أسرع من QWERTY بـ 70-80% - لكن التغيير صعب بعد العادة!',
+ words:[{en:'QWERTY',ar:'كويرتي'},{en:'Home Row',ar:'الصف الأوسط'},{en:'Numpad',ar:'لوحة الأرقام'},{en:'Function Key',ar:'مفتاح وظيفي'},{en:'Modifier Key',ar:'مفتاح تعديل'},{en:'Toggle Key',ar:'مفتاح تبديل'},{en:'Punctuation',ar:'علامات الترقيم'},{en:'Layout',ar:'التخطيط'}]},
+
+{emoji:'🏠',head:'Home Row — أساس الكتابة السريعة',
+ body:`<p>Home Row هو مفتاح الكتابة السريعة. 3 أسابيع تدريب = تغيير حياتك!</p>`,
+ info:[{t:'yellow',x:'🌟 اليد اليسرى — الخنصر على A • البنصر على S • الوسطى على D • السبابة على F'},{t:'yellow',x:'🌟 اليد اليمنى — السبابة على J • الوسطى على K • البنصر على L • الخنصر على ;'},{t:'blue',x:'👆 نتوء خاص — F و J عليهما نتوء صغير. ضع أصابعك عليهما بدون نظر وأنت في الوضع الصحيح!'},{t:'teal',x:'👁️ لا تنظر للوحة المفاتيح — هذا السر الوحيد للكتابة السريعة. عيناك على الشاشة دائماً'},{t:'orange',x:'↩️ العودة للـ Home — بعد كل كتابة أعِد أصابعك للـ Home Row. هذا منطلقك الثابت'},{t:'purple',x:'🎯 كل إصبع له منطقة — السبابة اليسرى: F G • السبابة اليمنى: J H. لا تتجاوز مناطقك!'}],
+ steps:[{n:'تمرين يومي',text:'اكتب "asdf jkl;" 50 مرة بدون نظر. الأسبوع الأول صعب - استمر! ثم ستبدأ بالشعور بالتحسن'}],
+ fact:'8 ساعات تدريب على Typing.com تُضاعف سرعة كتابتك. 8 ساعات فقط تغير كل شيء!',
+ words:[{en:'Touch Typing',ar:'الكتابة اللمسية'},{en:'Home Position',ar:'الوضع الرئيسي'},{en:'Finger',ar:'إصبع'},{en:'Speed',ar:'السرعة'},{en:'Accuracy',ar:'الدقة'},{en:'WPM',ar:'كلمة في الدقيقة'},{en:'Practice',ar:'ممارسة'},{en:'Muscle Memory',ar:'ذاكرة العضلات'}]},
+
+{emoji:'🎯',head:'المفاتيح الخاصة — دليل شامل',
+ body:`<p>المفاتيح الخاصة تُضيف قوة هائلة لكتابتك عند إتقانها:</p>`,
+ info:[{t:'teal',x:'↵ Enter — سطر جديد في الكتابة • تأكيد في القوائم • إرسال في بعض التطبيقات'},{t:'red',x:'⌫ Backspace — يحذف الحرف يسار المؤشر. اضغط مع Ctrl لحذف كلمة كاملة دفعة واحدة'},{t:'orange',x:'⌦ Delete — يحذف الحرف يمين المؤشر. نادر الاستخدام لكن مفيد أحياناً'},{t:'blue',x:'⇧ Shift — اضغط مع حرف = كبير. مع رقم = رمز. مع سهم = تحديد نص'},{t:'green',x:'Tab ⇥ — مسافة بادئة في المستندات. التنقل بين حقول النماذج. مسافتان في البرمجة'},{t:'purple',x:'Esc — هروب/إلغاء. أغلق القوائم والحوارات. أوقف التحميل في المتصفح'}],
+ fact:'Caps Lock أكثر مفتاح يُغضب المستخدمين! كثيرون يُعيدون تخصيصه ليصبح مفتاحاً مفيداً.',
+ words:[{en:'Enter',ar:'إدخال'},{en:'Backspace',ar:'مسح يسار'},{en:'Delete',ar:'مسح يمين'},{en:'Shift',ar:'تحويل'},{en:'Tab',ar:'جدولة'},{en:'Escape',ar:'هروب'},{en:'Caps Lock',ar:'قفل الأحرف'},{en:'Insert',ar:'إدراج'}]},
+
+{emoji:'⚡',head:'اختصارات الإنتاجية القصوى',
+ body:`<p>هذه الاختصارات تُحوِّل ساعات إلى دقائق. استثمر في حفظها:</p>`,
+ info:[{t:'blue',x:'📝 الكتابة: Home=بداية سطر • End=نهاية سطر • Ctrl+Home=بداية مستند • Ctrl+End=نهاية'},{t:'teal',x:'✂️ التحرير: Ctrl+A كل شيء • Ctrl+C نسخ • Ctrl+X قص • Ctrl+V لصق • Ctrl+Z تراجع'},{t:'orange',x:'🪟 النظام: Win+E ملفات • Win+I إعدادات • Win+L قفل • Win+D سطح المكتب • Win+V تاريخ الحافظة'},{t:'purple',x:'📸 لقطة الشاشة: Win+Shift+S ← اختر منطقة. Win+PrtSc ← يحفظ تلقائياً في Pictures'},{t:'green',x:'🌐 المتصفح: Ctrl+T تبويب جديد • Ctrl+W إغلاق • Ctrl+L شريط العنوان • Ctrl+D bookmark'},{t:'yellow',x:'📊 Excel وWord: Ctrl+B عريض • Ctrl+I مائل • Ctrl+U تسطير • Ctrl+S حفظ • F12 حفظ باسم'}],
+ fact:'دراسة: حفظ 10 اختصارات أساسية يوفر 64 ساعة عمل سنوياً لكل موظف مكتبي!',
+ words:[{en:'Productivity',ar:'إنتاجية'},{en:'Efficiency',ar:'كفاءة'},{en:'Hotkey',ar:'مفتاح ساخن'},{en:'Shortcut',ar:'اختصار'},{en:'Workflow',ar:'سير عمل'},{en:'Time Saving',ar:'توفير الوقت'},{en:'Power User',ar:'مستخدم متقدم'},{en:'Automation',ar:'أتمتة'}]},
+]},
+
+// ══════════════════════════════════════════
+// وحدة ٨: Scratch والبرمجة — ١٥ شريحة
+// ══════════════════════════════════════════
+{icon:'🎮', title:'البرمجة وعالم Scratch', color:'#E8368F', slides:[
+{emoji:'🤖',head:'البرمجة — المهارة الأهم في القرن 21',
+ body:`<p>البرمجة هي لغة العصر. تعلّمها يُغير طريقة تفكيرك قبل أن يُغير حياتك المهنية:</p>`,
+ info:[{t:'pink',x:'🧩 ما هي البرمجة؟ — تعليمات مرتبة تقول للحاسب ماذا يفعل خطوة بخطوة بدقة مطلقة'},{t:'purple',x:'🤔 التفكير المنطقي — البرمجة تُعلّمك تقسيم المشكلة الكبيرة لمهام صغيرة قابلة للحل'},{t:'blue',x:'🎮 Scratch — أفضل مدخل للبرمجة. كتل ملونة بدل كود. scratch.mit.edu مجاناً'},{t:'teal',x:'🐍 بعد Scratch — Python لغة مكتوبة سهلة. JavaScript للإنترنت. تعلّم واحدة وتتعلم الباقي'},{t:'green',x:'💰 مهنة المستقبل — متوسط راتب مطور برمجيات في السعودية 15,000-30,000 ريال'}],
+ example:'مثال: مهمة كبيرة "اصنع لعبة" ← قسّمها: شخصية + حركة + كشف تصادم + نقاط + صوت + انتهاء',
+ fact:'Ada Lovelace كتبت أول خوارزمية عام 1843م — قبل 100 عام من وجود أي حاسب!',
+ words:[{en:'Programming',ar:'البرمجة'},{en:'Algorithm',ar:'خوارزمية'},{en:'Logical Thinking',ar:'التفكير المنطقي'},{en:'Problem Solving',ar:'حل المشكلات'},{en:'Developer',ar:'مطور'},{en:'Coder',ar:'مُبرمج'},{en:'Software',ar:'برمجيات'},{en:'Career',ar:'مهنة'}]},
+
+{emoji:'🧩',head:'واجهة Scratch — تفاصيل كل قسم',
+ body:`<p>Scratch يُقسَّم لمناطق واضحة. معرفة كل منطقة تُسرع تعلمك بشكل كبير:</p>`,
+ info:[{t:'pink',x:'🎭 الشخصية Sprite — يمكنك اختيارها من مكتبة Scratch أو رسمها أو رفع صورة'},{t:'purple',x:'🎬 المسرح Stage — خلفية برنامجك. يمكنك رسمها أو اختيارها. 480×360 بكسل افتراضياً'},{t:'blue',x:'🧩 منطقة الكتل Blocks — يسار الشاشة. مُقسَّمة بالألوان حسب النوع. اسحب منها'},{t:'teal',x:'📜 منطقة الكود Scripts Area — وسط الشاشة. هنا تُركِّب الكتل وتبني برنامجك'},{t:'orange',x:'🎨 محرر الصور Costume Editor — ارسم وعدِّل شخصياتك وخلفياتك بحرية كاملة'},{t:'green',x:'🔊 محرر الصوت Sound Editor — سجّل صوتاً أو استخدم من المكتبة أو ارفع ملف صوت'}],
+ steps:[{n:'ألوان الكتل',text:'🔵 حركة • 🟣 مظهر • 🟠 صوت • 🟡 أحداث • 🟤 تحكم • 🔵 إحساس • 🟢 عمليات • 🔴 متغيرات • 💜 قوائم'}],
+ fact:'Scratch اخترعه Mitchel Resnick في MIT Media Lab عام 2003 وتخطت مشاريعه 50 مليون!',
+ words:[{en:'Sprite',ar:'الشخصية'},{en:'Stage',ar:'المسرح'},{en:'Script',ar:'البرنامج'},{en:'Costume',ar:'الزي'},{en:'Backdrop',ar:'الخلفية'},{en:'Sound',ar:'الصوت'},{en:'Block',ar:'كتلة'},{en:'Editor',ar:'المحرر'}]},
+
+{emoji:'🔢',head:'Sequence المتسلسلة — ترتيب الأوامر',
+ body:`<p>Sequence هو أول مفهوم في البرمجة وأهمها. الحاسب ينفذ بالترتيب من الأعلى للأسفل دائماً:</p>`,
+ info:[{t:'blue',x:'⬇️ الترتيب مهم جداً — "تحرك ثم ارتد" ≠ "ارتد ثم تحرك". النتيجة مختلفة تماماً'},{t:'teal',x:'📋 مثال وصفة — الخطوات كلها صحيحة لكن تضع البيض بعد الدقيق. ترتيب خاطئ = وصفة فاشلة'},{t:'orange',x:'🏁 الأحداث Events — تبدأ البرامج بأحداث. "عند النقر على 🏁" • "عند ضغط مفتاح" • "عند النقر على الشخصية"'},{t:'purple',x:'🔗 تسلسل الكتل — اسحب الكتل وركّبها فوق بعضها. الصوت "طقطقة" يؤكد الاتصال'},{t:'green',x:'🔄 الاختبار الفوري — بعد كل إضافة اضغط 🏁 وجرّب. لا تنتظر حتى تنتهي كل شيء'}],
+ example:'عند 🏁: قل "مرحباً" لـ 2 ثانية ← تحرك 100 خطوة ← العب صوتاً. الترتيب هذا بالضبط!',
+ fact:'أول مرحلة في تعليم البرمجة في كل جامعات العالم هي: "اكتب برنامجاً يطبع Hello World!"',
+ words:[{en:'Sequence',ar:'المتسلسلة'},{en:'Order',ar:'الترتيب'},{en:'Event',ar:'الحدث'},{en:'Trigger',ar:'المشغل'},{en:'Execute',ar:'ينفذ'},{en:'Step',ar:'خطوة'},{en:'Flow',ar:'التدفق'},{en:'Control',ar:'التحكم'}]},
+
+{emoji:'🔄',head:'Loops الحلقات — قوة التكرار',
+ body:`<p>الحلقة Loop تُكرر مجموعة أوامر تلقائياً. بدلاً من كتابة نفس الأمر 100 مرة:</p>`,
+ info:[{t:'blue',x:'🔢 حلقة العدد — "كرر 10 مرات". تنفذ ما بداخلها 10 مرات ثم تتوقف'},{t:'teal',x:'♾️ حلقة لا نهاية — "كرر إلى الأبد". تستمر حتى تضغط 🛑. للألعاب والبرامج المستمرة'},{t:'orange',x:'🔍 حلقة حتى — "كرر حتى يحدث شيء ما". مرنة وذكية. مثل: كرر حتى تلمس الحافة'},{t:'purple',x:'🎮 في الألعاب — كل لعبة تعتمد على حلقة رئيسية Game Loop تُحدِّث المشهد 60 مرة/ثانية'},{t:'green',x:'⏱️ الانتظار — "انتظر X ثانية" داخل الحلقة. للتحكم في سرعة الحركة والتأثيرات'}],
+ example:'الشخصية تسبح: عند 🏁 ← كرر إلى الأبد { تحرك 5 ← إذا لمست الحافة ← ارتد }',
+ fact:'معالج الحاسب ينفذ حلقة واحدة كبيرة تُسمى Fetch-Decode-Execute مليارات المرات كل ثانية!',
+ words:[{en:'Loop',ar:'الحلقة'},{en:'Repeat',ar:'تكرار'},{en:'Forever',ar:'إلى الأبد'},{en:'Until',ar:'حتى'},{en:'Iteration',ar:'تكرار'},{en:'Game Loop',ar:'حلقة اللعبة'},{en:'Infinite',ar:'لا نهائي'},{en:'Counter',ar:'عداد'}]},
+
+{emoji:'🤔',head:'Conditions الشروط — الذكاء الحقيقي',
+ body:`<p>الشروط تُضيف الذكاء للبرنامج. بدونها البرنامج يفعل نفس الشيء دائماً:</p>`,
+ info:[{t:'orange',x:'🤔 If — إذا (شرط) ← نفّذ هذا. مثل: إذا لمست الجدار ← ارتد'},{t:'blue',x:'🔀 If-Else — إذا (شرط) ← نفّذ هذا ← وإلا ← نفّذ ذاك. قرار بين خيارين'},{t:'teal',x:'🔗 شروط مركّبة — إذا (شرط 1 و شرط 2). أو إذا (شرط 1 أو شرط 2). منطق متقدم'},{t:'purple',x:'📍 الإحساس Sensing — "هل تلمس اللون الأحمر؟" • "هل مفتاح المسافة مضغوط؟" • "هل المؤشر عليّ؟"'},{t:'green',x:'🎮 في الألعاب — إذا النقاط = 10 ← انتقل للمستوى التالي. إذا الحياة = 0 ← أعرض Game Over'}],
+ example:'برنامج ذكي: إذا النقاط > 50 ← قل "ممتاز!" ← العب موسيقى انتصار ← انتقل للمستوى 2',
+ fact:'كل برامج الذكاء الاصطناعي في جوهرها عبارة عن ملايين الشروط المتداخلة والمعقدة!',
+ words:[{en:'Condition',ar:'الشرط'},{en:'If',ar:'إذا'},{en:'Else',ar:'وإلا'},{en:'Boolean',ar:'قيمة منطقية'},{en:'True/False',ar:'صح/خطأ'},{en:'Comparison',ar:'مقارنة'},{en:'Logic',ar:'المنطق'},{en:'Operator',ar:'المعامل'}]},
+
+{emoji:'📦',head:'Variables المتغيرات — ذاكرة البرنامج',
+ body:`<p>المتغير Variable صندوق يحفظ قيمة يمكن تغييرها أثناء تشغيل البرنامج:</p>`,
+ info:[{t:'purple',x:'📦 إنشاء متغير — في Scratch: Variables ← Make a Variable ← اكتب الاسم. جاهز!'},{t:'blue',x:'🔢 أنواع القيم — أرقام (النقاط = 0) • نص (الاسم = "Ahmed") • صح/خطأ (فاز = false)'},{t:'teal',x:'🔄 تغيير القيمة — "ضع [النقاط] = 0" لتصفير • "زد [النقاط] بمقدار 1" عند الفوز'},{t:'orange',x:'📊 عرض المتغير — في Scratch ✓ على المتغير. يظهر على المسرح ليراه اللاعب'},{t:'green',x:'🌐 نطاق المتغير — For this sprite: متغير محلي • For all sprites: متغير عام مشترك'},{t:'yellow',x:'📋 القوائم Lists — مجموعة متغيرات. مثل قائمة أسماء اللاعبين أو أسرع 10 نتائج'}],
+ example:'قبل اللعبة: النقاط = 0 • الحياة = 3. أثناء اللعبة: إذا جمعت نجمة ← النقاط زد بـ 10',
+ fact:'اسم "متغير Variable" من الرياضيات! نفس المفهوم: x = 5 يعني x يساوي 5 الآن.',
+ words:[{en:'Variable',ar:'متغير'},{en:'Value',ar:'القيمة'},{en:'String',ar:'نص'},{en:'Number',ar:'رقم'},{en:'Boolean',ar:'منطقي'},{en:'List',ar:'قائمة'},{en:'Global',ar:'عام'},{en:'Local',ar:'محلي'}]},
+
+{emoji:'🎮',head:'بناء لعبة كاملة — خطوة بخطوة',
+ body:`<p>دعنا نبني لعبة جمع النجوم الكاملة. ستحتوي: شخصية + حركة + عدو + نقاط + وقت + انتهاء:</p>`,
+ info:[{t:'pink',x:'الخطوة ١ — افتح scratch.mit.edu ← Create. احذف القطة الافتراضية واختر شخصيتك'},{t:'purple',x:'الخطوة ٢ — أضف خلفية جميلة. Backdrops ← Choose a Backdrop. اختر "Stars" أو ما يناسب'},{t:'blue',x:'الخطوة ٣ — كود الشخصية الرئيسية: عند ضغط ← تحرك -10 • عند ضغط → تحرك +10'},{t:'teal',x:'الخطوة ٤ — أضف شخصية النجمة. كودها: كرر إلى الأبد { اذهب لموضع عشوائي ← انتظر 2 ثانية }'},{t:'orange',x:'الخطوة ٥ — في كود الشخصية أضف: إذا لمست النجمة ← النقاط زد 10 ← العب صوت "pop"'},{t:'green',x:'الخطوة ٦ — أضف متغير الوقت = 30. كرر 30 مرة { انتظر ثانية ← وقت نقص 1 } ← Game Over!'}],
+ fact:'أول لعبة فيديو في التاريخ "Tennis for Two" بنيت عام 1958 بمكونات إلكترونية بدائية!',
+ words:[{en:'Game Design',ar:'تصميم اللعبة'},{en:'Player',ar:'اللاعب'},{en:'Enemy',ar:'العدو'},{en:'Score',ar:'النقاط'},{en:'Timer',ar:'المؤقت'},{en:'Level',ar:'المستوى'},{en:'Game Over',ar:'انتهت اللعبة'},{en:'Restart',ar:'إعادة البدء'}]},
+
+{emoji:'🔧',head:'Debugging — فن إصلاح الأخطاء',
+ body:`<p>البرمجة بدون أخطاء غير موجودة! المبرمج المحترف يتميز في كيفية إيجادها وإصلاحها:</p>`,
+ info:[{t:'red',x:'🐛 ما هو Bug — خطأ يجعل البرنامج يتصرف بشكل غير متوقع. اسمه من حشرة حقيقية!'},{t:'orange',x:'🔍 كيف تجد Bug — اضغط 🏁 وراقب ما يحدث • اقرأ الكود بصوت عالٍ • اسأل صديقاً'},{t:'blue',x:'✅ Test After Every Change — اختبر بعد كل تغيير صغير. لا تضيف 10 أشياء ثم تختبر'},{t:'teal',x:'💬 Say Block للفحص — أضف "قل [متغير]" لرؤية قيمته أثناء التشغيل. ثم احذفه بعد الإصلاح'},{t:'green',x:'🔄 Rubber Duck Debugging — اشرح مشكلتك لدمية! كثيراً ما تجد الحل أثناء الشرح'},{t:'purple',x:'📚 الأخطاء الشائعة — الكتل غير مرتبطة • متغير اسمه خاطئ • شرط معكوس • الحدث خاطئ'}],
+ fact:'المصطلح Bug أول استخدام موثق عام 1947 حين وجدت Grace Hopper حشرة حقيقية في الحاسب!',
+ words:[{en:'Bug',ar:'خطأ برمجي'},{en:'Debug',ar:'إصلاح أخطاء'},{en:'Test',ar:'اختبار'},{en:'Fix',ar:'إصلاح'},{en:'Error',ar:'خطأ'},{en:'Syntax Error',ar:'خطأ نحوي'},{en:'Logic Error',ar:'خطأ منطقي'},{en:'Trace',ar:'تتبع'}]},
+
+{emoji:'🌟',head:'ما بعد Scratch — رحلة البرمجة',
+ body:`<p>Scratch مجرد البداية. عالم البرمجة أوسع وأجمل بكثير. إليك خريطة رحلتك:</p>`,
+ info:[{t:'pink',x:'🎮 Scratch (الآن) — أتقنه كاملاً. ابنِ 5+ مشاريع متنوعة. انشرها وشاركها'},{t:'purple',x:'🐍 Python (بعد Scratch) — أسهل لغة نصية. تُستخدم في AI وتحليل بيانات وأتمتة. مجانية!'},{t:'blue',x:'🌐 HTML/CSS/JavaScript — ابنِ مواقع إنترنت. كل موقع يستخدمها. ابدأ بـ freeCodeCamp'},{t:'teal',x:'📱 Swift (iOS) / Kotlin (Android) — ابنِ تطبيقات الهاتف الحقيقية. ضع تطبيقك في المتجر!'},{t:'orange',x:'🎮 Unity C# — ابنِ ألعاباً ثلاثية الأبعاد. Minecraft وCuphead وThousands بُنيت بها'},{t:'green',x:'🤖 Machine Learning Python — علّم الحاسب أن يتعلم. المستقبل هنا! TensorFlow وPyTorch'}],
+ steps:[{n:'خطتك',text:'Scratch 3 أشهر ← Python سنة ← تخصص في مجال تُحبه. 4 سنوات وأنت مطور محترف!'}],
+ fact:'Sundar Pichai رئيس Google وMark Zuckerberg مؤسس Facebook كلاهما بدأ بتعلم البرمجة في سن مبكرة!',
+ words:[{en:'Python',ar:'بايثون'},{en:'JavaScript',ar:'جافاسكريبت'},{en:'HTML',ar:'إتش تي إم إل'},{en:'CSS',ar:'سي إس إس'},{en:'Swift',ar:'سويفت'},{en:'Machine Learning',ar:'التعلم الآلي'},{en:'Framework',ar:'إطار عمل'},{en:'Open Source',ar:'مفتوح المصدر'}]},
+]},
+];
+
+// Extra slides appended to existing units via EXTRA_SLIDES
+const EXTRA_SLIDES = {
+  0: [ // Unit 1: Computer - add 25 more slides
+   {emoji:'🔢',head:'النظام الثنائي — لغة الحاسب',
+    body:`<p>الحاسب يتحدث لغة واحدة فقط: الصفر والواحد. هذا النظام الثنائي Binary هو أساس كل شيء رقمي:</p>`,
+    info:[{t:'blue',x:'0 و 1 فقط — كل شيء يمكن تمثيله بأصفار وآحاد. الصورة والصوت والفيديو والنص'},{t:'teal',x:'البت Bit — أصغر وحدة معلومات. إما 0 أو 1. كمفتاح كهربائي: إما مفتوح أو مغلق'},{t:'orange',x:'البايت Byte — 8 بتات معاً. يكفي لتخزين حرف واحد. الحرف "A" = 01000001'},{t:'purple',x:'لماذا ثنائي؟ — سهل تمثيله كهربائياً: جهد عالٍ = 1، جهد منخفض = 0. بسيط وموثوق'},{t:'green',x:'الأرقام الثنائية — 0=0 • 1=1 • 10=2 • 11=3 • 100=4 • 101=5 • 110=6 • 111=7'}],
+    fact:'الرقم 255 ثنائياً = 11111111 — أكبر رقم في بايت واحد. لهذا الصور تستخدم 0-255 للألوان!',
+    words:[{en:'Binary',ar:'ثنائي'},{en:'Bit',ar:'بت'},{en:'Byte',ar:'بايت'},{en:'Zero',ar:'صفر'},{en:'One',ar:'واحد'},{en:'Voltage',ar:'جهد كهربائي'},{en:'Transistor',ar:'ترانزستور'},{en:'Logic Gate',ar:'بوابة منطقية'}]},
+
+   {emoji:'🔬',head:'مكونات اللوحة الأم — Motherboard',
+    body:`<p>اللوحة الأم Motherboard هي العمود الفقري للحاسب. كل شيء يتصل بها:</p>`,
+    info:[{t:'blue',x:'🔌 Socket المعالج — الفتحة التي يُركَّب فيها المعالج CPU. Intel وAMD لهما مقاسات مختلفة'},{t:'teal',x:'💾 Slots الذاكرة — فتحات RAM. معظم اللوحات تدعم 2-4 فتحات. DDR5 الأحدث'},{t:'orange',x:'💽 M.2 Slot — منفذ SSD الجديد. مباشرة على اللوحة. أسرع من SATA بـ 5-7 مرات'},{t:'purple',x:'🔌 SATA Ports — لتوصيل القرص الصلب HDD والقرص البصري DVD'},{t:'green',x:'🎮 PCIe Slots — لكارت الشاشة والشبكة والصوت. كارت شاشة RTX في PCIe x16'}],
+    fact:'اللوحة الأم الأغلى في العالم للألعاب تكلف أكثر من 1000 دولار!',
+    words:[{en:'Motherboard',ar:'اللوحة الأم'},{en:'Socket',ar:'منفذ المعالج'},{en:'SATA',ar:'ساتا'},{en:'PCIe',ar:'بي سي آي'},{en:'Slot',ar:'فتحة'},{en:'Chipset',ar:'مجموعة الشرائح'},{en:'BIOS',ar:'نظام أساسي'},{en:'Expansion',ar:'توسيع'}]},
+
+   {emoji:'🎮',head:'كارت الشاشة GPU — قوة الرسوميات',
+    body:`<p>GPU وحدة معالجة الرسوميات — بطل الألعاب والذكاء الاصطناعي:</p>`,
+    info:[{t:'blue',x:'🎮 GPU للألعاب — يُعالج ملايين المثلثات في الثانية لرسم صورة ثلاثية الأبعاد'},{t:'teal',x:'🤖 GPU للذكاء الاصطناعي — أسرع من CPU بـ 100 مرة في مهام AI. ChatGPT يعمل على آلاف GPU'},{t:'orange',x:'🎨 GPU للإبداع — تسريع Premiere وPhotoshop وBlender للتصميم والمونتاج'},{t:'purple',x:'⛏️ GPU للتعدين — يُستخدم لتعدين العملات الرقمية. استنزف المخزون عام 2021!'},{t:'green',x:'📺 VRAM — ذاكرة خاصة بالـ GPU. 8GB للألعاب 1080p • 12GB+ للـ 4K و AI'}],
+    fact:'NVIDIA RTX 4090 تحتوي 16,384 CUDA Core — وحدات معالجة متوازية. تكلف 6000 دولار!',
+    words:[{en:'GPU',ar:'كارت الشاشة'},{en:'VRAM',ar:'ذاكرة الفيديو'},{en:'Resolution',ar:'الدقة'},{en:'Frame Rate',ar:'معدل الإطارات'},{en:'Ray Tracing',ar:'تتبع الأشعة'},{en:'DLSS',ar:'تعلم آلي للصورة'},{en:'NVIDIA',ar:'إنفيديا'},{en:'AMD Radeon',ar:'راديون'}]},
+
+   {emoji:'❄️',head:'أنظمة التبريد — الحرارة عدو الحاسب',
+    body:`<p>كل مكون في الحاسب يُولّد حرارة. التبريد الجيد = عمر أطول وأداء أفضل:</p>`,
+    info:[{t:'blue',x:'💨 مروحة CPU — الأبسط والأرخص. تُثبَّت فوق المعالج. تُعمّر 3-5 سنوات'},{t:'teal',x:'🌊 التبريد المائي AIO — أنبوب ماء يسحب الحرارة من المعالج لمشعاع كبير. أهدأ وأقوى'},{t:'orange',x:'🖥️ كيس الحاسب — يجب أن يكون تهوية جيدة. منافذ هواء بارد من الأمام وساخن من الخلف والأعلى'},{t:'purple',x:'🌡️ درجات مقبولة — CPU أقل من 80°C • GPU أقل من 85°C. أعلى من هذا: مشكلة!'},{t:'green',x:'معجون التبريد Thermal Paste — بين المعالج والمروحة. يُحسّن نقل الحرارة. جفافه = ارتفاع حرارة'}],
+    fact:'حاسب يعمل بحرارة 90°C بشكل مستمر عمره النصف مقارنة بواحد يعمل في 70°C!',
+    words:[{en:'Cooling',ar:'التبريد'},{en:'Fan',ar:'المروحة'},{en:'Heatsink',ar:'المشعاع'},{en:'Thermal Paste',ar:'معجون التبريد'},{en:'Liquid Cooling',ar:'التبريد المائي'},{en:'Temperature',ar:'الحرارة'},{en:'Airflow',ar:'تدفق الهواء'},{en:'RPM',ar:'دورة في الدقيقة'}]},
+
+   {emoji:'⚡',head:'وحدة الطاقة PSU — قلب الكهرباء',
+    body:`<p>PSU Power Supply Unit مصدر الطاقة الذي يُغذّي كل مكونات الحاسب:</p>`,
+    info:[{t:'blue',x:'⚡ الواط Watt — قدرة الكهرباء. 500W يكفي للاستخدام العادي. 750W+ للألعاب القوية'},{t:'teal',x:'⭐ تقييم الكفاءة 80+ — Bronze/Silver/Gold/Platinum. Gold ينصح به. كفاءة 87%+'},{t:'orange',x:'🔌 موديولار أو لا — Modular: الأسلاك قابلة للفصل. أنظف وأسهل للتركيب'},{t:'purple',x:'🛡️ الحماية — OVP حماية من الفولطية الزائدة • OCP تيار • SCP قصر. اختر PSU من ماركة موثوقة'},{t:'green',x:'🔋 UPS — مصدر طاقة احتياطي للانقطاع الكهربائي. يحمي بياناتك ويُتيح إنهاء العمل بأمان'}],
+    fact:'PSU رخيص وغير موثوق قد يُتلف المعالج وكارت الشاشة بضربة كهربائية واحدة!',
+    words:[{en:'PSU',ar:'مزود الطاقة'},{en:'Watt',ar:'واط'},{en:'Efficiency',ar:'الكفاءة'},{en:'Modular',ar:'معياري'},{en:'UPS',ar:'مصدر احتياطي'},{en:'Voltage',ar:'الجهد'},{en:'Ampere',ar:'أمبير'},{en:'Surge',ar:'ارتفاع كهربائي'}]},
+
+   {emoji:'🌐',head:'الشبكات — كيف تتواصل الحاسبات؟',
+    body:`<p>الشبكات تربط الحاسبات معاً. من شبكتك المنزلية إلى الإنترنت العالمي:</p>`,
+    info:[{t:'blue',x:'🏠 LAN — شبكة محلية. حاسبات منزلك أو مكتبك. سريعة جداً. إيثرنت أو WiFi'},{t:'teal',x:'📡 WiFi — لاسلكي مريح. WiFi 6 (802.11ax) الأحدث. يصل 9.6 Gbps نظرياً'},{t:'orange',x:'🔌 Ethernet — سلك شبكة. أسرع وأستقر من WiFi. مثالي للألعاب والبث الحي'},{t:'purple',x:'🌍 WAN — شبكة واسعة. الإنترنت نفسه هو أكبر WAN. يربط العالم بأكمله'},{t:'green',x:'📱 Hotspot — حاسبك أو هاتفك يُشارك الإنترنت للأجهزة الأخرى. مريح جداً في السفر'}],
+    fact:'الإنترنت يُنقل أكثر من 4.5 مليار جيجابايت يومياً. ما يعادل مليار DVD كل 24 ساعة!',
+    words:[{en:'Network',ar:'شبكة'},{en:'LAN',ar:'شبكة محلية'},{en:'WiFi',ar:'واي فاي'},{en:'Ethernet',ar:'إيثرنت'},{en:'Router',ar:'الراوتر'},{en:'IP',ar:'عنوان IP'},{en:'Bandwidth',ar:'عرض النطاق'},{en:'Latency',ar:'زمن الاستجابة'}]},
+
+   {emoji:'🤖',head:'الذكاء الاصطناعي AI — مستقبل التقنية',
+    body:`<p>الذكاء الاصطناعي يُغير العالم بسرعة مذهلة. دعنا نفهمه:</p>`,
+    info:[{t:'purple',x:'🤖 ما هو AI؟ — برامج تتعلم من البيانات وتحسن أداءها. تُحاكي ذكاء الإنسان'},{t:'blue',x:'🧠 Machine Learning — AI يتعلم من أمثلة. أعطه 1000 صورة قطة يتعلم التعرف عليها'},{t:'teal',x:'💬 ChatGPT وGemini — AI يفهم اللغة الطبيعية ويُجيب ويكتب ويُبرمج'},{t:'orange',x:'🎨 AI التوليدي — Midjourney وDALL-E يرسمان من وصف نصي. موسيقى وفيديو قريباً'},{t:'green',x:'⚕️ AI في الطب — يشخص الأمراض من صور الأشعة بدقة تفوق الأطباء أحياناً!'}],
+    fact:'GPT-4 درس ما يعادل قراءة شخص واحد لـ 5 ملايين كتاب. لا إنسان يستطيع ذلك!',
+    words:[{en:'AI',ar:'ذكاء اصطناعي'},{en:'Machine Learning',ar:'تعلم الآلة'},{en:'Neural Network',ar:'شبكة عصبية'},{en:'Deep Learning',ar:'التعلم العميق'},{en:'ChatGPT',ar:'شات جي بي تي'},{en:'Generative',ar:'توليدي'},{en:'Training',ar:'التدريب'},{en:'Model',ar:'النموذج'}]},
+  ],
+
+  1: [ // Unit 2: Windows - add 15 more slides
+   {emoji:'🌙',head:'الوضع الداكن والمظاهر — تجميل Windows',
+    body:`<p>Windows 11 يدعم تخصيصاً عميقاً جداً. اجعله يناسب ذوقك تماماً:</p>`,
+    info:[{t:'purple',x:'🌙 Dark Mode — Settings ← Personalization ← Colors ← Dark. أريح للعيون ليلاً'},{t:'blue',x:'🌈 Accent Color — اختر لون تمييز لكل العناصر. Automatic يأخذه من خلفيتك!'},{t:'teal',x:'💎 Mica Effect — Windows 11 يُضيف شفافية جميلة للنوافذ. تبدو مثل الزجاج'},{t:'orange',x:'🖼️ Dynamic Wallpaper — خلفية تتغير حسب الوقت. صباح وعصر وليل. جميل!'},{t:'green',x:'🎨 Themes المتجر — Microsoft Store ← Themes. مئات المظاهر المجانية منها صور National Geographic'}],
+    fact:'Windows 11 جمعت أكثر من 1400 شكوى من المستخدمين على زر Start المنتصري بدل الركن!',
+    words:[{en:'Dark Mode',ar:'وضع داكن'},{en:'Light Mode',ar:'وضع فاتح'},{en:'Theme',ar:'سمة'},{en:'Accent',ar:'لون تمييز'},{en:'Transparency',ar:'شفافية'},{en:'Wallpaper',ar:'خلفية'},{en:'Customize',ar:'تخصيص'},{en:'Aesthetic',ar:'جمالي'}]},
+
+   {emoji:'📊',head:'Task Manager — مدير المهام بعمق',
+    body:`<p>Task Manager أداة أساسية لكل مستخدم Windows. Ctrl+Shift+Esc لفتحه:</p>`,
+    info:[{t:'blue',x:'📋 Processes — قائمة كل البرامج الجارية مع استهلاك CPU وRAM والشبكة والقرص'},{t:'teal',x:'📈 Performance — رسم بياني حي لأداء CPU وRAM والقرص والشبكة. روعة!'},{t:'orange',x:'🚀 Startup — برامج تبدأ مع Windows. عطّل ما لا تحتاجه. يُسرّع الإقلاع بشكل ملحوظ'},{t:'purple',x:'📦 App History — كم استهلك كل تطبيق من CPU والشبكة. مفيد لاكتشاف التطبيقات الجشعة'},{t:'green',x:'🔧 End Task — أغلق برنامج متجمد بالقوة. آخر حل قبل إعادة التشغيل'}],
+    fact:'سبب التجمد في Windows 90% منه: تعارض برامج • نفاد RAM • برامج معلقة في الخلفية.',
+    words:[{en:'Task Manager',ar:'مدير المهام'},{en:'Process',ar:'عملية'},{en:'CPU Usage',ar:'استخدام المعالج'},{en:'RAM Usage',ar:'استخدام الذاكرة'},{en:'Startup',ar:'بدء التشغيل'},{en:'End Task',ar:'إنهاء المهمة'},{en:'Performance',ar:'الأداء'},{en:'Background',ar:'الخلفية'}]},
+
+   {emoji:'💻',head:'Command Prompt وPowerShell — القوة الخفية',
+    body:`<p>سطر الأوامر Command Line يُتيح التحكم الكامل في Windows بطريقة النصوص:</p>`,
+    info:[{t:'blue',x:'⌨️ CMD Command Prompt — النافذة السوداء الكلاسيكية. ابحث عنها في Start'},{t:'teal',x:'💪 PowerShell — أقوى من CMD. يدعم أوامر Linux وإدارة النظام الاحترافية'},{t:'orange',x:'🐧 Windows Terminal — الأحدث. يجمع CMD وPowerShell وLinux في نفس التطبيق'},{t:'purple',x:'📋 أوامر أساسية — dir (عرض الملفات) • cd (تغيير المجلد) • mkdir (إنشاء مجلد) • del (حذف)'},{t:'green',x:'🚀 ping — اختبر الاتصال بموقع. ping google.com. الوقت بالميلي ثانية يُظهر سرعة اتصالك'}],
+    fact:'كل Windows Server في العالم تقريباً يُدار بالكامل عبر سطر الأوامر بدون واجهة رسومية!',
+    words:[{en:'Command Line',ar:'سطر الأوامر'},{en:'Terminal',ar:'الطرفية'},{en:'Command',ar:'أمر'},{en:'Directory',ar:'الدليل'},{en:'Ping',ar:'بينج'},{en:'Script',ar:'سكريبت'},{en:'Administrator',ar:'مدير'},{en:'Prompt',ar:'موجه الأوامر'}]},
+  ],
+
+  2: [ // Unit 3: Files - add 14 more slides
+   {emoji:'☁️',head:'التخزين السحابي — بياناتك في كل مكان',
+    body:`<p>السحابة Cloud Storage غيّرت طريقة حفظ البيانات للأبد:</p>`,
+    info:[{t:'blue',x:'☁️ OneDrive — مدمج في Windows. 5GB مجاناً. يزامن تلقائياً. اشتراك Microsoft 365 يُعطيك 1TB'},{t:'teal',x:'📦 Google Drive — 15GB مجاناً مقسمة على Gmail وDocs. رابط للمشاركة سهل جداً'},{t:'orange',x:'🍎 iCloud — لمستخدمي Apple فقط. 5GB مجاناً. يُزامن الصور والجهات والرسائل'},{t:'purple',x:'📦 Dropbox — أول خدمة سحابة شعبية. 2GB مجاناً. رائع لمشاركة الملفات مع الفريق'},{t:'green',x:'🔒 تشفير السحابة — معظم الخدمات تُشفّر بياناتك. لكن هم يملكون مفاتيح التشفير. انتبه!'}],
+    fact:'Google تُشغّل أكثر من مليون خادم في مراكز بيانات حول العالم لتخزين بيانات المستخدمين!',
+    words:[{en:'Cloud Storage',ar:'التخزين السحابي'},{en:'OneDrive',ar:'ون درايف'},{en:'Google Drive',ar:'جوجل درايف'},{en:'Sync',ar:'مزامنة'},{en:'Share Link',ar:'رابط مشاركة'},{en:'Collaboration',ar:'تعاون'},{en:'Version History',ar:'سجل الإصدارات'},{en:'Offline Access',ar:'وصول بدون إنترنت'}]},
+
+   {emoji:'🗜️',head:'ضغط الملفات — ZIP وما بعده',
+    body:`<p>الضغط Compression يُقلص حجم الملفات ليسهل نقلها ومشاركتها:</p>`,
+    info:[{t:'blue',x:'📦 ZIP — الأشيع في Windows. مدعوم مباشرة. كليك يمين ← Compress to ZIP'},{t:'teal',x:'📦 RAR — أقوى ضغطاً من ZIP. يحتاج WinRAR. يدعم التقسيم لأجزاء'},{t:'orange',x:'📦 7-Zip — مجاني ومفتوح المصدر. أقوى ضغطاً من RAR. مجاني تماماً'},{t:'purple',x:'🎵🎬 بدون ضغط — MP3/JPG/MP4 مضغوطة أصلاً. ضغطها مرة أخرى لن يُقلص حجمها'},{t:'green',x:'📂 فك الضغط — انقر مرتين على ZIP أو يمين ← Extract Here. سيُنشئ مجلداً بمحتوى الأرشيف'}],
+    fact:'خوارزمية ضغط LZMA في 7-Zip يمكنها ضغط نص إلى 10% من حجمه الأصلي!',
+    words:[{en:'Compression',ar:'الضغط'},{en:'Archive',ar:'أرشيف'},{en:'ZIP',ar:'زيب'},{en:'RAR',ar:'رار'},{en:'Extract',ar:'استخراج'},{en:'Algorithm',ar:'خوارزمية'},{en:'Ratio',ar:'نسبة الضغط'},{en:'Lossless',ar:'بدون فقدان'}]},
+  ],
+
+  3: [ // Unit 4: Internet - add 15 slides
+   {emoji:'🌍',head:'البنية التحتية للإنترنت',
+    body:`<p>الإنترنت يعتمد على بنية تحتية ضخمة غير مرئية:</p>`,
+    info:[{t:'blue',x:'🏢 Data Centers — مراكز بيانات ضخمة فيها ملايين الخوادم. Google وAmazon وMicrosoft تملكها'},{t:'teal',x:'🌊 كابلات بحرية — 400+ كابل تحت المحيطات. يمتد الأطول 20,000 كم تحت الماء!'},{t:'orange',x:'📡 الأقمار الصناعية — Starlink يُغطي المناطق النائية. 5000+ قمر حول الأرض الآن'},{t:'purple',x:'📶 برج الاتصالات — يُوزع الإشارة الخلوية 3G 4G 5G في منطقته'},{t:'green',x:'🔄 CDN — شبكات توزيع المحتوى. نسخ من المواقع الكبيرة قريبة منك لسرعة أكبر'}],
+    fact:'مركز بيانات Google يستهلك كهرباء تكفي مدينة بأكملها. يستخدمون 100% طاقة متجددة!',
+    words:[{en:'Data Center',ar:'مركز بيانات'},{en:'Server',ar:'خادم'},{en:'Submarine Cable',ar:'كابل بحري'},{en:'Satellite',ar:'قمر صناعي'},{en:'CDN',ar:'شبكة توزيع'},{en:'Infrastructure',ar:'البنية التحتية'},{en:'Fiber Optic',ar:'ألياف ضوئية'},{en:'5G',ar:'الجيل الخامس'}]},
+
+   {emoji:'🔐',head:'التشفير — الدرع الرقمي',
+    body:`<p>التشفير Encryption يحمي بياناتك حتى لو اعترضها أحد:</p>`,
+    info:[{t:'blue',x:'🔑 مفتاح التشفير Key — رقم سري يُشفّر ويفك تشفير البيانات. مثل رمز الخزنة'},{t:'teal',x:'🔒 HTTPS — يستخدم TLS لتشفير الاتصال. الـ S في HTTPS = Secure'},{t:'orange',x:'📧 تشفير البريد — ProtonMail يُشفّر من الطرفين. حتى ProtonMail لا يستطيع قراءة رسائلك'},{t:'purple',x:'💻 تشفير القرص — BitLocker يُشفّر قرصك كاملاً. حتى لو سُرق الحاسب البيانات آمنة'},{t:'green',x:'📱 Signal وWhatsApp — تشفير من طرف لطرف E2E. حتى الشركة لا تستطيع قراءة رسائلك'}],
+    fact:'الكسر بالقوة لمفتاح AES-256 بت يحتاج 3×10⁵⁶ سنة بأسرع حاسب حالي!',
+    words:[{en:'Encryption',ar:'تشفير'},{en:'Key',ar:'المفتاح'},{en:'TLS',ar:'تي إل إس'},{en:'End-to-End',ar:'من طرف لطرف'},{en:'Cipher',ar:'شيفرة'},{en:'Decrypt',ar:'فك التشفير'},{en:'Certificate',ar:'شهادة رقمية'},{en:'Hash',ar:'دالة تجزئة'}]},
+  ],
+
+  4: [ // Unit 5: Word - add 14 slides
+   {emoji:'📊',head:'الجداول في Word — تنظيم البيانات',
+    body:`<p>الجداول Tables تُنظّم البيانات بشكل واضح ومقارن:</p>`,
+    info:[{t:'blue',x:'➕ إدراج جدول — Insert ← Table ← حدد عدد الأعمدة والصفوف. سريع وسهل'},{t:'teal',x:'🎨 تصميم الجدول — حدد الجدول ← Table Design. اختر من قوالب جميلة جاهزة'},{t:'orange',x:'🔢 ترتيب الجدول — حدد عمود ← Table Layout ← Sort. يُرتب تلقائياً أبجدياً أو رقمياً'},{t:'purple',x:'➕ إضافة صف/عمود — انقر في الجدول يمين ← Insert ← Row/Column Above/Below'},{t:'green',x:'💻 جدول Excel في Word — يمكن تضمين جدول Excel كامل داخل Word. Insert ← Table ← Excel'}],
+    fact:'جداول Word تدعم الصيغ مثل Excel! اكتب =SUM(ABOVE) في خلية لجمع الأرقام فوقها!',
+    words:[{en:'Table',ar:'جدول'},{en:'Row',ar:'صف'},{en:'Column',ar:'عمود'},{en:'Cell',ar:'خلية'},{en:'Merge',ar:'دمج'},{en:'Split',ar:'تقسيم'},{en:'Border',ar:'الحدود'},{en:'Shading',ar:'التظليل'}]},
+  ],
+
+  5: [ // Unit 6: PowerPoint - add 14 slides
+   {emoji:'📋',head:'ملاحظات المتحدث — سرك الخاص',
+    body:`<p>Speaker Notes تُظهر لك ما تقوله أثناء العرض بينما الجمهور يرى الشريحة فقط:</p>`,
+    info:[{t:'red',x:'📝 إضافة ملاحظات — أسفل الشريحة في PowerShell. اكتب ما تريد قوله بالتفصيل'},{t:'orange',x:'👁️ Presenter View — عند عرض العرض يُظهر لك: الشريحة الحالية + التالية + ملاحظاتك + الوقت'},{t:'blue',x:'⏱️ مؤقت المتحدث — في Presenter View. يُعدّ الوقت الذي قضيته. راقبه دائماً!'},{t:'teal',x:'🖨️ طباعة الملاحظات — File ← Print ← Handouts with Notes. مذكرة للجمهور'},{t:'green',x:'📱 PowerPoint Presenter Coach — AI يُحلّل تقديمك ويُعطي ملاحظات. مجاناً في Office 365!'}],
+    fact:'أبرز متحدثي TED يكتبون ملاحظاتهم بالكامل ثم يحفظونها. الارتجال الجيد تحضير سيئ!',
+    words:[{en:'Speaker Notes',ar:'ملاحظات المتحدث'},{en:'Presenter View',ar:'عرض المتحدث'},{en:'Timer',ar:'المؤقت'},{en:'Handout',ar:'الملزمة'},{en:'Rehearse',ar:'تمرين'},{en:'Timing',ar:'التوقيت'},{en:'Slide Number',ar:'رقم الشريحة'},{en:'Laser Pointer',ar:'المؤشر الليزري'}]},
+  ],
+
+  6: [ // Unit 7: Keyboard - add 14 slides
+   {emoji:'🌐',head:'الكتابة بلغات متعددة',
+    body:`<p>Windows يدعم كتابة أي لغة في العالم بسهولة:</p>`,
+    info:[{t:'blue',x:'⌨️ إضافة لغة — Settings ← Time & Language ← Language. أضف العربية أو أي لغة'},{t:'teal',x:'🔄 التبديل بين اللغات — Win+Space للتبديل السريع. أو اضغط على مؤشر اللغة في شريط المهام'},{t:'orange',x:'📝 العربية في Windows — تكتب من اليمين للشمال. Word وWordPad يدعمانها بشكل ممتاز'},{t:'purple',x:'🔡 لوحة مفاتيح على الشاشة — Search ← On-Screen Keyboard. للكتابة باللمس أو لمن لديه إعاقة'},{t:'green',x:'🌍 Unicode — معيار عالمي لتشفير كل حروف اللغات. 149,000+ رمز من العربية للصينية للإيموجي'}],
+    fact:'الإيموجي 😊 هو أيضاً جزء من Unicode! أكثر من 3000 إيموجي معياري في Unicode 15!',
+    words:[{en:'Language',ar:'اللغة'},{en:'Input Method',ar:'طريقة الإدخال'},{en:'RTL',ar:'من اليمين للشمال'},{en:'Unicode',ar:'يونيكود'},{en:'Emoji',ar:'الرموز التعبيرية'},{en:'Keyboard Layout',ar:'تخطيط لوحة المفاتيح'},{en:'Switch',ar:'تبديل'},{en:'Multilingual',ar:'متعدد اللغات'}]},
+  ],
+
+  7: [ // Unit 8: Scratch - more slides
+   {emoji:'🎵',head:'الصوت في Scratch — أحيِ مشروعك',
+    body:`<p>الصوت يُضيف بُعداً جديداً لمشاريع Scratch. يجعلها أكثر حيوية وإثارة:</p>`,
+    info:[{t:'pink',x:'🎵 مكتبة الأصوات — Sounds ← Choose a Sound. عشرات الأصوات الجاهزة. حيوانات ومؤثرات وموسيقى'},{t:'purple',x:'🎙️ التسجيل الصوتي — Sounds ← Record. سجّل صوتك مباشرة من المتصفح. مثير!'},{t:'blue',x:'🔊 العب صوتاً — Sound ← Play Sound [اسم] until done. للانتظار حتى ينتهي الصوت'},{t:'teal',x:'🎹 العزف الموسيقي — في Scratch: Extensions ← Music. انقر نوتات لتركيب ألحان'},{t:'orange',x:'🔈 التحكم بالصوت — Sound ← Set Volume to [رقم]. إبدأ بـ 0 واجعله يزيد تدريجياً. تأثير رائع'}],
+    fact:'إضافة صوت لمشروع Scratch يزيد من احتمالية حبه من الزوار بنسبة 3 مرات!',
+    words:[{en:'Sound',ar:'صوت'},{en:'Record',ar:'تسجيل'},{en:'Volume',ar:'مستوى الصوت'},{en:'Music',ar:'موسيقى'},{en:'Effect',ar:'تأثير'},{en:'Pitch',ar:'نبرة الصوت'},{en:'Mute',ar:'كتم'},{en:'Audio',ar:'صوتي'}]},
+
+   {emoji:'🎨',head:'Costume Designer — رسم الشخصيات',
+    body:`<p>محرر الأزياء Costume Editor يُتيح لك رسم وتعديل شخصياتك بشكل احترافي:</p>`,
+    info:[{t:'pink',x:'✏️ أدوات الرسم — قلم للرسم الحر • مستطيل ودائرة وخط • Fill للتلوين • Text للنص'},{t:'purple',x:'🎨 Vector وBitmap — Vector يمكن تكبيره بلا ضبابية. Bitmap صورة نقطية. Vector أفضل للشخصيات'},{t:'blue',x:'🖼️ استيراد صورة — Upload a Costume. يمكن رفع صورة من جهازك لتصبح شخصيتك'},{t:'teal',x:'🔄 متعدد الأزياء — كل شخصية يمكنها أزياء متعددة. الانتقال بينها يصنع تأثير الرسوم المتحركة'},{t:'orange',x:'🤸 Animation — Looks ← Next Costume في حلقة. سرعة الحلقة تتحكم في سرعة الحركة'}],
+    fact:'شخصيات الرسوم المتحركة التقليدية تُرسم 24 إطار في الثانية. في Scratch كل إطار = زي مختلف!',
+    words:[{en:'Costume',ar:'الزي'},{en:'Editor',ar:'المحرر'},{en:'Vector',ar:'متجهي'},{en:'Bitmap',ar:'نقطي'},{en:'Animation',ar:'تحريك'},{en:'Frame',ar:'إطار'},{en:'Import',ar:'استيراد'},{en:'Draw',ar:'رسم'}]},
+  ],
+};
+
+// Merge extra slides into LESSONS
+Object.keys(EXTRA_SLIDES).forEach(unitIdx => {
+  EXTRA_SLIDES[unitIdx].forEach(slide => {
+    LESSONS[parseInt(unitIdx)].slides.push(slide);
+  });
+});
+
+const EXTRA_SLIDES_2 = {
+  0: [
+   {emoji:'🖨️',head:'الطباعة ثلاثية الأبعاد — المستقبل في يدك',
+    body:`<p>الطابعة ثلاثية الأبعاد 3D Printer تحوّل التصميمات الرقمية لأشياء حقيقية ملموسة!</p>`,
+    info:[{t:'blue',x:'🔩 كيف تعمل؟ — تطبع طبقة فوق طبقة من البلاستيك أو الراتنج أو المعدن. مثل بناء بالطوب'},{t:'teal',x:'🏥 في الطب — تصنع أطراف اصطناعية مخصصة، وعظام، وحتى أنسجة بيولوجية!'},{t:'orange',x:'✈️ في الصناعة — NASA وBoeing يطبعان أجزاء طائرات. أخف وأقوى من المصنوعة تقليدياً'},{t:'purple',x:'🏠 في المنازل — طابعات بـ 300-500 دولار تطبع نماذج وألعاب وقطع غيار وديكور'},{t:'green',x:'🍕 طباعة الطعام — نعم! شوكولاتة وحلويات مشكّلة بدقة مذهلة. المستقبل هنا!'}],
+    fact:'عام 2019 بُنيت أول منازل بطابعات 3D في 24 ساعة بتكلفة 4000 دولار فقط!',
+    words:[{en:'3D Printer',ar:'طابعة ثلاثية الأبعاد'},{en:'Layer',ar:'طبقة'},{en:'Filament',ar:'خيط البلاستيك'},{en:'Model',ar:'نموذج'},{en:'CAD',ar:'التصميم بالحاسب'},{en:'Prototype',ar:'نموذج أولي'},{en:'Material',ar:'المادة'},{en:'Resolution',ar:'الدقة'}]},
+
+   {emoji:'🥽',head:'الواقع الافتراضي VR والمعزز AR',
+    body:`<p>التقنيات الجديدة تطمس الحدود بين العالم الحقيقي والرقمي:</p>`,
+    info:[{t:'purple',x:'🥽 VR الواقع الافتراضي — تضع نظارات وتنتقل لعالم آخر. Meta Quest أشهرها'},{t:'blue',x:'📱 AR الواقع المعزز — يُضيف عناصر رقمية فوق الواقع الحقيقي. مثل فلاتر Snapchat وSnake في شوارع Pokémon GO'},{t:'teal',x:'🎓 في التعليم — جولات افتراضية لمعالم العالم. دروس تشريح ثلاثية الأبعاد'},{t:'orange',x:'🏥 في الطب — تدريب الجراحين على عمليات معقدة. علاج الرهاب والصدمات النفسية'},{t:'green',x:'🏗️ في البناء — المهندسون يرون المبنى ثلاثي الأبعاد قبل بنائه'}],
+    fact:'Apple Vision Pro تكلف 3500 دولار! لكن التقنية ستصبح رخيصة كالهاتف الذكي قريباً.',
+    words:[{en:'VR',ar:'واقع افتراضي'},{en:'AR',ar:'واقع معزز'},{en:'MR',ar:'واقع مختلط'},{en:'Headset',ar:'نظارة VR'},{en:'Immersive',ar:'غامر'},{en:'Metaverse',ar:'الميتافيرس'},{en:'Haptic',ar:'لمسي'},{en:'Avatar',ar:'الصورة الرمزية'}]},
+
+   {emoji:'🚀',head:'الحوسبة الكمومية — ثورة جديدة',
+    body:`<p>الحاسوب الكمومي يستخدم قوانين الفيزياء الكمية لحل مسائل مستحيلة على الحاسبات التقليدية:</p>`,
+    info:[{t:'purple',x:'⚛️ Qubit بدل Bit — بدل 0 أو 1 فقط، Qubit يمكنه 0 و1 وكل شيء بينهما في نفس الوقت'},{t:'blue',x:'🔢 القوة الحقيقية — ما يحتاجه حاسب عادي مليون سنة قد يحله كمومي في دقائق!'},{t:'teal',x:'❄️ يحتاج برودة قاسية — -273°C أبرد من الفضاء الخارجي! لذلك ضخم ومكلف الآن'},{t:'orange',x:'💊 مستقبل الأدوية — سيُصمّم أدوية جزيئية دقيقة لأمراض مستعصية كالسرطان والزهايمر'},{t:'green',x:'🔐 الأمان الكمومي — سيكسر التشفير الحالي! لذلك العلماء يطورون تشفيراً كمومياً لا يُكسر'}],
+    fact:'IBM لديها حاسب كمومي بـ 1000 Qubit. Google حققت "التفوق الكمومي" عام 2019!',
+    words:[{en:'Quantum',ar:'كمومي'},{en:'Qubit',ar:'كيوبت'},{en:'Superposition',ar:'التراكب'},{en:'Entanglement',ar:'التشابك'},{en:'Decoherence',ar:'فقدان الترابط'},{en:'Quantum Gate',ar:'بوابة كمومية'},{en:'Error Rate',ar:'معدل الخطأ'},{en:'Supremacy',ar:'التفوق الكمومي'}]},
+  ],
+  1:[
+   {emoji:'📱',head:'Windows على الأجهزة اللمس',
+    body:`<p>Windows 11 مُحسَّن للشاشات اللمس. أفضل من أي وقت مضى مع الأجهزة اللوحية:</p>`,
+    info:[{t:'blue',x:'👆 Tablet Mode — يُكبّر العناصر ويُسهّل اللمس. يفعّل تلقائياً عند فصل الكيبورد'},{t:'teal',x:'✍️ Windows Ink — الكتابة بالقلم الرقمي. Sticky Notes ملاحظات بخط يدك'},{t:'orange',x:'👋 Touch Gestures — 3 أصابع للعودة • 4 للـ Task View • سحب من الأسفل = قائمة ابدأ'},{t:'purple',x:'⌨️ Keyboard اللمس — كيبورد على الشاشة. يدعم التمرير للكتابة الأسرع'},{t:'green',x:'🖊️ Microsoft OneNote — مذكرة رقمية مثالية مع القلم واللمس. مجانية!'}],
+    fact:'Surface Pro من Microsoft أكثر مبيعاً من iPad في بيئات الأعمال الاحترافية!',
+    words:[{en:'Touch Screen',ar:'شاشة لمس'},{en:'Stylus',ar:'قلم رقمي'},{en:'Gesture',ar:'إيماءة'},{en:'Tablet Mode',ar:'وضع اللوحي'},{en:'Pinch',ar:'قرصة'},{en:'Swipe',ar:'سحب'},{en:'Tap',ar:'نقر'},{en:'Digital Ink',ar:'حبر رقمي'}]},
+  ],
+  2:[
+   {emoji:'🔄',head:'نظام الملفات NTFS — الخفايا',
+    body:`<p>NTFS نظام ملفات Windows مليء بميزات قوية لا يعرفها معظم المستخدمين:</p>`,
+    info:[{t:'blue',x:'📜 سجل المعاملات — NTFS يسجّل كل تغيير. إذا قُطع الكهرباء أثناء الكتابة يمكن الاسترداد'},{t:'teal',x:'🗜️ الضغط المدمج — يمكن ضغط الملفات والمجلدات مباشرة. Properties ← Advanced ← Compress'},{t:'orange',x:'🔐 تشفير EFS — Encrypting File System. تشفير ملفات بمفتاحك الشخصي. Advanced Properties'},{t:'purple',x:'🔗 الروابط الصلبة Hard Links — ملف واحد بمسارين! يوفر مساحة دون نسخ'},{t:'green',x:'📊 Quotas — للشركات. يُحدد حجم أقصى لكل مستخدم. لا يمكن أن يملأ المسؤول القرص وحده!'}],
+    fact:'NTFS ظهر عام 1993 مع Windows NT ولا يزال نظام الملفات الرئيسي في Windows 11!',
+    words:[{en:'NTFS',ar:'نظام ملفات إن تي إف إس'},{en:'Journal',ar:'السجل'},{en:'Hard Link',ar:'رابط صلب'},{en:'Symbolic Link',ar:'رابط رمزي'},{en:'Quota',ar:'الحصة'},{en:'Permission',ar:'إذن'},{en:'ACL',ar:'قائمة التحكم'},{en:'Attribute',ar:'الصفة'}]},
+  ],
+  3:[
+   {emoji:'🌐',head:'بروتوكولات الإنترنت — اللغة المشتركة',
+    body:`<p>الإنترنت يعمل بفضل بروتوكولات — قواعد مشتركة يتفق عليها كل جهاز في العالم:</p>`,
+    info:[{t:'blue',x:'🔵 TCP/IP — الأساس. TCP يضمن وصول البيانات كاملة. IP يُحدد الوجهة'},{t:'teal',x:'🌐 HTTP/HTTPS — بروتوكول نقل المواقع. S = مشفر. الصفحة التي تراها الآن استخدمته'},{t:'orange',x:'📧 SMTP/IMAP/POP3 — بروتوكولات البريد الإلكتروني. SMTP للإرسال • IMAP للاستلام المزامن'},{t:'purple',x:'📁 FTP — نقل الملفات للخوادم. يستخدمه المطورون لرفع مواقعهم'},{t:'green',x:'🔒 SSH — اتصال مشفر بالخوادم. المطورون يديرون الخوادم عن بعد بأمان تام'}],
+    fact:'IPv4 ينفذ! 4.3 مليار عنوان كانت تبدو كافية عام 1983. الآن ننتقل لـ IPv6 بـ 340 تريليون تريليون عنوان!',
+    words:[{en:'Protocol',ar:'بروتوكول'},{en:'TCP',ar:'بروتوكول التحكم'},{en:'HTTP',ar:'بروتوكول الويب'},{en:'FTP',ar:'نقل الملفات'},{en:'SSH',ar:'قشرة آمنة'},{en:'SMTP',ar:'بروتوكول البريد'},{en:'IPv4',ar:'عنوان IP الرابع'},{en:'IPv6',ar:'عنوان IP السادس'}]},
+  ],
+  4:[
+   {emoji:'🔗',head:'الروابط والمراجع في Word',
+    body:`<p>الوثائق الاحترافية تحتوي روابطاً ومراجع منظمة بدقة:</p>`,
+    info:[{t:'blue',x:'🔗 Hyperlink Ctrl+K — أضف رابطاً لموقع أو ملف أو حتى مكان في نفس المستند'},{t:'teal',x:'📚 المراجع References — نظام احترافي للاقتباس. MLA وAPA وChicago أشهر الأنظمة'},{t:'orange',x:'🔢 التسميات التوضيحية Captions — أرقام للصور والجداول تلقائياً. يُحدَّث عند الإضافة'},{t:'purple',x:'📑 Cross References — "انظر الشكل 3" يُشير للشكل تلقائياً. إذا تغير رقمه يتحدث الرابط'},{t:'green',x:'🗒️ الهوامش Footnotes — Insert ← Footnote. للملاحظات الأسفل التي لا تقاطع النص الرئيسي'}],
+    fact:'الأكاديميون يقضون 20% من وقت كتابة البحوث في تنسيق المراجع! Tools مثل Mendeley تُتيحه تلقائياً.',
+    words:[{en:'Hyperlink',ar:'رابط تشعبي'},{en:'Reference',ar:'مرجع'},{en:'Citation',ar:'اقتباس'},{en:'Footnote',ar:'هامش'},{en:'Caption',ar:'تسمية'},{en:'Bibliography',ar:'قائمة المراجع'},{en:'Cross Reference',ar:'إشارة مرجعية'},{en:'Index',ar:'الفهرس'}]},
+  ],
+  5:[
+   {emoji:'📊',head:'SmartArt والرسوم الاحترافية',
+    body:`<p>SmartArt يُحوّل قوائم النصوص لرسوم بيانية احترافية بنقرة واحدة:</p>`,
+    info:[{t:'red',x:'🔄 العمليات Process — خطوات متسلسلة. للشرح خطوة بخطوة'},{t:'orange',x:'📊 الهرم Pyramid — للعلاقات الهرمية. الأساس والذروة'},{t:'blue',x:'🔵 دورة Cycle — للعمليات الدائرية. مثل دورة الماء أو دورة الإنتاج'},{t:'teal',x:'🕸️ علاقة Relationship — لإظهار كيف ترتبط الأفكار ببعضها'},{t:'purple',x:'📋 قائمة List — لتنظيم عناصر مع رموز أو أرقام بشكل بصري جميل'}],
+    fact:'SmartArt يمكنه تحويل قائمة نقطية عادية لرسم احترافي في ثانية واحدة!',
+    words:[{en:'SmartArt',ar:'الفن الذكي'},{en:'Diagram',ar:'مخطط'},{en:'Hierarchy',ar:'هرمية'},{en:'Process',ar:'عملية'},{en:'Cycle',ar:'دورة'},{en:'Relationship',ar:'علاقة'},{en:'Matrix',ar:'مصفوفة'},{en:'Pyramid',ar:'هرم'}]},
+  ],
+  6:[
+   {emoji:'🎯',head:'لعبة تعلم الكتابة — خطة ٣٠ يوم',
+    body:`<p>٣٠ يوماً من التدريب المنظم = تضاعف سرعتك! إليك الخطة المجربة:</p>`,
+    info:[{t:'blue',x:'الأيام 1-5: الصف الأوسط فقط ASDFGHJKL • 15 دقيقة يومياً • لا تنظر للوحة أبداً'},{t:'teal',x:'الأيام 6-12: أضف الصف العلوي QWERTYUIOP • ابدأ بالكلمات القصيرة cat, dog, run'},{t:'orange',x:'الأيام 13-20: أضف الصف الأسفل ZXCVBNM • الآن 26 حرفاً! اكتب جمل كاملة'},{t:'purple',x:'الأيام 21-25: الأرقام والرموز • حروف كبيرة مع Shift • علامات الترقيم'},{t:'green',x:'الأيام 26-30: نصوص كاملة • سباقات على TypeRacer.com • قس سرعتك وسجّلها'}],
+    steps:[{n:'هدف الشهر',text:'من 15 كلمة/دقيقة لـ 40 كلمة/دقيقة. هذا هدف واقعي وقابل للتحقيق بالتزام ١٥ دقيقة يومياً'}],
+    fact:'الطريقة الوحيدة للكتابة السريعة: لا تنظر للوحة وعيناك على الشاشة. كل يوم تتحسن 1 كلمة/دقيقة!',
+    words:[{en:'Training Plan',ar:'خطة تدريب'},{en:'Progress',ar:'تقدم'},{en:'Milestone',ar:'معلم'},{en:'Consistency',ar:'الاتساق'},{en:'Daily Practice',ar:'ممارسة يومية'},{en:'Measurement',ar:'قياس'},{en:'Goal',ar:'هدف'},{en:'Achievement',ar:'إنجاز'}]},
+  ],
+  7:[
+   {emoji:'🌐',head:'نشر مشروع Scratch — شارك العالم',
+    body:`<p>مشروعك الرائع يستحق أن يراه العالم! كيف تنشره وتشاركه:</p>`,
+    info:[{t:'pink',x:'📤 Share للنشر — في Scratch اضغط Share وأدخل وصف رائع لمشروعك'},{t:'purple',x:'🏷️ Tags الوسوم — أضف كلمات تصف مشروعك: "لعبة"، "قصة"، "موسيقى". يُساعد الناس في إيجاده'},{t:'blue',x:'💬 التعليقات — ستتلقى تعليقات من مستخدمين حول العالم. اقرأها وتعلم منها'},{t:'teal',x:'🎮 Remixing — الآخرون يمكنهم أخذ مشروعك وتحسينه. هذه ثقافة البرمجة مفتوحة المصدر'},{t:'orange',x:'⭐ Featured Projects — أفضل المشاريع تُختار من Scratch. هل مشروعك القادم؟'}],
+    fact:'أكثر من 80 مليون مشروع منشور على Scratch. مشروعك سيكون جزءاً من أكبر مجتمع برمجي للأطفال!',
+    words:[{en:'Publish',ar:'نشر'},{en:'Share',ar:'مشاركة'},{en:'Community',ar:'المجتمع'},{en:'Remix',ar:'إعادة مزج'},{en:'Comment',ar:'تعليق'},{en:'Tag',ar:'وسم'},{en:'Featured',ar:'مميز'},{en:'Open Source',ar:'مفتوح المصدر'}]},
+  ],
+};
+
+Object.keys(EXTRA_SLIDES_2).forEach(unitIdx => {
+  EXTRA_SLIDES_2[unitIdx].forEach(slide => {
+    LESSONS[parseInt(unitIdx)].slides.push(slide);
+  });
+});
+
+const EXTRA_SLIDES_3 = {
+  0:[
+   {emoji:'🧮',head:'الحساب الثنائي — تعلم لغة الحاسب',
+    body:`<p>دعنا نتعلم الحساب الثنائي خطوة بخطوة — ستُفاجأ كم هو ممتع!</p>`,
+    info:[{t:'blue',x:'🔢 العد الثنائي: 0,1,10,11,100,101,110,111,1000... بدل 0,1,2,3,4,5,6,7,8'},{t:'teal',x:'📊 جدول التحويل: الرقم 5 = 101 ثنائي • الرقم 10 = 1010 • الرقم 15 = 1111'},{t:'orange',x:'➕ الجمع الثنائي: 0+0=0 • 0+1=1 • 1+1=10 (نقل!) • 1+1+1=11 (نقل!)'},{t:'purple',x:'💡 لماذا نتعلمه؟ — لأن كل شيء في الحاسب يعمل هكذا. أرقام وحروف وصور وأصوات'},{t:'green',x:'🎮 تحدٍ — ما هو الرقم 42 ثنائياً؟ الجواب: 101010. جميل أليس كذلك؟'}],
+    fact:'IP العنوان مثل 192.168.1.1 = أربعة أرقام كل منها من 0-255 = ثمانية بتات = 32 بتاً إجمالاً!',
+    words:[{en:'Binary',ar:'ثنائي'},{en:'Decimal',ar:'عشري'},{en:'Convert',ar:'تحويل'},{en:'Bit',ar:'بت'},{en:'Carry',ar:'الحمل'},{en:'Hexadecimal',ar:'سداسي عشري'},{en:'Octal',ar:'ثماني'},{en:'Base',ar:'الأساس'}]},
+   {emoji:'🏗️',head:'كيف تُصنع الرقائق الإلكترونية؟',
+    body:`<p>رقائق السيليكون Chips هي قلب الحاسب. صنعها من أعجب ما أبدعه الإنسان:</p>`,
+    info:[{t:'blue',x:'🏖️ السيليكون — يُستخرج من الرمل! نعم، رمل الشاطئ العادي مصدر كل التقنية'},{t:'teal',x:'🔬 الحجم المذهل — ترانزستور حديث 2 نانومتر = 50,000 ضعف أصغر من شعرة إنسان!'},{t:'orange',x:'🏭 المصانع — تُبنى في غرف نظيفة أنظف من غرف العمليات 1000 مرة. ذرة غبار واحدة تُتلف الرقاقة'},{t:'purple',x:'💰 التكلفة — مصنع رقائق جديد (TSMC) يكلف 20 مليار دولار!'},{t:'green',x:'⏱️ المدة — من الرمل لرقاقة جاهزة: 3 أشهر في 700 خطوة إنتاجية دقيقة'}],
+    fact:'TSMC التايوانية تصنع 90% من أقوى رقائق العالم. بلد بحجم الإمارات يتحكم بالتقنية العالمية!',
+    words:[{en:'Chip',ar:'الرقاقة'},{en:'Silicon',ar:'سيليكون'},{en:'Transistor',ar:'ترانزستور'},{en:'Nanometer',ar:'نانومتر'},{en:'Wafer',ar:'قرص السيليكون'},{en:'Fabrication',ar:'التصنيع'},{en:'Clean Room',ar:'غرفة نظيفة'},{en:'Lithography',ar:'الطباعة الضوئية'}]},
+   {emoji:'⌚',head:'الأجهزة القابلة للارتداء — التقنية على جسدك',
+    body:`<p>Wearables أجهزة ذكية ترتديها — الحاسب يصبح جزءاً منك:</p>`,
+    info:[{t:'blue',x:'⌚ الساعة الذكية — Apple Watch وGalaxy Watch. يقيس نبضك وأوكسجينك وخطواتك'},{t:'teal',x:'👓 النظارات الذكية — Google Glass فشلت 2013. Meta Ray-Ban 2023 أنجح. تصوّر بنقرة'},{t:'orange',x:'💍 الخاتم الذكي — Oura Ring يقيس جودة نومك وإجهادك. 24/7 على إصبعك'},{t:'purple',x:'🩺 الطبية — أجهزة تقيس السكر والضغط والأكسجين بدون إبر. مستقبل الطب الوقائي'},{t:'green',x:'🧠 BCI الدماغية — Neuralink أول رقاقة دماغية بشرية 2024. تحكم بالحاسب بالتفكير فقط!'}],
+    fact:'Apple Watch أنقذ حياة أكثر من 10,000 شخص بكشف اضطرابات القلب الصامتة!',
+    words:[{en:'Wearable',ar:'قابل للارتداء'},{en:'Smartwatch',ar:'ساعة ذكية'},{en:'Fitness Tracker',ar:'متتبع اللياقة'},{en:'BCI',ar:'واجهة دماغ-حاسب'},{en:'Biometric',ar:'بيومتري'},{en:'Health Monitor',ar:'مراقب صحي'},{en:'Sensor',ar:'مستشعر'},{en:'Implant',ar:'زرع'}]},
+  ],
+  1:[
+   {emoji:'🔐',head:'BitLocker — تشفير القرص الكامل',
+    body:`<p>BitLocker يُشفّر قرصك الصلب بالكامل. حتى لو سُرق الحاسب البيانات لا تُقرأ:</p>`,
+    info:[{t:'blue',x:'🔑 كيف يعمل؟ — يُشفّر كل بايت على القرص. يحتاج كلمة مرور أو TPM chip لفك التشفير'},{t:'teal',x:'🔒 TPM Chip — شريحة أمان مدمجة في اللوحة الأم. تحفظ مفتاح التشفير بشكل آمن'},{t:'orange',x:'💾 Recovery Key — مفتاح الاسترداد 48 رقماً. احفظه خارج الجهاز! بدونه بياناتك ضائعة للأبد'},{t:'purple',x:'⚡ الأداء — تشفير SSD حديث: لا تأثير ملحوظ على السرعة. AES-256 يعمل بسرعة الأجهزة'},{t:'green',x:'🏢 للشركات — BitLocker ضروري للأجهزة التي تحمل بيانات حساسة للموظفين'}],
+    fact:'بيانات أجهزة الحكومة الأمريكية يجب تشفيرها بـ BitLocker أو مكافئ. قانون إلزامي منذ 2010!',
+    words:[{en:'BitLocker',ar:'بت لوكر'},{en:'Encryption',ar:'تشفير'},{en:'TPM',ar:'وحدة النظام الموثوقة'},{en:'Recovery Key',ar:'مفتاح الاسترداد'},{en:'AES',ar:'معيار التشفير'},{en:'Full Disk',ar:'القرص الكامل'},{en:'Pre-boot',ar:'قبل الإقلاع'},{en:'PIN',ar:'رمز سري'}]},
+   {emoji:'🕹️',head:'Xbox Game Pass — ألعاب Windows',
+    body:`<p>Windows مكتبة الألعاب الأضخم في العالم. إليك كيف تستفيد منها:</p>`,
+    info:[{t:'blue',x:'🎮 Xbox Game Pass — اشتراك شهري يُتيح +400 لعبة. مثل Netflix للألعاب'},{t:'teal',x:'🏪 Microsoft Store — متجر ألعاب وتطبيقات مدمج. بعض الألعاب الحصرية رائعة'},{t:'orange',x:'🎮 Steam — أكبر منصة ألعاب PC. 50,000+ لعبة. تخفيضات موسمية هائلة'},{t:'purple',x:'🔧 DirectX — تقنية Microsoft لتسريع الألعاب. DirectX 12 Ultimate أحدثها'},{t:'green',x:'📺 Xbox App — العب ألعاب Xbox على PC وبث الألعاب من جهازك لأجهزة أخرى في المنزل'}],
+    fact:'Steam تبيع أكثر من 10 ملايين لعبة يومياً. التخفيض الصيفي يُنفق عليه الملايين حول العالم!',
+    words:[{en:'Gaming',ar:'ألعاب'},{en:'Game Pass',ar:'باس الألعاب'},{en:'Steam',ar:'ستيم'},{en:'DirectX',ar:'دايركت إكس'},{en:'FPS',ar:'إطار في الثانية'},{en:'Resolution',ar:'الدقة'},{en:'Controller',ar:'وحدة التحكم'},{en:'Multiplayer',ar:'متعدد اللاعبين'}]},
+  ],
+  2:[
+   {emoji:'🔍',head:'بحث متقدم في الملفات',
+    body:`<p>البحث في Windows أقوى مما تظن. هذه الأساليب المتقدمة توفر وقتك:</p>`,
+    info:[{t:'blue',x:'🔤 بحث بالامتداد — *.pdf يجد كل ملفات PDF • *.jpg كل الصور • *.docx كل مستندات Word'},{t:'teal',x:'📅 بحث بالتاريخ — datemodified:>2025-01-01 للملفات المعدّلة بعد هذا التاريخ'},{t:'orange',x:'📏 بحث بالحجم — size:>10MB للملفات الأكبر من 10 ميجا. لإيجاد ما يأكل المساحة'},{t:'purple',x:'📝 بحث في المحتوى — يبحث داخل محتوى الملفات النصية. بطيء لكن مفيد'},{t:'green',x:'🔗 AND OR NOT — "تقرير AND 2025" • "صيف OR ربيع" • "مشروع NOT قديم"'}],
+    fact:'Windows يُفهرِس ملفاتك في الخلفية. البحث في 100,000 ملف يستغرق أقل من ثانية!',
+    words:[{en:'Search',ar:'بحث'},{en:'Filter',ar:'تصفية'},{en:'Wildcard',ar:'بطاقة برية'},{en:'Index',ar:'الفهرس'},{en:'Content Search',ar:'بحث في المحتوى'},{en:'Operator',ar:'المعامل'},{en:'Query',ar:'الاستعلام'},{en:'Result',ar:'النتيجة'}]},
+   {emoji:'🗑️',head:'سلة المهملات — ما تعرفه وما لا تعرفه',
+    body:`<p>سلة المهملات أعمق مما تبدو. إليك كل ما تحتاج معرفته:</p>`,
+    info:[{t:'blue',x:'📁 مخزن حقيقي — الملفات المحذوفة لا تُمسح فوراً. تُنقل لمجلد مخفي خاص'},{t:'teal',x:'♻️ الاسترداد — فتح السلة ← انقر بالزر الأيمن ← Restore. يعود للمكان الأصلي!'},{t:'orange',x:'📏 الحجم الافتراضي — 10% من مساحة القرص. يمكن تغييره. يمين على السلة ← Properties'},{t:'purple',x:'⚡ Shift+Delete — يحذف نهائياً بدون السلة. لا استعادة عادية. استخدم بحذر'},{t:'green',x:'🔍 استرداد بعد الإفراغ — برامج مثل Recuva تستطيع أحياناً استرداد ملفات بعد الإفراغ!'}],
+    fact:'عند "حذف" ملف ما يُمسح هو — فقط العلامة التي تقول "هذا المكان مشغول" تُزال. البيانات لا تزال هناك!',
+    words:[{en:'Recycle Bin',ar:'سلة المهملات'},{en:'Delete',ar:'حذف'},{en:'Restore',ar:'استعادة'},{en:'Permanent',ar:'دائم'},{en:'Recovery',ar:'الاسترداد'},{en:'Free Space',ar:'مساحة حرة'},{en:'Overwrite',ar:'كتابة فوق'},{en:'Forensics',ar:'الطب الشرعي'}]},
+  ],
+  3:[
+   {emoji:'📲',head:'تطبيقات الجوال الأساسية',
+    body:`<p>أفضل التطبيقات المجانية التي تحتاجها على هاتفك:</p>`,
+    info:[{t:'blue',x:'🔍 البحث — Google Search وChrome المتصفح. الأسرع والأذكى'},{t:'teal',x:'📚 التعلم — Khan Academy مجانية • Duolingo للغات • YouTube للشروحات'},{t:'orange',x:'🎨 الإبداع — Canva للتصميم • CapCut للمونتاج • GarageBand للموسيقى (iOS)'},{t:'purple',x:'💼 الإنتاجية — Microsoft Office مجاني للطلاب • Google Docs مجاني للجميع'},{t:'green',x:'🔒 الأمان — Bitwarden لكلمات المرور • Signal للمحادثات الخاصة • 1.1.1.1 DNS آمن'}],
+    fact:'Google Play تحتوي 3.5 مليون تطبيق. App Store 1.6 مليون. 90% منها لن تحتاجها أبداً!',
+    words:[{en:'App',ar:'تطبيق'},{en:'Download',ar:'تنزيل'},{en:'Install',ar:'تثبيت'},{en:'Update',ar:'تحديث'},{en:'Permission',ar:'إذن'},{en:'Free',ar:'مجاني'},{en:'Premium',ar:'مدفوع'},{en:'In-App Purchase',ar:'شراء داخل التطبيق'}]},
+   {emoji:'🌍',head:'الإنترنت والمجتمع — المسؤولية الرقمية',
+    body:`<p>الإنترنت يُعطيك قوة — وكل قوة معها مسؤولية:</p>`,
+    info:[{t:'blue',x:'✅ Fact Checking — تحقق من الأخبار قبل مشاركتها. snopes.com وFactcheck.org للتحقق'},{t:'teal',x:'♻️ البصمة الكربونية — كل بريد إلكتروني يُنتج 4 جرام CO2. الإنترنت يستهلك 10% من كهرباء العالم'},{t:'orange',x:'⚖️ حقوق الملكية — الصور والموسيقى والنصوص محمية. خذ إذن أو استخدم Creative Commons'},{t:'purple',x:'🌐 الفجوة الرقمية — 40% من العالم بدون إنترنت موثوق. تقنية لم تصل للجميع بعد'},{t:'green',x:'🤝 المواطنة الرقمية — تصرّف في الإنترنت كما تتصرف في الحياة الحقيقية. باحترام وأمانة'}],
+    fact:'لو الإنترنت دولة لكانت رابع أكبر مستهلك للكهرباء في العالم بعد الصين وأمريكا والهند!',
+    words:[{en:'Digital Citizenship',ar:'المواطنة الرقمية'},{en:'Misinformation',ar:'معلومات مضللة'},{en:'Copyright',ar:'حقوق النشر'},{en:'Carbon Footprint',ar:'البصمة الكربونية'},{en:'Digital Divide',ar:'الفجوة الرقمية'},{en:'Responsibility',ar:'المسؤولية'},{en:'Ethics',ar:'الأخلاق'},{en:'Accessibility',ar:'إمكانية الوصول'}]},
+  ],
+  4:[
+   {emoji:'📧',head:'رسائل Word الجماعية — Mail Merge',
+    body:`<p>Mail Merge يُرسل رسائل مخصصة لمئات الأشخاص تلقائياً:</p>`,
+    info:[{t:'blue',x:'📋 كيف يعمل؟ — رسالة واحدة + قائمة أسماء = رسائل مخصصة لكل شخص'},{t:'teal',x:'📊 مصدر البيانات — Excel أو CSV. الأعمدة: الاسم، الجنس، المدينة، الرقم...'},{t:'orange',x:'📝 الرسالة — أضف حقولاً مثل «الاسم» في النص. Word يستبدلها بالبيانات الفعلية'},{t:'purple',x:'👁️ معاينة — Preview Results لرؤية كيف تبدو كل رسالة قبل الطباعة أو الإرسال'},{t:'green',x:'📤 الإخراج — طباعة • أو إنشاء مستندات منفصلة • أو إرسال بريد إلكتروني تلقائياً'}],
+    fact:'شركات التسويق تُرسل ملايين رسائل مخصصة شهرياً بـ Mail Merge. "عزيزي أحمد" بدل "عزيز العميل"!',
+    words:[{en:'Mail Merge',ar:'دمج البريد'},{en:'Data Source',ar:'مصدر البيانات'},{en:'Field',ar:'حقل'},{en:'Recipient',ar:'المستقبل'},{en:'Personalize',ar:'تخصيص'},{en:'Template',ar:'القالب'},{en:'Preview',ar:'معاينة'},{en:'Batch',ar:'دفعة'}]},
+  ],
+  5:[
+   {emoji:'🎯',head:'تصميم الشرائح الرياضية والعلمية',
+    body:`<p>المعادلات والبيانات العلمية تحتاج معالجة خاصة في PowerPoint:</p>`,
+    info:[{t:'red',x:'🔢 معادلات Equations — Insert ← Equation. محرر معادلات كامل. E=mc² وكل المعادلات'},{t:'orange',x:'📊 الرسوم البيانية — Insert ← Chart. مرتبط بـ Excel. 20+ نوع من bar لـ scatter لـ pie'},{t:'blue',x:'🧪 رسوم كيميائية — برامج مثل ChemDraw تُصدّر صوراً للمعادلات الكيميائية'},{t:'teal',x:'🗺️ الخرائط — Bing Maps مدمج في PowerPoint. أضف خريطة تفاعلية بنقرة'},{t:'green',x:'📐 الأشكال الهندسية — Shapes ← الأشكال الكاملة. مع خط SmartArt للمخططات الدقيقة'}],
+    fact:'PowerPoint يدعم معادلات LaTeX منذ 2022. الرياضيون والمهندسون سعداء جداً بهذه الميزة!',
+    words:[{en:'Equation',ar:'معادلة'},{en:'Formula',ar:'صيغة'},{en:'Chart',ar:'رسم بياني'},{en:'Graph',ar:'مخطط'},{en:'Data',ar:'بيانات'},{en:'Scientific',ar:'علمي'},{en:'LaTeX',ar:'لاتيك'},{en:'Symbol',ar:'رمز'}]},
+   {emoji:'🎬',head:'تصدير العرض بأشكال مختلفة',
+    body:`<p>عرضك الرائع يمكن تحويله لأشكال متعددة حسب الحاجة:</p>`,
+    info:[{t:'red',x:'📹 فيديو MP4 — File ← Export ← Create a Video. اختر الجودة والتوقيت لكل شريحة'},{t:'orange',x:'🖼️ صور — File ← Export ← Change File Type ← PNG. كل شريحة تُحفظ صورة منفصلة'},{t:'blue',x:'📄 PDF — File ← Export ← Create PDF. جميع الشرائح في ملف PDF لا يتغير تنسيقه'},{t:'teal',x:'📦 PowerPoint Show .ppsx — يُشغَّل مباشرة دون فتح PowerPoint. للتوزيع'},{t:'purple',x:'🌐 نشر للويب — PowerPoint Online أو Convert to Google Slides للمشاركة عبر رابط'}],
+    fact:'أفلام كثيرة بدأت قصتها كعرض PowerPoint! بما فيها أفلام يديرها ملياردير يعرضها لمستثمرين.',
+    words:[{en:'Export',ar:'تصدير'},{en:'Video',ar:'فيديو'},{en:'PDF',ar:'بي دي إف'},{en:'Image',ar:'صورة'},{en:'Share',ar:'مشاركة'},{en:'Convert',ar:'تحويل'},{en:'Format',ar:'الصيغة'},{en:'Publish',ar:'نشر'}]},
+  ],
+  6:[
+   {emoji:'🏆',head:'بطولات الكتابة السريعة — كن الأفضل',
+    body:`<p>عالم الكتابة السريعة فيه بطولات ومجتمع نشط. كيف تنضم وتتنافس:</p>`,
+    info:[{t:'blue',x:'🏁 TypeRacer.com — سباق كتابة مع لاعبين حول العالم في الوقت الفعلي. مجاني ومثير'},{t:'teal',x:'⌨️ MonkeyType.com — أفضل موقع لتدريب الكتابة. تحليل دقيق لأخطائك وتقدمك'},{t:'orange',x:'🎮 Typing Games — أراني التطبيق والكيبورد Ninja وKeyBR. تعلم ممتع مثل الألعاب'},{t:'purple',x:'🏆 الرقم القياسي العالمي — Barbara Blackburn كتبت 212 كلمة/دقيقة! رقم قياسي غينيس 2005'},{t:'green',x:'📊 متوسط الناس — 40 كلمة/دقيقة. محترف اللابتوب 65-75. مبرمجون 80-100. هدفك؟'}],
+    steps:[{n:'قياس مستواك الآن',text:'اذهب لـ monkeytype.com ← 30 ثانية ← سجّل سرعتك. هذا نقطة البداية. كررها كل أسبوع وشاهد تحسنك!'}],
+    fact:'أسرع كاتبة في التاريخ كانت سكرتيرة في الخمسينيات. التكنولوجيا تتغير لكن سرعة الكتابة دائماً مطلوبة!',
+    words:[{en:'Competition',ar:'منافسة'},{en:'Record',ar:'رقم قياسي'},{en:'WPM',ar:'كلمة في الدقيقة'},{en:'Accuracy',ar:'الدقة'},{en:'Rank',ar:'الترتيب'},{en:'Improvement',ar:'التحسن'},{en:'Community',ar:'المجتمع'},{en:'Challenge',ar:'تحدٍ'}]},
+  ],
+  7:[
+   {emoji:'🤝',head:'المشاريع التعاونية في Scratch',
+    body:`<p>البرمجة التعاونية من أهم مهارات القرن 21. تعلّمها مع Scratch:</p>`,
+    info:[{t:'pink',x:'👥 Scratch Studio — اجمع مشاريع متعددة في معرض واحد. مثالي للفصول الدراسية'},{t:'purple',x:'🔄 Remix المشترك — شارك مشروعك → صديقك يطوره → أنت تُطور نسخته. تراكم إبداعي'},{t:'blue',x:'💬 التعليقات البناءة — اترك تعليقات مفيدة على مشاريع الآخرين. "ممتاز! يمكن إضافة..."'},{t:'teal',x:'🏫 Scratch Educator — للمعلمين. إنشاء فصل دراسي مع متابعة تقدم كل طالب'},{t:'orange',x:'🌐 مشاريع دولية — تعاون مع طفل في كوريا أو البرازيل على مشروع مشترك. الإنترنت يُتيح ذلك'}],
+    fact:'مشروع Scratch Day يُقام في مئات المدن عالمياً كل مايو. مئات الآلاف يبرمجون في يوم واحد!',
+    words:[{en:'Collaboration',ar:'تعاون'},{en:'Studio',ar:'الاستوديو'},{en:'Feedback',ar:'التغذية الراجعة'},{en:'Classroom',ar:'الفصل'},{en:'International',ar:'دولي'},{en:'Team',ar:'الفريق'},{en:'Contribution',ar:'مساهمة'},{en:'Review',ar:'مراجعة'}]},
+   {emoji:'🧠',head:'الذكاء الاصطناعي في Scratch — ML4Kids',
+    body:`<p>تعلّم الذكاء الاصطناعي بطريقة ممتعة باستخدام Scratch + ML for Kids:</p>`,
+    info:[{t:'pink',x:'🌐 ML for Kids — machinelearningforkids.co.uk. موقع مجاني يُعلّم AI مع Scratch'},{t:'purple',x:'🖼️ التعرف على الصور — علّم AI التمييز بين قطط وكلاب. أضف 20 صورة من كل نوع وهو يتعلم'},{t:'blue',x:'🔊 التعرف على الصوت — علّمه الأوامر الصوتية. قل "يمين" ← الشخصية تتحرك يميناً'},{t:'teal',x:'📝 تصنيف النص — علّمه التمييز بين التعليقات الإيجابية والسلبية'},{t:'green',x:'🎮 اربطه بـ Scratch — بعد تدريب النموذج استخدمه في مشروع Scratch. AI في لعبة!'}],
+    fact:'Google Teachable Machine يُتيح تدريب AI بالمتصفح في 5 دقائق فقط. مجاني وبدون كتابة كود!',
+    words:[{en:'Machine Learning',ar:'التعلم الآلي'},{en:'Training Data',ar:'بيانات التدريب'},{en:'Model',ar:'النموذج'},{en:'Classify',ar:'تصنيف'},{en:'Recognize',ar:'التعرف'},{en:'Accuracy',ar:'الدقة'},{en:'Label',ar:'التصنيف'},{en:'Predict',ar:'التنبؤ'}]},
+  ],
+};
+
+Object.keys(EXTRA_SLIDES_3).forEach(unitIdx => {
+  EXTRA_SLIDES_3[unitIdx].forEach(slide => {
+    LESSONS[parseInt(unitIdx)].slides.push(slide);
+  });
+});
+
+const EXTRA_SLIDES_4 = {
+  0:[
+   {emoji:'🌡️',head:'أجهزة الاستشعار — حواس الحاسب',
+    body:`<p>الأجهزة الحديثة مليئة بالمستشعرات التي تجعلها تُدرك العالم المحيط:</p>`,
+    info:[{t:'blue',x:'📍 GPS — يحدد موقعك بدقة 3 أمتار! يعمل بإشارات من 24+ قمر صناعي في نفس الوقت'},{t:'teal',x:'🌡️ مستشعر الحرارة — في الهاتف والحاسب. يُعدّل أداء المعالج عند ارتفاع درجة الحرارة'},{t:'orange',x:'💡 مستشعر الضوء — يضبط سطوع الشاشة تلقائياً. في الظلام أقل، في الشمس أكثر'},{t:'purple',x:'🧭 المقياس الجيروسكوبي والتسارع — يعرف اتجاه هاتفك وسرعة حركته. للألعاب والخرائط'},{t:'green',x:'👆 اللمس — هاتفك يميّز 10 لمسات في نفس الوقت! وبعضها يقيس ضغط الإصبع'}],
+    fact:'iPhone 15 يحتوي أكثر من 15 مستشعر مختلف. قبل 20 عاماً كانت هذه الأجهزة تستهلك طاقة غرفة كاملة!',
+    words:[{en:'Sensor',ar:'مستشعر'},{en:'GPS',ar:'نظام تحديد الموقع'},{en:'Gyroscope',ar:'جيروسكوب'},{en:'Accelerometer',ar:'عداد التسارع'},{en:'Proximity',ar:'القرب'},{en:'Barometer',ar:'مقياس الضغط'},{en:'Biometric',ar:'بيومتري'},{en:'Ambient Light',ar:'الضوء المحيط'}]},
+   {emoji:'🔋',head:'البطارية والطاقة — العلم الخفي',
+    body:`<p>البطارية مكوّن يؤثر يومياً على حياتك. إليك ما يجب معرفته:</p>`,
+    info:[{t:'blue',x:'⚗️ بطارية ليثيوم-أيون — في كل هاتف ولابتوب. خفيفة وتخزن طاقة كبيرة وقابلة للشحن'},{t:'teal',x:'📊 دورات الشحن — كل بطارية تدوم ~500 دورة شحن كاملة. بعدها تُفقد ~20% من سعتها'},{t:'orange',x:'🔋 شحن ذكي — اشحن بين 20%-80% يُطيل عمر البطارية. تجنب التفريغ الكامل'},{t:'purple',x:'⚡ الشحن السريع — 65W+ يشحن هاتف في 20 دقيقة! لكنه يُسخّن البطارية أكثر'},{t:'green',x:'☀️ الطاقة الشمسية — بعض الحاسبات والأجهزة تشحن بالشمس. صديقة للبيئة!'}],
+    fact:'بطارية Tesla Model S تزن 544 كيلوجرام وتحتوي 7000 خلية بطارية بحجم خلية AA!',
+    words:[{en:'Battery',ar:'البطارية'},{en:'Lithium',ar:'ليثيوم'},{en:'Charge',ar:'شحن'},{en:'Capacity',ar:'السعة'},{en:'mAh',ar:'ملي أمبير ساعة'},{en:'Fast Charging',ar:'الشحن السريع'},{en:'Cycle',ar:'دورة'},{en:'Degradation',ar:'التدهور'}]},
+  ],
+  1:[
+   {emoji:'🌐',head:'الشبكات المنزلية — راوترك وأكثر',
+    body:`<p>شبكتك المنزلية أكثر تعقيداً مما تبدو. فهمها يحل مشاكل كثيرة:</p>`,
+    info:[{t:'blue',x:'📡 الراوتر — يُوزّع الإنترنت على أجهزة بيتك. هو "بوابة" شبكتك للإنترنت'},{t:'teal',x:'📶 WiFi 5 vs 6 vs 6E — كل جيل أسرع وأقل تشويشاً مع أجهزة أكثر في نفس الوقت'},{t:'orange',x:'🔌 Mesh Network — عدة نقاط WiFi تعمل كواحدة. تغطية كاملة لكل زاوية البيت'},{t:'purple',x:'🔒 أمان الشبكة — استخدم WPA3 إن أمكن أو WPA2. كلمة مرور قوية وغيّرها دورياً'},{t:'green',x:'📊 QoS — خصص أولوية لبعض الأجهزة. PS5 تأخذ أولوية على هاتف المراهق!'}],
+    fact:'راوتر واحد يمكنه نظرياً توصيل 250 جهاز. عملياً 20-30 جهاز هو الحد المريح للأداء الجيد!',
+    words:[{en:'Router',ar:'الراوتر'},{en:'WiFi',ar:'واي فاي'},{en:'Mesh',ar:'شبكة شبكية'},{en:'WPA',ar:'بروتوكول أمان'},{en:'QoS',ar:'جودة الخدمة'},{en:'SSID',ar:'اسم الشبكة'},{en:'Bandwidth',ar:'عرض النطاق'},{en:'Latency',ar:'التأخر'}]},
+  ],
+  2:[
+   {emoji:'📂',head:'OneDrive — التكامل مع Windows',
+    body:`<p>OneDrive يتكامل مع Windows بشكل سلس جداً — يجعل السحابة جزءاً من جهازك:</p>`,
+    info:[{t:'blue',x:'📁 مجلدات مزامنة — Documents وPictures وDesktop تُزامن تلقائياً. عمل على أي جهاز!'},{t:'teal',x:'💾 حفظ تلقائي — Word وExcel يحفظان تلقائياً على OneDrive. لا تفقد دقيقة من عملك'},{t:'orange',x:'🔗 مشاركة رابط — انقر يمين على أي ملف ← Share ← Copy Link. أرسل للمعلم أو الصديق'},{t:'purple',x:'📱 من كل مكان — onedrive.com من أي متصفح. تطبيق للهاتف. بيانات دائماً معك'},{t:'green',x:'⏳ سجل الإصدارات — إذا أتلفت ملفاً يمكنك العودة لنسخة قبل ساعات أو أيام!'}],
+    fact:'OneDrive يحفظ 30 يوماً من إصدارات ملفاتك. إذا حذفت شيئاً بالخطأ يمكن استرداده!',
+    words:[{en:'OneDrive',ar:'ون درايف'},{en:'Sync',ar:'مزامنة'},{en:'Autosave',ar:'حفظ تلقائي'},{en:'Share',ar:'مشاركة'},{en:'Version History',ar:'سجل الإصدارات'},{en:'Access',ar:'وصول'},{en:'Collaboration',ar:'تعاون'},{en:'Storage',ar:'تخزين'}]},
+  ],
+  3:[
+   {emoji:'🎬',head:'بث الفيديو المباشر — Live Streaming',
+    body:`<p>البث المباشر صناعة بمليارات الدولارات. كيف تبدأ بنفسك:</p>`,
+    info:[{t:'blue',x:'🎮 Twitch — الأشهر للألعاب. 140 مليون زائر شهري. مباشر مع تفاعل المشتركين'},{t:'teal',x:'▶️ YouTube Live — لكل أنواع المحتوى. تُحفظ البث تلقائياً كفيديو عادي بعده'},{t:'orange',x:'🎙️ OBS Studio — برنامج بث مجاني احترافي. يجمع كاميرا ولعبة وميكروفون في صورة واحدة'},{t:'purple',x:'📊 التقنية — تحتاج: إنترنت 5+ Mbps رفع • PC متوسط • ميكروفون جيد أهم من كاميرا جيدة!'},{t:'green',x:'💰 الدخل — بعض المباشرين يكسبون ملايين من التبرعات والاشتراكات والإعلانات'}],
+    fact:'Ninja (Tyler Blevins) كسب 50 مليون دولار عام 2019 من البث. بدأ من غرفته بميكروفون رخيص!',
+    words:[{en:'Streaming',ar:'البث'},{en:'Live',ar:'مباشر'},{en:'Twitch',ar:'تويتش'},{en:'YouTube',ar:'يوتيوب'},{en:'OBS',ar:'أو بي إس'},{en:'Upload Speed',ar:'سرعة الرفع'},{en:'Chat',ar:'الدردشة'},{en:'Subscriber',ar:'مشترك'}]},
+  ],
+  4:[
+   {emoji:'📊',head:'Excel vs Word — متى تستخدم كل منهما',
+    body:`<p>كثيرون يخلطون بين Word وExcel. إليك الفصل الواضح:</p>`,
+    info:[{t:'blue',x:'📝 Word — للنصوص والتقارير والرسائل والكتب. أي شيء يحتاج كتابة وتنسيق نصي'},{t:'teal',x:'📊 Excel — للأرقام والحسابات والجداول والرسوم البيانية. أي شيء يحتاج عمليات رياضية'},{t:'orange',x:'🔄 الدمج — يمكن تضمين جدول Excel داخل Word أو رسم Word داخل Excel عند الحاجة'},{t:'purple',x:'📋 الرسم البياني المناسب — Word للرسوم التوضيحية • Excel للرسوم البيانية الكمية'},{t:'green',x:'🎓 للطلاب — التقرير في Word. الجدول الزمني والميزانية والبيانات في Excel'}],
+    fact:'Excel يستخدمه 750 مليون شخص حول العالم! لا تزال حكومات تُدير ميزانيات مليارية في Excel.',
+    words:[{en:'Spreadsheet',ar:'جدول البيانات'},{en:'Formula',ar:'الصيغة'},{en:'Cell',ar:'الخلية'},{en:'Chart',ar:'الرسم البياني'},{en:'Function',ar:'الدالة'},{en:'Filter',ar:'التصفية'},{en:'Sort',ar:'الترتيب'},{en:'Pivot Table',ar:'الجدول المحوري'}]},
+  ],
+  5:[
+   {emoji:'🌟',head:'عروض TED — التعلم من الأفضل',
+    body:`<p>TED Talks مصدر لا ينضب لتعلم فن التقديم من أفضل المتحدثين:</p>`,
+    info:[{t:'red',x:'🎯 قاعدة ١٨ دقيقة — TED تحدد ١٨ دقيقة كحد أقصى. تُجبر المتحدث على الوضوح والتركيز'},{t:'orange',x:'📖 البنية القصصية — كل TED ناجح يحكي قصة. التحدي ← الرحلة ← الاكتشاف'},{t:'blue',x:'🎨 شرائح بسيطة — معظم TED يستخدم صور فقط. بعضهم لا يستخدم شرائح أصلاً'},{t:'teal',x:'😊 الشخصية الحقيقية — الجمهور يُحب الأصالة. أخطاء بسيطة تزيد الثقة لا تنقصها'},{t:'green',x:'💡 الفكرة الواحدة — كل TED ناجح لديه فكرة رئيسية واضحة. ليس ١٠ أفكار متفرقة'}],
+    steps:[{n:'تمرين',text:'شاهد 3 عروض TED هذا الأسبوع. لاحظ: كيف تبدأ؟ كيف تنهي؟ كيف تستخدم الشرائح؟ ستتعلم أكثر من أي كتاب'}],
+    fact:'أكثر TED مشاهدة "Do Schools Kill Creativity?" لـ Ken Robinson: 74 مليون مشاهدة في 17 دقيقة!',
+    words:[{en:'TED Talk',ar:'محاضرة تيد'},{en:'Speaker',ar:'المتحدث'},{en:'Storytelling',ar:'سرد القصص'},{en:'Authenticity',ar:'الأصالة'},{en:'Structure',ar:'البنية'},{en:'Passion',ar:'الشغف'},{en:'Idea',ar:'الفكرة'},{en:'Impact',ar:'التأثير'}]},
+  ],
+  6:[
+   {emoji:'🎯',head:'الكتابة في الألعاب والبرمجة',
+    body:`<p>الكتابة السريعة تُفيدك في البرمجة والألعاب أكثر مما تتخيل:</p>`,
+    info:[{t:'blue',x:'💻 البرمجة — المبرمج يكتب آلاف الأسطر يومياً. السرعة والدقة تُنهي المشاريع أسرع بكثير'},{t:'teal',x:'🎮 ألعاب الكتابة — Typing of the Dead لعبة تقاتل الزومبي بالكتابة! TypeRacer سباقات ممتعة'},{t:'orange',x:'⌨️ IDE اختصارات — في VS Code وPyCharm: Ctrl+D تكرار السطر • Ctrl+/ تعليق • Alt+↑↓ تحريك سطر'},{t:'purple',x:'🔥 Speed Coding — بعض الشركات تختبر المبرمجين بكتابة كود سريع. السرعة مع الدقة مطلوبتان'},{t:'green',x:'📝 Autocomplete — في البرمجة الحاسب يُكمل لك. Tab أو Enter لقبول الاقتراح. يُضاعف سرعتك'}],
+    fact:'المبرمج المحترف يكتب 60-80 كلمة/دقيقة. ساعة تدريب يومياً لمدة شهر تُوصلك لهذا المستوى!',
+    words:[{en:'IDE',ar:'بيئة التطوير'},{en:'Autocomplete',ar:'الإكمال التلقائي'},{en:'Snippet',ar:'مقتطف كود'},{en:'Shortcut',ar:'اختصار'},{en:'Productivity',ar:'الإنتاجية'},{en:'Debugging',ar:'تصحيح الأخطاء'},{en:'Version Control',ar:'إدارة الإصدارات'},{en:'Terminal',ar:'الطرفية'}]},
+  ],
+  7:[
+   {emoji:'🏗️',head:'مشاريع Scratch متقدمة — أفكار رائعة',
+    body:`<p>ابنِ هذه المشاريع لتحديّ مهاراتك وتطوير محفظة أعمالك:</p>`,
+    info:[{t:'pink',x:'🎨 محاكي رسم — شخصية تتبع المؤشر وترسم بألوان. أضف ألوان مختلفة بالمفاتيح 1-9'},{t:'purple',x:'🧮 آلة حاسبة — أزرار 0-9 وعمليات + - × ÷. متغيرات للأرقام والعملية. ممتع ومفيد'},{t:'blue',x:'📖 قصة تفاعلية — قصة يختار فيها القارئ مسار الأحداث. If/Else هو قلبها'},{t:'teal',x:'🎵 آلة موسيقية — اضغط مفاتيح تعزف نغمات. استخدم Scratch Music Extension'},{t:'orange',x:'🌍 اختبار جغرافيا — خريطة واضغط على الدول. 10 أسئلة مع تقييم. مفيد للمدرسة'}],
+    steps:[{n:'خطة التطوير',text:'لكل مشروع: فكرة ← رسم على ورقة ← بناء أساسي ← اختبار ← تحسين ← نشر. لا تبدأ بناءً بدون تخطيط!'}],
+    fact:'أفضل المبرمجين يقضون 30% من وقتهم في التخطيط و70% في البناء. التخطيط يوفر وقت الإصلاح.',
+    words:[{en:'Portfolio',ar:'محفظة أعمال'},{en:'Project',ar:'مشروع'},{en:'Interactive',ar:'تفاعلي'},{en:'Story',ar:'قصة'},{en:'Calculator',ar:'آلة حاسبة'},{en:'Music',ar:'موسيقى'},{en:'Quiz',ar:'اختبار'},{en:'Drawing',ar:'رسم'}]},
+  ],
+};
+
+Object.keys(EXTRA_SLIDES_4).forEach(unitIdx => {
+  EXTRA_SLIDES_4[unitIdx].forEach(slide => {
+    LESSONS[parseInt(unitIdx)].slides.push(slide);
+  });
+});
+
+// Final batch — ~4 slides per unit = ~32 more slides
+const FINAL_BATCH = {
+  0:[
+   {emoji:'🌱',head:'الاستدامة التقنية — الحاسب والبيئة',
+    body:`<p>التقنية لها أثر بيئي حقيقي. نحن مسؤولون عن تقليله:</p>`,
+    info:[{t:'green',x:'♻️ إعادة تدوير الأجهزة — الأجهزة القديمة تحتوي معادن ثمينة. لا ترمها في القمامة. أعد تدويرها'},{t:'blue',x:'⚡ توفير الكهرباء — Sleep Mode يوفر الكهرباء. أطفئ الشاشة عند الغياب'},{t:'teal',x:'☁️ السحابة أكثر كفاءة — مراكز بيانات Google أكثر كفاءة بـ 7 مرات من خادم محلي'},{t:'orange',x:'🌱 شركات خضراء — Apple وMicrosoft وGoogle تعهدوا بالحياد الكربوني 2030'}],
+    fact:'تصنيع iPhone الجديد ينتج 80% من بصمته الكربونية. الاستخدام 3 سنوات = بيئة أفضل من التجديد السنوي!',
+    words:[{en:'Sustainability',ar:'الاستدامة'},{en:'E-Waste',ar:'النفايات الإلكترونية'},{en:'Carbon Neutral',ar:'حياد كربوني'},{en:'Recycle',ar:'إعادة تدوير'},{en:'Energy Saving',ar:'توفير الطاقة'},{en:'Green Tech',ar:'تقنية خضراء'},{en:'Renewable',ar:'متجدد'},{en:'Efficiency',ar:'الكفاءة'}]},
+  ],
+  1:[
+   {emoji:'🛠️',head:'إصلاح Windows بدون خبير',
+    body:`<p>معظم مشاكل Windows يمكنك حلها بنفسك. وفّر المال والوقت:</p>`,
+    info:[{t:'blue',x:'🔄 ١ — إعادة التشغيل. تُحل ٩٠٪ من المشاكل. دائماً الأولى'},{t:'teal',x:'🔍 ٢ — ابحث عن الخطأ. انسخ رسالة الخطأ وابحثها في Google. الحل موجود في 99% الحالات'},{t:'orange',x:'🧰 ٣ — Windows Troubleshooter. Settings ← Troubleshoot ← Run. يُشخص ويُصلح تلقائياً'},{t:'green',x:'🔧 ٤ — sfc /scannow في CMD كـ Admin. يُصلح ملفات Windows التالفة تلقائياً'}],
+    fact:'Microsoft دعم Windows يجيب على 1.5 مليون مكالمة شهرياً. معظمها تحل بـ "أعِد التشغيل"!',
+    words:[{en:'Troubleshoot',ar:'استكشاف أخطاء'},{en:'Fix',ar:'إصلاح'},{en:'Error Message',ar:'رسالة خطأ'},{en:'SFC',ar:'فحص ملفات النظام'},{en:'DISM',ar:'خدمة النشر'},{en:'Safe Mode',ar:'الوضع الآمن'},{en:'System Restore',ar:'استعادة النظام'},{en:'Clean Boot',ar:'إقلاع نظيف'}]},
+  ],
+  2:[
+   {emoji:'🔒',head:'تشفير الملفات يدوياً',
+    body:`<p>حماية ملفاتك الحساسة بكلمة مرور — بدون برامج إضافية:</p>`,
+    info:[{t:'blue',x:'🔒 7-Zip تشفير — أنشئ أرشيف ZIP بكلمة مرور AES-256. مجاني وقوي جداً'},{t:'teal',x:'📝 ملاحظات مشفرة — تطبيق Standard Notes يُشفّر ملاحظاتك. مجاني وآمن'},{t:'orange',x:'📁 VeraCrypt — يُنشئ قرص مشفر افتراضي. ضع ملفاتك فيه. مجاني ومفتوح المصدر'},{t:'green',x:'☁️ الملفات في السحابة — OneDrive تشفير موثوق. للملفات شديدة الحساسية: شفّرها محلياً قبل الرفع'}],
+    fact:'حتى FBI لم يستطع فتح iPhone مشفر! التشفير الصحيح لا يمكن كسره بالقوة في أعمارنا.',
+    words:[{en:'Encryption',ar:'تشفير'},{en:'Password',ar:'كلمة مرور'},{en:'AES-256',ar:'معيار التشفير'},{en:'VeraCrypt',ar:'فيرا كريبت'},{en:'Secure',ar:'آمن'},{en:'Archive',ar:'أرشيف'},{en:'Protection',ar:'الحماية'},{en:'Sensitive',ar:'حساس'}]},
+  ],
+  3:[
+   {emoji:'🛒',head:'التسوق الآمن عبر الإنترنت',
+    body:`<p>التسوق الإلكتروني مريح لكنه يحتاج حذراً. إليك دليل الأمان:</p>`,
+    info:[{t:'blue',x:'🔒 تحقق من HTTPS — قبل إدخال بطاقة بنكية تأكد من 🔒 في الرابط. إلزامي!'},{t:'teal',x:'✅ مواقع موثوقة — Amazon وNoon وJareer وAmazon.sa. المواقع المجهولة = خطر'},{t:'orange',x:'💳 بطاقة افتراضية — بنوك سعودية توفر بطاقة رقمية لمرة واحدة. آمن جداً'},{t:'purple',x:'🔍 اقرأ المراجعات — تحقق من تقييمات البائع. تقييمات كثيرة وحديثة = موثوق'},{t:'green',x:'📧 تأكيد البريد — بعد الشراء يأتي إيميل تأكيد. لا إيميل = مشكلة!'}],
+    fact:'التسوق الإلكتروني في السعودية تجاوز 100 مليار ريال سنوياً. رقم ضخم يجذب المحتالين أيضاً!',
+    words:[{en:'E-commerce',ar:'التجارة الإلكترونية'},{en:'Checkout',ar:'الدفع'},{en:'Cart',ar:'السلة'},{en:'Payment',ar:'الدفع'},{en:'Shipping',ar:'الشحن'},{en:'Return',ar:'الإرجاع'},{en:'Review',ar:'التقييم'},{en:'Scam',ar:'نصب واحتيال'}]},
+  ],
+  4:[
+   {emoji:'🎓',head:'Word للطلاب — خصائص أكاديمية',
+    body:`<p>Word مليء بخصائص خصيصاً للطلاب والباحثين:</p>`,
+    info:[{t:'blue',x:'📚 Researcher — في References. يُساعدك في البحث عن معلومات موثوقة مباشرة في Word'},{t:'teal',x:'🔍 Editor الذكي — يُصحّح النحو والإملاء ويقترح تحسينات أسلوبية. أفضل من Spellcheck'},{t:'orange',x:'🗣️ Dictate — تحدث وWord يكتب! مثالي لأفكار سريعة. Home ← Dictate'},{t:'green',x:'🌐 Translate — يُترجم المستند أو نصاً محدداً. Review ← Translate. 70+ لغة'}],
+    fact:'Word Editor الذكي يستخدم نفس تقنية ChatGPT. يُحلل جملتك كاملاً لا مجرد إملاء!',
+    words:[{en:'Grammar',ar:'النحو'},{en:'Spell Check',ar:'التدقيق الإملائي'},{en:'Thesaurus',ar:'قاموس المترادفات'},{en:'Translate',ar:'ترجمة'},{en:'Dictate',ar:'الإملاء الصوتي'},{en:'Researcher',ar:'الباحث'},{en:'Proofread',ar:'مراجعة النص'},{en:'Academic',ar:'أكاديمي'}]},
+  ],
+  5:[
+   {emoji:'🎭',head:'Morph Transition — الانتقال السحري',
+    body:`<p>Morph انتقال Morphing يُحوّل عرضك لتحفة فنية متحركة:</p>`,
+    info:[{t:'red',x:'✨ ما هو Morph؟ — ينقل الأشياء بسلاسة بين الشرائح. مثل أنيميشن احترافي بنقرة'},{t:'orange',x:'🔄 كيف يعمل؟ — ضع نفس الشيء في شريحتين بمواضع مختلفة ← Morph يُحرّكه تلقائياً'},{t:'blue',x:'🎯 استخدامات — تكبير صورة • تغيير مخطط • انتقال خريطة • تشريح جسم ثلاثي الأبعاد'},{t:'teal',x:'📋 خطوات — نسخ الشريحة ← Ctrl+D ← تعديل المواضع ← Transitions ← Morph ← Done!'}],
+    fact:'Morph موجود في PowerPoint منذ 2016. كثير من محترفين لا يعلمون بوجوده حتى الآن!',
+    words:[{en:'Morph',ar:'تحول سلس'},{en:'Slide',ar:'شريحة'},{en:'Object',ar:'كائن'},{en:'Position',ar:'الموضع'},{en:'Size',ar:'الحجم'},{en:'Seamless',ar:'سلس'},{en:'Creative',ar:'إبداعي'},{en:'Professional',ar:'احترافي'}]},
+  ],
+  6:[
+   {emoji:'🌐',head:'الكتابة في اللغات الأخرى',
+    body:`<p>العالم متعدد اللغات — الكتابة بلغات متعددة مهارة نادرة وقيّمة:</p>`,
+    info:[{t:'blue',x:'🇸🇦 العربية — تكتب يميناً لشمالاً. Word وبرامج Office تدعمها بشكل ممتاز جداً'},{t:'teal',x:'🇨🇳 الصينية واليابانية — IME Input Method Editor. تكتب حروفاً لاتينية يُحوّلها لرموز'},{t:'orange',x:'🌏 Unicode — معيار ترميز يدعم 149,000+ رمز. كل لغة بشرية مدعومة'},{t:'purple',x:'⌨️ لوحة مفاتيح متعددة — Win+Space للتبديل. تعلّم تخطيط 2-3 لغات = مهارة نادرة'},{t:'green',x:'🤖 ترجمة فورية — DeepL وGoogle Translate ترجمة فورية. لكن الترجمة البشرية أفضل دائماً'}],
+    fact:'أكثر لغة مكتوبة على الإنترنت هي الإنجليزية (60%) ثم الروسية ثم الألمانية ثم الإسبانية. العربية في المرتبة 8!',
+    words:[{en:'Multilingual',ar:'متعدد اللغات'},{en:'RTL',ar:'من اليمين للشمال'},{en:'IME',ar:'طريقة الإدخال'},{en:'Unicode',ar:'يونيكود'},{en:'Translation',ar:'ترجمة'},{en:'Keyboard Layout',ar:'تخطيط الكيبورد'},{en:'Font Support',ar:'دعم الخط'},{en:'Language Pack',ar:'حزمة اللغة'}]},
+  ],
+  7:[
+   {emoji:'💡',head:'الأفكار الإبداعية للمشاريع — إلهام لا ينتهي',
+    body:`<p>نفدت أفكارك؟ هذه الأفكار ستُشعل إبداعك:</p>`,
+    info:[{t:'pink',x:'🌍 محاكي — درس تعليمي تفاعلي. تعليم الضرب أو الجغرافيا أو التاريخ بطريقة لعبة'},{t:'purple',x:'🎨 فن تفاعلي — موسيقى تتغير بحسب حركة الشخصية. رسم بالصوت أو اللمس'},{t:'blue',x:'📰 قصة اخبارية — اصنع برنامج أخبار متحرك مع مذيع ومؤثرات صوتية'},{t:'teal',x:'🏋️ تحدي صحي — عداد تمارين يومية. Scratch يُحفّزك للتحرك!'},{t:'orange',x:'🧩 بازل — اصنع لعبة بازل. قطع تسحبها لمكانها الصحيح. صعب وممتع جداً!'}],
+    steps:[{n:'نصيحة',text:'أفضل مشروع هو الذي يحل مشكلة حقيقية أو يُمتّع شخصاً تحبه. فكر: ماذا يحتاج أهلي أو صديقي؟'}],
+    fact:'Minecraft بدأ كمشروع وحيد لمبرمج سويدي في إجازته. الآن 238 مليون نسخة مبيعة!',
+    words:[{en:'Creativity',ar:'الإبداع'},{en:'Inspiration',ar:'الإلهام'},{en:'Prototype',ar:'النموذج الأولي'},{en:'Feedback',ar:'التغذية الراجعة'},{en:'Iterate',ar:'التكرار التحسيني'},{en:'Polish',ar:'الصقل'},{en:'Launch',ar:'الإطلاق'},{en:'Impact',ar:'التأثير'}]},
+  ],
+};
+
+Object.keys(FINAL_BATCH).forEach(unitIdx => {
+  FINAL_BATCH[unitIdx].forEach(slide => {
+    LESSONS[parseInt(unitIdx)].slides.push(slide);
+  });
+});
+
+// ══════ QUIZ DATA ══════
+const QUIZ_QS=[
+ {q:'ما الجزء الذي يُعتبر دماغ الحاسب؟',opts:['الشاشة','الكيبورد','المعالج CPU','الفأرة'],ans:2,unit:'💻',ex:'المعالج CPU ينفذ مليارات العمليات كل ثانية!'},
+ {q:'ما اختصار نسخ ملف؟',opts:['Ctrl+V','Ctrl+C','Ctrl+X','Ctrl+Z'],ans:1,unit:'📁',ex:'C=نسخ • V=لصق • X=قص • Z=تراجع'},
+ {q:'ما الذي لا تُشاركه على الإنترنت؟',opts:['اسم كتابك','رقم هاتف أهلك','لعبتك','لونك'],ans:1,unit:'🌐',ex:'معلوماتك الشخصية سرية!'},
+ {q:'اختصار العريض Bold في Word؟',opts:['Ctrl+I','Ctrl+U','Ctrl+B','Ctrl+P'],ans:2,unit:'📝',ex:'B=عريض I=مائل U=تسطير'},
+ {q:'ما الذي تفعله الحلقة Loop؟',opts:['تحفظ معلومة','تكرر أمراً','تُغلق البرنامج','تبدأ اللعبة'],ans:1,unit:'🎮',ex:'الحلقة تكرر الأوامر تلقائياً!'},
+ {q:'امتداد ملف الصورة الشائع؟',opts:['.docx','.mp3','.jpg','.pptx'],ans:2,unit:'📁',ex:'.jpg و.png هي أشهر صيغ الصور'},
+ {q:'أي حاسب يعمل بالبطارية؟',opts:['المكتبي','اللابتوب','الطابعة','السماعة'],ans:1,unit:'💻',ex:'اللابتوب مصمم للتنقل!'},
+ {q:'من أين تُدرج صورة في Word؟',opts:['Design','Insert','View','File'],ans:1,unit:'📝',ex:'قائمة Insert لإضافة الصور'},
+ {q:'ما المفتاح يحذف الحرف السابق؟',opts:['Delete','Escape','Backspace','Tab'],ans:2,unit:'⌨️',ex:'Backspace قبل المؤشر • Delete بعده'},
+ {q:'مفاتيح البداية الصحيحة؟',opts:['A و L','Q و P','F و J','D و K'],ans:2,unit:'⌨️',ex:'F و J عليهما نتوء صغير للإحساس'},
+ {q:'وظيفة المتغير Variable في Scratch؟',opts:['يكرر الأوامر','يحفظ قيمة','يُغلق البرنامج','يحرك الشخصية'],ans:1,unit:'🎮',ex:'المتغير صندوق يحفظ النقاط والوقت'},
+ {q:'اختصار تشغيل عرض PowerPoint؟',opts:['F1','F5','F10','Escape'],ans:1,unit:'📊',ex:'F5 يُشغّل من البداية'},
+ {q:'وحدة قياس مساحة التخزين الكبيرة؟',opts:['بايت','كيلوبايت','ميجابايت','جيجابايت'],ans:3,unit:'💻',ex:'جيجابايت = مليار بايت'},
+ {q:'اختصار فتح مستكشف الملفات؟',opts:['Win+E','Win+D','Win+I','Win+L'],ans:0,unit:'📁',ex:'Win+E مستكشف • Win+D سطح المكتب'},
+ {q:'أداة تعلم البرمجة للأطفال المجانية؟',opts:['Python','Scratch','Java','C++'],ans:1,unit:'🎮',ex:'Scratch مجاني على scratch.mit.edu'},
+ {q:'ما هو SSD؟',opts:['شاشة ذكية','قرص تخزين إلكتروني','بطارية','معالج'],ans:1,unit:'💻',ex:'SSD أسرع بـ 10x من HDD القرص العادي!'},
+ {q:'ما هو HTTPS؟',opts:['لغة برمجة','متصفح','بروتوكول آمن','محرك بحث'],ans:2,unit:'🌐',ex:'S في HTTPS = Secure مشفر'},
+ {q:'اختصار فتح إعدادات Windows؟',opts:['Win+E','Win+I','Win+D','Win+L'],ans:1,unit:'🪟',ex:'Win+I الإعدادات • Win+L قفل الشاشة'},
+ {q:'ما هو RAM؟',opts:['قرص صلب','ذاكرة عمل مؤقتة','معالج','بطارية'],ans:1,unit:'💻',ex:'RAM مؤقتة تُمسح عند إيقاف الحاسب'},
+ {q:'Bug في البرمجة يعني؟',opts:['ميزة جديدة','خطأ برمجي','برنامج سريع','لعبة'],ans:1,unit:'🎮',ex:'Bug = خطأ يجعل البرنامج يتصرف بشكل خاطئ'},
+];
+
+const MEM_EMOJIS=['💻','📁','🌐','📝','🎮','⌨️','🖱️','🖥️'];
+
+const FQ_QS=[
+ {q:'الشاشة بالإنجليزي؟',opts:['Screen','Folder','Mouse','Keyboard'],ans:0},
+ {q:'المجلد بالإنجليزي؟',opts:['File','Folder','Screen','Printer'],ans:1},
+ {q:'الكيبورد بالعربي؟',opts:['الفأرة','الشاشة','لوحة المفاتيح','السماعة'],ans:2},
+ {q:'الفأرة بالإنجليزي؟',opts:['Keyboard','Mouse','Tablet','Laptop'],ans:1},
+ {q:'Ctrl+C يعني؟',opts:['لصق','نسخ','قص','تراجع'],ans:1},
+ {q:'Ctrl+V يعني؟',opts:['نسخ','قص','لصق','حفظ'],ans:2},
+ {q:'Ctrl+S يعني؟',opts:['طباعة','تغميق','تراجع','حفظ'],ans:3},
+ {q:'الإنترنت بالإنجليزي؟',opts:['Intranet','Internet','Interface','Icon'],ans:1},
+ {q:'تنزيل بالإنجليزي؟',opts:['Upload','Update','Download','Delete'],ans:2},
+ {q:'الملف بالإنجليزي؟',opts:['Folder','File','Frame','Format'],ans:1},
+ {q:'المتصفح بالإنجليزي؟',opts:['Browser','Blower','Buffer','Builder'],ans:0},
+ {q:'Ctrl+Z يعني؟',opts:['إعادة','حذف','تراجع','حفظ'],ans:2},
+ {q:'الامتداد .jpg نوعه؟',opts:['صوت','فيديو','صورة','مستند'],ans:2},
+ {q:'RAM تعني؟',opts:['قرص صلب','ذاكرة مؤقتة','معالج','بطارية'],ans:1},
+ {q:'WiFi تعني؟',opts:['سلك','إنترنت لاسلكي','بطارية','شاشة'],ans:1},
+ {q:'SSD أسرع من؟',opts:['الشاشة','الكيبورد','HDD','المعالج'],ans:2},
+ {q:'Bug في البرمجة؟',opts:['ميزة','خطأ برمجي','لعبة','برنامج سريع'],ans:1},
+ {q:'الرفع بالإنجليزي؟',opts:['Download','Upload','Update','Upgrade'],ans:1},
+ {q:'HTTPS يعني؟',opts:['لغة','بروتوكول آمن','متصفح','محرك بحث'],ans:1},
+ {q:'GPU يعني؟',opts:['معالج عام','كارت شاشة','قرص','بطارية'],ans:1},
+];
+
+// ══════ SCRAMBLE DATA ══════
+const SCRAMBLE_QS=[
+ {word:'SCREEN',hint:'الشاشة',meaning:'الشاشة'},
+ {word:'FOLDER',hint:'المجلد',meaning:'المجلد'},
+ {word:'MOUSE',hint:'الفأرة',meaning:'الفأرة'},
+ {word:'SAVE',hint:'حفظ',meaning:'حفظ'},
+ {word:'COPY',hint:'نسخ',meaning:'نسخ'},
+ {word:'FILE',hint:'ملف',meaning:'ملف'},
+ {word:'WIFI',hint:'الواي فاي',meaning:'الإنترنت اللاسلكي'},
+ {word:'GAME',hint:'لعبة',meaning:'لعبة'},
+ {word:'CODE',hint:'الكود',meaning:'البرمجة'},
+ {word:'LOOP',hint:'الحلقة',meaning:'تكرار في البرمجة'},
+ {word:'BYTE',hint:'بايت',meaning:'وحدة معلومات'},
+ {word:'CHIP',hint:'الرقاقة',meaning:'شريحة إلكترونية'},
+ {word:'BOOT',hint:'إقلاع',meaning:'تشغيل الحاسب'},
+ {word:'SPAM',hint:'مزعج',meaning:'بريد مزعج'},
+ {word:'LINK',hint:'رابط',meaning:'رابط إنترنت'},
+ {word:'DISK',hint:'القرص',meaning:'وسيلة التخزين'},
+ {word:'HACK',hint:'اختراق',meaning:'الاختراق الرقمي'},
+ {word:'ZOOM',hint:'تكبير',meaning:'تكبير الشاشة أو اجتماع'},
+];
+
+// ══════ TRUE/FALSE DATA ══════
+const TF_QS=[
+ {q:'CPU هو الجزء الذي يُعرض الصورة على الشاشة.',ans:false,ex:'CPU هو المعالج الدماغ. كارت الشاشة GPU يُعرض الصورة.'},
+ {q:'Ctrl+C يُستخدم لنسخ الملفات.',ans:true,ex:'Ctrl+C للنسخ وCtrl+V للصق.'},
+ {q:'ملف .mp3 هو ملف صورة.',ans:false,ex:'mp3 هو ملف صوت وموسيقى. الصور: .jpg .png'},
+ {q:'الإنترنت يعمل بدون خوادم Servers.',ans:false,ex:'الإنترنت يعتمد على ملايين الخوادم حول العالم.'},
+ {q:'SSD أسرع من HDD.',ans:true,ex:'SSD أسرع بـ 10 أضعاف لأنه إلكتروني بدون أجزاء متحركة.'},
+ {q:'HTTPS أكثر أماناً من HTTP.',ans:true,ex:'S في HTTPS تعني Secure = مشفر وآمن.'},
+ {q:'RAM تحفظ البيانات بعد إيقاف الحاسب.',ans:false,ex:'RAM مؤقتة تُمسح عند الإيقاف. القرص الصلب هو من يحفظ دائماً.'},
+ {q:'Scratch مجاني على scratch.mit.edu.',ans:true,ex:'Scratch مجاني تماماً ومفتوح للجميع!'},
+ {q:'Backspace يحذف الحرف بعد المؤشر.',ans:false,ex:'Backspace يحذف الحرف قبل المؤشر. Delete يحذف الحرف بعده.'},
+ {q:'PDF يمكن تعديله بسهولة.',ans:false,ex:'PDF مصمم للقراءة فقط. يحتاج برامج خاصة للتعديل.'},
+ {q:'Windows هو نظام تشغيل من شركة Microsoft.',ans:true,ex:'Windows صنعته Microsoft. macOS من Apple. Linux مفتوح المصدر.'},
+ {q:'المجلد Folder يمكنه احتواء مجلدات أخرى بداخله.',ans:true,ex:'نعم! يمكن وضع مجلدات داخل مجلدات - يُسمى بالهيكل الشجري.'},
+ {q:'GPU يُستخدم فقط للألعاب.',ans:false,ex:'GPU يُستخدم للألعاب والذكاء الاصطناعي والتصميم والفيديو.'},
+ {q:'الحلقة Loop في البرمجة تُنفَّذ مرة واحدة فقط.',ans:false,ex:'الحلقة تُكرر الأوامر عدة مرات أو إلى الأبد.'},
+ {q:'كلمة المرور القوية يجب أن تحتوي أرقاماً ورموزاً.',ans:true,ex:'كلمة مرور قوية: 12+ حرف، كبيرة وصغيرة، أرقام، رموز.'},
+ {q:'Bug في البرمجة هو ميزة مفيدة.',ans:false,ex:'Bug هو خطأ يجعل البرنامج يعمل بشكل خاطئ.'},
+ {q:'WiFi 6 أسرع من WiFi 5.',ans:true,ex:'WiFi 6 (802.11ax) أسرع بـ 3-4 مرات وأكثر كفاءة مع أجهزة متعددة.'},
+ {q:'الملف .exe يعمل على Android.',ans:false,ex:'.exe خاص بـ Windows. Android يستخدم .apk'},
+ {q:'OneDrive هو خدمة تخزين سحابي.',ans:true,ex:'OneDrive من Microsoft مدمج في Windows. 5GB مجاناً.'},
+ {q:'تشفير الرسائل يعني أن أحداً لا يستطيع قراءتها.',ans:true,ex:'التشفير End-to-End يجعل الرسائل مقروءة فقط للمُرسِل والمستقبل.'},
+];
+
+// ══════ STATE ══════
+let score=0,lessonIdx=0,slideIdx=0,curScreen='home',prevScreen='home';
+let quizQs=[],quizIdx=0,quizScore=0;
+let memCards=[],memFlipped=[],memWait=false,memMoves=0,memMatched=0;
+let fqQs=[],fqIdx=0,fqScore=0,fqTimer=null,fqTime=10;
+let lessonsCompleted=new Set(),quizzesCompleted=0;
+// Scramble state
+let scrQs=[],scrIdx=0,scrScore=0,scrAnswer=[],scrLetters=[],scrLetterUsed=[];
+// True/False state
+let tfQs=[],tfIdx=0,tfScore=0,tfAnswered=false;
+
+const $=id=>document.getElementById(id);
+const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+function addScore(n){score+=n;$('score-val').textContent=score;const p=document.querySelector('.score-pill');p.classList.remove('pop');void p.offsetWidth;p.classList.add('pop');}
+function vib(ms=40){try{navigator.vibrate(ms);}catch(e){}}
+function showScreen(id,title){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');$('screen-title').textContent=title;
+  $('back-btn').style.display=id==='home'?'none':'';
+  prevScreen=curScreen;curScreen=id;$(id).scrollTop=0;
+}
+function goBack(){
+  if(curScreen==='slide'){showScreen('lessons','📚 الدروس');return;}
+  if(['memory','fastquiz','scramble','truefalse'].includes(curScreen)){
+    clearInterval(fqTimer);renderGames();showScreen('games','🎮 العب وتعلم');return;
+  }
+  renderHome();showScreen('home','🌟 عالم الحاسب');
+}
+
+// ══════ HOME ══════
+function renderHome(){
+  const totalSlides=LESSONS.reduce((s,l)=>s+l.slides.length,0);
+  const totalWords=LESSONS.reduce((s,l)=>s+l.slides.reduce((ss,sl)=>ss+(sl.words?sl.words.length:0),0),0);
+  $('home').innerHTML=`
+  <div class="home-hero">
+    <div class="star">🌟</div>
+    <h1>عالم الحاسب للأطفال</h1>
+    <p>للأطفال من ٦ إلى ٩ سنوات — نسخة V4 الضخمة</p>
+  </div>
+  <div class="pad">
+    <div class="home-stats">
+      <div class="stat-box"><div class="sn">${LESSONS.length}</div><div class="sl">وحدة</div></div>
+      <div class="stat-box"><div class="sn">${totalSlides}</div><div class="sl">شريحة</div></div>
+      <div class="stat-box"><div class="sn">${totalWords}</div><div class="sl">كلمة</div></div>
+      <div class="stat-box"><div class="sn">${score}</div><div class="sl">نقطة</div></div>
+    </div>
+    <button class="btn purple" onclick="renderLessons();showScreen('lessons','📚 الدروس')">📚  ابدأ التعلم — ${LESSONS.length} وحدات</button>
+    <button class="btn pink"   onclick="startQuiz()">🎯  اختبر نفسك — ${QUIZ_QS.length} سؤالاً</button>
+    <button class="btn teal"   onclick="renderGames();showScreen('games','🎮 العب وتعلم')">🎮  العب وتعلم — ٤ ألعاب</button>
+    <button class="btn yellow" onclick="renderStars();showScreen('stars','⭐ نجومي')">⭐  نجومي وإنجازاتي</button>
+    <div style="text-align:center;padding:8px 0;color:var(--gray);font-size:11px">
+      ✅ ${lessonsCompleted.size}/${LESSONS.length} وحدة مكتملة • ${quizzesCompleted} اختبار
+    </div>
+  </div>`;
+}
+
+// ══════ LESSONS ══════
+function renderLessons(){
+  let html='<div class="pad">';
+  LESSONS.forEach((l,i)=>{
+    const done=lessonsCompleted.has(i);
+    const sw=l.slides.reduce((s,sl)=>s+(sl.words?sl.words.length:0),0);
+    html+=`<div class="lesson-item" style="border-right-color:${l.color}" onclick="openLesson(${i})">
+      <div class="li-icon">${l.icon}</div>
+      <div style="flex:1">
+        <div class="li-title">${l.title}${done?' ✅':''}</div>
+        <div class="li-sub" style="color:${l.color}">${done?'مكتملة ✓':'اضغط للبدء'}</div>
+        <div class="li-slides">${l.slides.length} شريحة • ${sw} كلمة إنجليزية</div>
+      </div>
+      <div style="color:var(--gray);font-size:16px">←</div>
+    </div>`;
+  });
+  html+='</div>';
+  $('lessons').innerHTML=html;
+}
+function openLesson(i){lessonIdx=i;slideIdx=0;renderSlide();}
+function renderSlide(){
+  const l=LESSONS[lessonIdx],s=l.slides[slideIdx],n=l.slides.length,isLast=slideIdx===n-1;
+  let html=`<div class="slide-wrap">`;
+  html+=`<div class="dots">${l.slides.map((_,i)=>`<div class="dot${i===slideIdx?' active':''}"></div>`).join('')}</div>`;
+  html+=`<div style="text-align:left;font-size:10px;color:var(--gray);margin-bottom:8px">${slideIdx+1}/${n}</div>`;
+  html+=`<div class="card pop">`;
+  html+=`<span class="slide-emoji">${s.emoji}</span>`;
+  html+=`<div class="slide-head">${s.head}</div>`;
+  if(s.body)html+=`<div class="slide-body">${s.body}</div>`;
+  if(s.info)s.info.forEach(b=>{html+=`<div class="info-box ${b.t}">${b.x}</div>`;});
+  if(s.steps){html+=`<div class="step-list">`;s.steps.forEach(st=>{html+=`<div class="step-row"><div class="step-num">${st.n}</div><div class="step-text">${st.text}</div></div>`;});html+=`</div>`;}
+  if(s.example)html+=`<div class="example-box"><strong>مثال: </strong>${s.example}</div>`;
+  html+=`<div class="fact-box">💡 ${s.fact}</div>`;
+  if(s.words&&s.words.length){
+    html+=`<div style="font-size:11px;color:var(--gray);margin-bottom:6px;font-weight:700">📚 مفردات إنجليزية:</div>`;
+    html+=`<div class="word-grid">`;
+    s.words.forEach(w=>{html+=`<div class="word-card"><div class="word-en">${w.en}</div><div class="word-ar">${w.ar}</div></div>`;});
+    html+=`</div>`;
+  }
+  html+=`<div class="nav-row">`;
+  if(slideIdx>0)html+=`<button class="btn gray sm" onclick="prevSlide()">→ السابق</button>`;
+  else html+=`<button class="btn gray sm" onclick="renderLessons();showScreen('lessons','📚 الدروس')">← الوحدات</button>`;
+  if(isLast)html+=`<button class="btn green sm" onclick="finishLesson()">✅ أكملت!</button>`;
+  else html+=`<button class="btn sm" style="background:${l.color}" onclick="nextSlide()">التالي ←</button>`;
+  html+=`</div></div></div>`;
+  $('slide').innerHTML=html;
+  showScreen('slide',`${l.icon} ${l.title}`);
+}
+function nextSlide(){vib(30);slideIdx++;renderSlide();}
+function prevSlide(){vib(30);slideIdx--;renderSlide();}
+function finishLesson(){
+  vib(80);addScore(15);lessonsCompleted.add(lessonIdx);
+  $('slide').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">🎉</div><h2>أحسنت!</h2>
+    <p>أكملت<br><strong style="color:var(--yellowL)">${LESSONS[lessonIdx].icon} ${LESSONS[lessonIdx].title}</strong><br>+١٥ نقطة 🌟</p>
+    <button class="btn purple" onclick="renderLessons();showScreen('lessons','📚 الدروس')">📚 وحدة أخرى</button>
+    <button class="btn gray sm" onclick="renderHome();showScreen('home','🌟 عالم الحاسب')">🏠 الرئيسية</button>
+  </div></div>`;
+}
+
+// ══════ QUIZ ══════
+function startQuiz(){quizQs=shuffle(QUIZ_QS);quizIdx=0;quizScore=0;renderQuiz();showScreen('quiz','🎯 اختبر نفسك');}
+function renderQuiz(){
+  if(quizIdx>=quizQs.length){renderQuizResult();return;}
+  const q=quizQs[quizIdx],pct=(quizIdx/quizQs.length*100).toFixed(0);
+  const labels=['أ','ب','ج','د'],cls=['A','B','C','D'];
+  $('quiz').innerHTML=`<div class="pad">
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-bottom:8px"><span>سؤال ${quizIdx+1}/${quizQs.length}</span><span>✅ ${quizScore}</span></div>
+    <div class="quiz-unit">${q.unit}</div>
+    <div class="quiz-q-text pop">${q.q}</div>
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt ${cls[i]}" id="opt${i}" onclick="answerQuiz(${i})">${labels[i]} — ${o}</button>`).join('')}</div>
+    <div class="feedback" id="fb"></div><div class="feedback-detail" id="fbd"></div>
+  </div>`;
+}
+function answerQuiz(chosen){
+  vib(40);const q=quizQs[quizIdx],correct=q.ans,labels=['أ','ب','ج','د'];
+  for(let i=0;i<4;i++){const b=$(`opt${i}`);if(!b)continue;b.onclick=null;if(i===correct)b.classList.add('correct');else if(i===chosen&&i!==correct)b.classList.add('wrong');else b.classList.add('dim');}
+  const fb=$('fb'),fbd=$('fbd');
+  if(chosen===correct){fb.textContent='✅ صح! +١٠ 🌟';fb.className='feedback ok pop';addScore(10);vib([40,20,40]);}
+  else{fb.textContent=`❌ الصح: ${labels[correct]} — ${q.opts[correct]}`;fb.className='feedback err shake';vib([100,40,100]);}
+  if(fbd&&q.ex)fbd.textContent='💡 '+q.ex;
+  quizScore+=(chosen===correct?1:0);
+  setTimeout(()=>{quizIdx++;renderQuiz();},1500);
+}
+function renderQuizResult(){
+  quizzesCompleted++;const pct=Math.round(quizScore/quizQs.length*100);
+  const star=pct>=80?'⭐⭐⭐':pct>=60?'⭐⭐':'⭐',msg=pct>=80?'ممتاز! 🏆':pct>=60?'جيد جداً! 😊':'استمر! 💪';
+  $('quiz').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">${star}</div><h2>${msg}</h2>
+    <p>${quizScore}/${quizQs.length} إجابة صحيحة<br><strong style="font-size:22px">${pct}%</strong></p>
+    <button class="btn pink" onclick="startQuiz()">🔄 مرة أخرى</button>
+    <button class="btn gray sm" onclick="renderHome();showScreen('home','🌟 عالم الحاسب')">🏠 الرئيسية</button>
+  </div></div>`;
+}
+
+// ══════ GAMES MENU ══════
+function renderGames(){
+  $('games').innerHTML=`<div class="pad">
+    <p style="color:var(--gray);margin-bottom:14px;font-size:14px;text-align:center">اختر لعبة 🎮</p>
+    <button class="btn purple" onclick="startMemory()">🃏  لعبة الذاكرة<br><small style="font-weight:400;font-size:12px">طابق الأزواج ٤×٤</small></button>
+    <button class="btn teal" onclick="startFQ()">⚡  الأسئلة السريعة<br><small style="font-weight:400;font-size:12px">${FQ_QS.length} سؤال • ١٠ ثوانٍ لكل سؤال</small></button>
+    <button class="btn orange" onclick="startScramble()">🔤  رتّب الحروف<br><small style="font-weight:400;font-size:12px">رتّب الحروف لتشكّل الكلمة الصحيحة</small></button>
+    <button class="btn blue" onclick="startTF()">✅❌  صح أم خطأ<br><small style="font-weight:400;font-size:12px">${TF_QS.length} عبارة • هل هي صحيحة أم خاطئة؟</small></button>
+  </div>`;
+}
+
+// ══════ MEMORY GAME ══════
+function startMemory(){
+  const pairs=shuffle([...MEM_EMOJIS,...MEM_EMOJIS]);
+  memCards=pairs.map((e,i)=>({id:i,emoji:e,flipped:false,matched:false}));
+  memFlipped=[];memWait=false;memMoves=0;memMatched=0;renderMem();showScreen('memory','🃏 لعبة الذاكرة');
+}
+function renderMem(){
+  const grid=memCards.map((c,i)=>`<div class="mem-card${c.flipped?' flipped':''}${c.matched?' matched':''}" id="mc${i}" onclick="tapCard(${i})"><span style="${(!c.flipped&&!c.matched)?'visibility:hidden':''}">${c.emoji}</span></div>`).join('');
+  $('memory').innerHTML=`<div class="pad">
+    <div class="mem-stats"><span>🎯 ${memMoves}</span><span>✅ ${memMatched}/8</span><button class="btn gray xs" style="width:auto;margin:0" onclick="startMemory()">🔄</button></div>
+    <div class="mem-grid">${grid}</div>
+  </div>`;
+}
+function tapCard(i){
+  if(memWait)return;const c=memCards[i];
+  if(c.flipped||c.matched||memFlipped.length>=2)return;
+  vib(30);c.flipped=true;memFlipped.push(i);
+  const el=$(`mc${i}`);if(el){el.classList.add('flipped');el.querySelector('span').style.visibility='';}
+  if(memFlipped.length===2){memMoves++;memWait=true;setTimeout(checkMem,800);}
+}
+function checkMem(){
+  const[a,b]=memFlipped;
+  if(memCards[a].emoji===memCards[b].emoji){
+    memCards[a].matched=memCards[b].matched=true;memMatched++;addScore(15);vib([30,20,30]);
+    [$(`mc${a}`),$(`mc${b}`)].forEach(el=>{if(el)el.classList.add('matched');});
+    if(memMatched===8)setTimeout(memWin,400);
+  }else{
+    memCards[a].flipped=memCards[b].flipped=false;vib(100);
+    [$(`mc${a}`),$(`mc${b}`)].forEach(el=>{if(el){el.classList.remove('flipped');el.querySelector('span').style.visibility='hidden';}});
+  }
+  memFlipped=[];memWait=false;
+  const ms=$('memory').querySelector('.mem-stats');
+  if(ms)ms.innerHTML=`<span>🎯 ${memMoves}</span><span>✅ ${memMatched}/8</span><button class="btn gray xs" style="width:auto;margin:0" onclick="startMemory()">🔄</button>`;
+}
+function memWin(){
+  addScore(30);
+  $('memory').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">🏆</div><h2>أحسنت!</h2>
+    <p>أكملت في <strong>${memMoves}</strong> محاولة!<br>+٣٠ نقطة 🌟</p>
+    <button class="btn purple" onclick="startMemory()">🔄 مجدداً</button>
+    <button class="btn gray sm" onclick="renderGames();showScreen('games','🎮 العب وتعلم')">← الألعاب</button>
+  </div></div>`;
+}
+
+// ══════ FAST QUIZ ══════
+function startFQ(){fqQs=shuffle(FQ_QS);fqIdx=0;fqScore=0;renderFQ();showScreen('fastquiz','⚡ الأسئلة السريعة');}
+function renderFQ(){
+  clearInterval(fqTimer);if(fqIdx>=fqQs.length){renderFQResult();return;}
+  fqTime=10;const q=fqQs[fqIdx];const colors=['#1565C0','#00695C','#E65100','#4A148C'];const labels=['أ','ب','ج','د'];
+  $('fastquiz').innerHTML=`<div class="pad">
+    <div class="timer-bar"><div class="timer-fill" id="tfill" style="width:100%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-bottom:8px">
+      <span id="tcnt">⏱ 10s</span><span>🏅 ${fqScore}</span><span>${fqIdx+1}/${fqQs.length}</span>
+    </div>
+    <div class="fq-q pop">${q.q}</div>
+    <div class="fq-opts">${q.opts.map((o,i)=>`<button class="fq-opt" id="fopt${i}" style="background:${colors[i]}" onclick="answerFQ(${i})">${labels[i]} — ${o}</button>`).join('')}</div>
+  </div>`;
+  fqTimer=setInterval(()=>{
+    fqTime=Math.max(0,fqTime-.1);const pct=fqTime/10*100;
+    const f=$('tfill'),c=$('tcnt');
+    if(f){f.style.width=pct+'%';f.className='timer-fill'+(pct<25?' danger':pct<55?' warn':'');}
+    if(c)c.textContent=`⏱ ${Math.ceil(fqTime)}s`;
+    if(fqTime<=0){clearInterval(fqTimer);timeUpFQ();}
+  },100);
+}
+function answerFQ(chosen){
+  clearInterval(fqTimer);vib(40);const q=fqQs[fqIdx],correct=q.ans;
+  for(let i=0;i<4;i++){const b=$(`fopt${i}`);if(!b)continue;b.onclick=null;if(i===correct)b.classList.add('correct');else if(i===chosen&&i!==correct)b.classList.add('wrong');else b.classList.add('dim');}
+  if(chosen===correct){const bonus=Math.max(1,Math.ceil(fqTime));fqScore+=bonus;addScore(bonus*2);vib([30,20,30]);}
+  else vib([100,50,100]);
+  setTimeout(()=>{fqIdx++;renderFQ();},1200);
+}
+function timeUpFQ(){
+  const c=fqQs[fqIdx].ans;
+  for(let i=0;i<4;i++){const b=$(`fopt${i}`);if(!b)continue;b.onclick=null;if(i===c)b.classList.add('correct');else b.classList.add('dim');}
+  setTimeout(()=>{fqIdx++;renderFQ();},1200);
+}
+function renderFQResult(){
+  $('fastquiz').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">🏁</div><h2>انتهى!</h2>
+    <p>نقاطك: <strong style="font-size:22px">${fqScore}</strong> 🏅</p>
+    <button class="btn teal" onclick="startFQ()">🔄 مجدداً</button>
+    <button class="btn gray sm" onclick="renderGames();showScreen('games','🎮 العب وتعلم')">← الألعاب</button>
+  </div></div>`;
+}
+
+// ══════ WORD SCRAMBLE GAME ══════
+function startScramble(){
+  scrQs=shuffle(SCRAMBLE_QS);scrIdx=0;scrScore=0;renderScramble();showScreen('scramble','🔤 رتّب الحروف');
+}
+function renderScramble(){
+  if(scrIdx>=scrQs.length){renderScrambleResult();return;}
+  const q=scrQs[scrIdx];
+  const shuffled=shuffle(q.word.split(''));
+  scrLetters=shuffled;scrLetterUsed=new Array(shuffled.length).fill(false);
+  scrAnswer=new Array(q.word.length).fill('');
+  let html=`<div class="pad">
+    <div class="progress-bar"><div class="progress-fill" style="width:${(scrIdx/scrQs.length*100).toFixed(0)}%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-bottom:10px">
+      <span>سؤال ${scrIdx+1}/${scrQs.length}</span><span>🏅 ${scrScore}</span>
+    </div>
+    <div style="text-align:center;margin-bottom:8px;font-size:16px;color:var(--purpleL);font-weight:700">${q.hint}</div>
+    <div class="scramble-hint" style="font-size:13px;color:var(--gray)">رتّب الحروف لتكوّن كلمة إنجليزية تعني: <strong style="color:var(--yellowL)">${q.meaning}</strong></div>
+    <div class="answer-slots" id="ans-slots">
+      ${q.word.split('').map((_,i)=>`<div class="slot" id="slot${i}" onclick="removeFromSlot(${i})"></div>`).join('')}
+    </div>
+    <div class="letter-bank" id="letter-bank">
+      ${shuffled.map((l,i)=>`<button class="letter-btn" id="lbtn${i}" onclick="addLetter(${i},'${l}')">${l}</button>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn gray sm" style="flex:1" onclick="clearScramble()">🔄 امسح</button>
+      <button class="btn green sm" style="flex:1" onclick="checkScramble()">✅ تحقق</button>
+    </div>
+    <div class="feedback" id="scr-fb" style="margin-top:10px"></div>
+  </div>`;
+  $('scramble').innerHTML=html;
+}
+function addLetter(idx,letter){
+  const nextSlot=scrAnswer.indexOf('');
+  if(nextSlot===-1||scrLetterUsed[idx])return;
+  scrLetterUsed[idx]=true;scrAnswer[nextSlot]=letter;
+  vib(30);
+  const btn=$(`lbtn${idx}`);if(btn)btn.classList.add('used');
+  const slot=$(`slot${nextSlot}`);
+  if(slot){slot.textContent=letter;slot.classList.add('filled');slot.dataset.lbtn=idx;}
+}
+function removeFromSlot(slotIdx){
+  if(!scrAnswer[slotIdx])return;
+  const lbtnIdx=parseInt($(`slot${slotIdx}`)?.dataset.lbtn||'-1');
+  scrAnswer[slotIdx]='';
+  const slot=$(`slot${slotIdx}`);if(slot){slot.textContent='';slot.classList.remove('filled');slot.dataset.lbtn='';}
+  if(lbtnIdx>=0){scrLetterUsed[lbtnIdx]=false;const btn=$(`lbtn${lbtnIdx}`);if(btn)btn.classList.remove('used');}
+  vib(20);
+}
+function clearScramble(){
+  scrAnswer=new Array(scrQs[scrIdx].word.length).fill('');
+  scrLetterUsed=new Array(scrLetters.length).fill(false);
+  for(let i=0;i<scrQs[scrIdx].word.length;i++){const s=$(`slot${i}`);if(s){s.textContent='';s.classList.remove('filled');s.dataset.lbtn='';}}
+  for(let i=0;i<scrLetters.length;i++){const b=$(`lbtn${i}`);if(b)b.classList.remove('used');}
+}
+function checkScramble(){
+  const q=scrQs[scrIdx];
+  if(scrAnswer.includes(''))return;
+  const guess=scrAnswer.join('');
+  const fb=$('scr-fb');
+  if(guess===q.word){
+    fb.textContent=`✅ صح! ${q.word} = ${q.meaning} 🌟`;fb.className='feedback ok pop';
+    scrScore++;addScore(20);vib([40,20,40]);
+    setTimeout(()=>{scrIdx++;renderScramble();},1500);
+  } else {
+    fb.textContent=`❌ خطأ! جرّب مرة أخرى`;fb.className='feedback err shake';vib(100);
+    setTimeout(()=>{fb.textContent='';fb.className='feedback';},1500);
+  }
+}
+function renderScrambleResult(){
+  addScore(scrScore>=8?30:scrScore>=5?15:0);
+  $('scramble').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">🔤</div><h2>${scrScore>=8?'ممتاز! 🏆':scrScore>=5?'جيد! 😊':'استمر! 💪'}</h2>
+    <p>كلمات صحيحة: <strong style="font-size:22px">${scrScore}</strong> من ${scrQs.length}</p>
+    <button class="btn orange" onclick="startScramble()">🔄 مجدداً</button>
+    <button class="btn gray sm" onclick="renderGames();showScreen('games','🎮 العب وتعلم')">← الألعاب</button>
+  </div></div>`;
+}
+
+// ══════ TRUE/FALSE GAME ══════
+function startTF(){
+  tfQs=shuffle(TF_QS);tfIdx=0;tfScore=0;renderTF();showScreen('truefalse','✅❌ صح أم خطأ');
+}
+function renderTF(){
+  if(tfIdx>=tfQs.length){renderTFResult();return;}
+  const q=tfQs[tfIdx];tfAnswered=false;
+  $('truefalse').innerHTML=`<div class="pad">
+    <div class="progress-bar"><div class="progress-fill" style="width:${(tfIdx/tfQs.length*100).toFixed(0)}%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-bottom:10px">
+      <span>عبارة ${tfIdx+1}/${tfQs.length}</span><span>✅ ${tfScore} صح</span>
+    </div>
+    <div class="tf-question pop">${q.q}</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-true" id="tf-true-btn" onclick="answerTF(true)">✅<br>صح</button>
+      <button class="tf-btn tf-false" id="tf-false-btn" onclick="answerTF(false)">❌<br>خطأ</button>
+    </div>
+    <div class="feedback" id="tf-fb"></div>
+    <div class="feedback-detail" id="tf-ex"></div>
+  </div>`;
+}
+function answerTF(chosen){
+  if(tfAnswered)return;tfAnswered=true;
+  const q=tfQs[tfIdx];
+  const correct=q.ans;
+  const trueBtn=$('tf-true-btn'),falseBtn=$('tf-false-btn');
+  trueBtn.onclick=null;falseBtn.onclick=null;
+  if(correct){trueBtn.classList.add('correct');falseBtn.classList.add('wrong');}
+  else{falseBtn.classList.add('correct');trueBtn.classList.add('wrong');}
+  const fb=$('tf-fb'),ex=$('tf-ex');
+  if(chosen===correct){
+    fb.textContent='✅ صح! +١٢ 🌟';fb.className='feedback ok pop';
+    tfScore++;addScore(12);vib([40,20,40]);
+  } else {
+    fb.textContent='❌ خطأ!';fb.className='feedback err shake';vib([100,40,100]);
+  }
+  if(ex&&q.ex)ex.textContent='💡 '+q.ex;
+  setTimeout(()=>{tfIdx++;renderTF();},1800);
+}
+function renderTFResult(){
+  const pct=Math.round(tfScore/tfQs.length*100);
+  addScore(pct>=80?30:pct>=60?15:0);
+  $('truefalse').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">${pct>=80?'🏆':pct>=60?'⭐':'💪'}</div>
+    <h2>${pct>=80?'ممتاز!':pct>=60?'جيد جداً!':'استمر!'}</h2>
+    <p>${tfScore}/${tfQs.length} إجابة صحيحة<br><strong style="font-size:22px">${pct}%</strong></p>
+    <button class="btn blue" onclick="startTF()">🔄 مجدداً</button>
+    <button class="btn gray sm" onclick="renderGames();showScreen('games','🎮 العب وتعلم')">← الألعاب</button>
+  </div></div>`;
+}
+
+// ══════ STARS ══════
+function renderStars(){
+  const BADGES=[
+    {req:15,icon:'🌱',name:'مبتدئ',bg:'#1B5E20'},{req:50,icon:'📚',name:'متعلم',bg:'#0D47A1'},
+    {req:100,icon:'🏅',name:'متميز',bg:'#E65100'},{req:200,icon:'🏆',name:'بطل',bg:'#F57F17'},
+    {req:400,icon:'🌟',name:'نجم التقنية',bg:'#4A148C'},{req:800,icon:'👑',name:'خبير',bg:'#880E4F'},
+  ];
+  const earned=BADGES.filter(b=>score>=b.req).length;
+  const stars='⭐'.repeat(Math.min(10,Math.floor(score/40)))||'ابدأ التعلم!';
+  const totalSlides=LESSONS.reduce((s,l)=>s+l.slides.length,0);
+  $('stars').innerHTML=`<div class="pad">
+    <div class="big-score pop">
+      <div class="snum">${score}</div>
+      <div style="color:var(--gray);font-size:11px">نقطة • ${earned} شارة • ${lessonsCompleted.size}/${LESSONS.length} وحدة</div>
+    </div>
+    <div style="font-size:18px;text-align:center;padding:6px 0;margin-bottom:12px">${stars}</div>
+    <div style="font-size:12px;font-weight:700;color:var(--yellowL);margin-bottom:8px">🏅 الشارات</div>
+    <div class="badges-grid">${BADGES.map(b=>`<div class="badge-card${score>=b.req?' earned':''}" style="background:${b.bg}"><div class="bi">${b.icon}</div><div class="bn">${b.name}</div><div class="br">${b.req} نقطة</div></div>`).join('')}</div>
+    <div class="card">
+      <h3>📊 تقدّمك</h3>
+      <p>✅ وحدات: ${lessonsCompleted.size}/${LESSONS.length}<br>
+         📚 إجمالي الشرائح: ${totalSlides}<br>
+         🎯 اختبارات: ${quizzesCompleted}<br>
+         💰 النقاط: ${score}</p>
+    </div>
+    <div class="card">
+      <h3>💡 كيف تجمع النقاط؟</h3>
+      <p>📚 وحدة مكتملة = ١٥<br>
+         🎯 إجابة صحيحة = ١٠<br>
+         🃏 زوج الذاكرة = ١٥<br>
+         🏆 إكمال الذاكرة = +٣٠<br>
+         ⚡ السريعة = نقاط × الوقت<br>
+         🔤 رتّب الحروف = ٢٠ كل كلمة<br>
+         ✅❌ صح/خطأ = ١٢ كل سؤال</p>
+    </div>
+  </div>`;
+}
+
+// ══════ INIT ══════
+renderHome();
+</script>
+</body>
+</html>
