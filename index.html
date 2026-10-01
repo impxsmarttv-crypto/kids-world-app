@@ -66,9 +66,8 @@ footer{margin-top:24px;text-align:center;color:#66809f;font-size:11px;padding:14
 <div class="section-title"><h2>🚀 ماذا تريد أن تفعل؟</h2><span>اختر نشاطًا</span></div>
 <div class="features">
   <button class="feature blue" data-action="chat"><div class="ico">💬</div><h3>تحدث معي</h3><p>اسأل أي سؤال وتحدث مع المساعد الذكي</p><span class="go">←</span></button>
-  <button class="feature orange" data-action="homework"><div class="ico">📚
+  <button class="feature orange" data-action="homework"><div class="ico">📚</div><h3>ساعدني في الواجب</h3><p>اشرح لي الدرس وحل معي المسألة خطوة بخطوة</p><span class="go">←</span></button>
   <button class="feature purple" id="computerTrainingBtn" type="button"><div class="ico">💻</div><h3>تعلم الكمبيوتر</h3><p>دروس تفاعلية، اختبارات وألعاب لتعلم الحاسب والتقنية</p><span class="go">←</span></button>
-</div><h3>ساعدني في الواجب</h3><p>اشرح لي الدرس وحل معي المسألة خطوة بخطوة</p><span class="go">←</span></button>
   <button class="feature purple" data-action="ask"><div class="ico">🧠</div><h3>اسألني</h3><p>معلومات وأجوبة بسيطة تناسب عمرك</p><span class="go">←</span></button>
   <button class="feature green" data-action="games"><div class="ico">🎮</div><h3>ألعاب تعليمية</h3><p>أنشطة وأفكار للعب والتعلم في نفس الوقت</p><span class="go">←</span></button>
   <button class="feature pink" data-action="creative"><div class="ico">🎨</div><h3>الإبداع والفن</h3><p>أفكار للرسم والتلوين والمشاريع الممتعة</p><span class="go">←</span></button>
@@ -127,5 +126,7 @@ if(trainingClose)trainingClose.addEventListener('click',closeComputerTraining);
 trainingModal?.addEventListener('click',e=>{if(e.target===trainingModal)closeComputerTraining()});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&trainingModal?.classList.contains('open'))closeComputerTraining()});
 </script>
+
+<div class="training-modal" id="trainingModal" aria-hidden="true"><button class="training-close" id="trainingClose" aria-label="إغلاق">✕</button><iframe class="training-frame" id="trainingFrame" title="عالم الحاسب للأطفال" src="./computer-training/index.html"></iframe></div>
 </body>
 </html>
