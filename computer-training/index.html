@@ -1557,7 +1557,8 @@ function renderStars(){
 
 // ══════ INIT ══════
 function openRequestedScreen(){
-  const target=(location.hash||'').replace(/^#/,'');
+  const params=new URLSearchParams(location.search);
+  const target=params.get('screen') || (location.hash||'').replace(/^#/,'');
   if(target==='lessons'){renderLessons();showScreen('lessons','📚 الدروس');return;}
   if(target==='quiz'){startQuiz();return;}
   if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');return;}
