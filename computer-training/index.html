@@ -148,6 +148,41 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
 .shake{animation:shake .28s ease}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .bounce{animation:bounce .4s ease}
+
+/* ===== Math activities ===== */
+.math-hero{text-align:center;padding:10px 6px 14px}
+.math-hero .mi{font-size:52px}
+.math-hero h2{font-size:24px;color:var(--purple);margin:6px 0}
+.math-hero p{font-size:13px;color:var(--gray);line-height:1.8}
+.math-levels{display:flex;gap:7px;margin-bottom:12px}
+.math-levels button{flex:1;border:0;border-radius:12px;padding:10px 5px;background:var(--purpleL);color:var(--purple);font:700 13px inherit}
+.math-levels button.active{background:var(--purple);color:#fff}
+.math-q{background:#fff;border-radius:18px;padding:20px 12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.18);margin-bottom:12px}
+.math-q .equation{font-size:40px;font-weight:900;color:var(--dark);direction:ltr;margin:5px 0 10px}
+.math-q .hint{font-size:13px;color:var(--gray);line-height:1.8}
+.math-answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.math-answer{border:0;border-radius:15px;padding:16px 8px;background:var(--blue);color:#fff;font:900 21px inherit;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.math-answer.correct{background:var(--green)!important}
+.math-answer.wrong{background:var(--red)!important}
+.math-answer.dim{opacity:.35}
+.math-feedback{text-align:center;min-height:38px;padding:8px;font-size:17px;font-weight:900}
+.math-progress{height:7px;background:#e2e8f0;border-radius:5px;overflow:hidden;margin-bottom:10px}
+.math-progress>div{height:100%;background:var(--purple);transition:.3s}
+.mult-table{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.mult-cell{border:0;border-radius:12px;padding:12px 4px;background:#fff;box-shadow:0 3px 9px rgba(0,0,0,.14);color:var(--dark);font:800 15px inherit}
+.mult-cell:active{transform:scale(.95)}
+.mult-cell.active{background:var(--purple);color:#fff}
+.story-lines{background:#fff;border-radius:16px;padding:16px;margin-bottom:10px}
+.story-lines h2{text-align:center;color:var(--purple);font-size:23px;margin-bottom:14px}
+.story-line{font-size:17px;line-height:2;color:var(--dark);padding:8px 3px;border-bottom:1px solid #e5e7eb}
+.story-num{min-width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-left:7px;vertical-align:middle}
+@media(max-width:600px){.math-q .equation{font-size:34px}.math-answer{padding:14px 5px;font-size:19px}.story-line{font-size:16px;line-height:1.9}}
+
+/* Readable stories for kids */
+.story-lines{font-size:18px;background:#fff;color:var(--dark)}
+.story-lines h2{font-size:25px;color:var(--purple)}
+.story-line{font-size:18px;line-height:2.05;color:#17315f;background:#fff}
+@media(max-width:600px){.story-lines h2{font-size:22px}.story-line{font-size:17px;line-height:2}}
 </style>
 </head>
 <body>
@@ -168,6 +203,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
   <div id="truefalse" class="screen"></div>
   <div id="stars"    class="screen"></div>
   <div id="stories"  class="screen"></div>
+  <div id="math"     class="screen"></div>
 </div>
 <script>
 const LESSONS = [
@@ -1579,6 +1615,77 @@ function renderStars(){
   </div>`;
 }
 
+
+/* ===== Math activities ===== */
+let mathMode='add', mathLevel=1, mathIdx=0, mathScore=0, mathQs=[];
+function makeMathQuestions(mode,level){
+  const qs=[];
+  const count=10;
+  for(let i=0;i<count;i++){
+    let a,b,ans;
+    if(mode==='add'){
+      const max=level===1?10:level===2?30:100;
+      a=1+Math.floor(Math.random()*max); b=1+Math.floor(Math.random()*max); ans=a+b;
+    }else if(mode==='sub'){
+      const max=level===1?10:level===2?30:100;
+      a=1+Math.floor(Math.random()*max); b=1+Math.floor(Math.random()*a); ans=a-b;
+    }else{
+      const max=level===1?5:level===2?10:12;
+      a=2+Math.floor(Math.random()*(max-1)); b=2+Math.floor(Math.random()*(max-1)); ans=a*b;
+    }
+    const opts=new Set([ans]);
+    while(opts.size<4){
+      const d=(Math.floor(Math.random()*7)+1)*(Math.random()<.5?-1:1);
+      opts.add(Math.max(0,ans+d));
+    }
+    qs.push({a,b,ans,opts:shuffle([...opts])});
+  }
+  return qs;
+}
+function startMath(mode){
+  mathMode=mode; mathLevel=1; mathIdx=0; mathScore=0; mathQs=makeMathQuestions(mode,mathLevel);
+  renderMath(); showScreen('math',mode==='add'?'➕ تدريب الجمع':mode==='sub'?'➖ تدريب الطرح':'✖️ جدول الضرب');
+}
+function renderMath(){
+  const title=mathMode==='add'?'تدريب الجمع':mathMode==='sub'?'تدريب الطرح':'جدول الضرب';
+  const icon=mathMode==='add'?'➕':mathMode==='sub'?'➖':'✖️';
+  if(mathIdx>=mathQs.length){renderMathResult(title,icon);return;}
+  const q=mathQs[mathIdx];
+  $('math').innerHTML=`<div class="pad">
+    <div class="math-hero"><div class="mi">${icon}</div><h2>${title}</h2><p>اختر الإجابة الصحيحة واجمع النجوم 🌟</p></div>
+    <div class="math-levels">
+      <button class="${mathLevel===1?'active':''}" onclick="setMathLevel(1)">سهل</button>
+      <button class="${mathLevel===2?'active':''}" onclick="setMathLevel(2)">متوسط</button>
+      <button class="${mathLevel===3?'active':''}" onclick="setMathLevel(3)">متقدم</button>
+    </div>
+    <div class="math-progress"><div style="width:${mathIdx/mathQs.length*100}%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:8px"><span>سؤال ${mathIdx+1}/${mathQs.length}</span><span>⭐ ${mathScore}</span></div>
+    <div class="math-q"><div class="equation">${q.a} ${mathMode==='add'?'+':mathMode==='sub'?'-':'×'} ${q.b} = ؟</div><div class="hint">${mathMode==='mul'?'فكّر في جدول الضرب.':'خذ وقتك واحسب بهدوء.'}</div></div>
+    <div class="math-answers">${q.opts.map((o,i)=>`<button class="math-answer" id="mopt${i}" onclick="answerMath(${i})">${o}</button>`).join('')}</div>
+    <div class="math-feedback" id="math-fb"></div>
+  </div>`;
+}
+function setMathLevel(level){mathLevel=level;mathIdx=0;mathScore=0;mathQs=makeMathQuestions(mathMode,level);renderMath();}
+function answerMath(chosen){
+  const q=mathQs[mathIdx];
+  document.querySelectorAll('.math-answer').forEach((b,i)=>{b.onclick=null;if(q.opts[i]===q.ans)b.classList.add('correct');else if(i===chosen)b.classList.add('wrong');else b.classList.add('dim');});
+  const fb=$('math-fb');
+  if(q.opts[chosen]===q.ans){mathScore++;addScore(10);fb.textContent='✅ ممتاز! +١٠ نجوم 🌟';fb.className='math-feedback pop';vib([35,20,35]);}
+  else{fb.textContent='💡 الإجابة الصحيحة: '+q.ans;fb.className='math-feedback shake';vib(100);}
+  setTimeout(()=>{mathIdx++;renderMath();},1000);
+}
+function renderMathResult(title,icon){
+  const pct=Math.round(mathScore/mathQs.length*100);
+  if(pct>=80)addScore(20);
+  $('math').innerHTML=`<div class="pad"><div class="result pop">
+    <div class="big">${pct>=80?'🏆':pct>=60?'⭐':'💪'}</div>
+    <h2>${title}</h2>
+    <p>${mathScore}/${mathQs.length} إجابات صحيحة<br><strong style="font-size:22px">${pct}%</strong></p>
+    <button class="btn purple" onclick="startMath('${mathMode}')">🔄 مرة أخرى</button>
+    <button class="btn gray sm" onclick="renderHome();showScreen('home','🌟 عالم الحاسب')">🏠 الرئيسية</button>
+  </div></div>`;
+}
+
 // ══════ INIT ══════
 function renderStories(){
   $('stories').innerHTML='<div class="pad"><div class="card" style="text-align:center"><h3 style="color:var(--purple);font-size:18px">📖 قصص الأطفال</h3><p style="color:var(--gray);line-height:1.8">10 قصص قصيرة، وكل قصة 15 سطرًا.</p></div><div class="stories-grid">'+STORIES.map((s,i)=>'<div class="story-card" onclick="openStory('+i+')"><div class="story-icon">'+s.icon+'</div><h3>'+s.title+'</h3><p>قصة قصيرة • 15 سطرًا</p></div>').join('')+'</div></div>';
@@ -1596,6 +1703,9 @@ function openRequestedScreen(){
   if(target==='quiz'){startQuiz();return;}
   if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');return;}
   if(target==='stories'){renderStories();return;}
+  if(target==='math-add'){startMath('add');return;}
+  if(target==='math-sub'){startMath('sub');return;}
+  if(target==='math-mul'){startMath('mul');return;}
   renderHome();showScreen('home','🌟 عالم الحاسب');
 }
 window.addEventListener('hashchange',openRequestedScreen);
@@ -1606,6 +1716,9 @@ window.addEventListener('message',e=>{
     else if(target==='quiz'){startQuiz();}
     else if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');}
     else if(target==='stories'){renderStories();}
+    else if(target==='math-add'){startMath('add');}
+    else if(target==='math-sub'){startMath('sub');}
+    else if(target==='math-mul'){startMath('mul');}
     else {renderHome();showScreen('home','🌟 عالم الحاسب');}
   }
 });
