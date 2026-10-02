@@ -178,6 +178,9 @@ footer{margin-top:20px;color:#8290a5}
   <button class="feature pink" id="quizBtn" type="button"><div class="ico">🎯</div><h3>اختبر نفسك</h3><p>أسئلة ممتعة لمعرفة ما تعلمته</p><span class="go">←</span></button>
   <button class="feature orange" id="starsBtn" type="button"><div class="ico">⭐</div><h3>النجوم والإنجازات</h3><p>شاهد نقاطك وشاراتك وتقدمك</p><span class="go">←</span></button>
   <button class="feature cyan" id="storiesBtn" type="button"><div class="ico">📖</div><h3>قصص الأطفال</h3><p>10 قصص قصيرة وممتعة</p><span class="go">←</span></button>
+  <button class="feature blue" id="mathAddBtn" type="button"><div class="ico">➕</div><h3>تدريب الجمع</h3><p>تعلّم الجمع والعد بطريقة ممتعة</p><span class="go">←</span></button>
+  <button class="feature green" id="mathSubBtn" type="button"><div class="ico">➖</div><h3>تدريب الطرح</h3><p>تدرّب على الطرح خطوة بخطوة</p><span class="go">←</span></button>
+  <button class="feature orange" id="mathMulBtn" type="button"><div class="ico">✖️</div><h3>جدول الضرب</h3><p>تدرّب على جدول الضرب واختبر نفسك</p><span class="go">←</span></button>
 </div>
 <div class="settings" id="settings">
   <div class="setting"><div style="display:flex;gap:12px;align-items:center"><div class="sico">🔊</div><div><h3>قراءة الإجابة بصوت</h3><p>يمكن تشغيل أو إيقاف الصوت في أي وقت</p></div></div><button class="switch" id="voiceSwitch" aria-label="الصوت"></button></div>
@@ -245,6 +248,12 @@ if(lessonsBtn)lessonsBtn.addEventListener('click',()=>openComputerTraining('less
 if(quizBtn)quizBtn.addEventListener('click',()=>openComputerTraining('quiz'));
 if(starsBtn)starsBtn.addEventListener('click',()=>openComputerTraining('stars'));
 if(storiesBtn)storiesBtn.addEventListener('click',()=>openComputerTraining('stories'));
+const mathAddBtn=document.getElementById('mathAddBtn');
+const mathSubBtn=document.getElementById('mathSubBtn');
+const mathMulBtn=document.getElementById('mathMulBtn');
+if(mathAddBtn)mathAddBtn.addEventListener('click',()=>openComputerTraining('math-add'));
+if(mathSubBtn)mathSubBtn.addEventListener('click',()=>openComputerTraining('math-sub'));
+if(mathMulBtn)mathMulBtn.addEventListener('click',()=>openComputerTraining('math-mul'));
 if(trainingClose)trainingClose.addEventListener('click',closeComputerTraining);
 trainingModal?.addEventListener('click',e=>{if(e.target===trainingModal)closeComputerTraining()});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&trainingModal?.classList.contains('open'))closeComputerTraining()});
