@@ -1556,7 +1556,24 @@ function renderStars(){
 }
 
 // ══════ INIT ══════
-renderHome();
+function openRequestedScreen(){
+  const target=(location.hash||'').replace(/^#/,'');
+  if(target==='lessons'){renderLessons();showScreen('lessons','📚 الدروس');return;}
+  if(target==='quiz'){startQuiz();return;}
+  if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');return;}
+  renderHome();showScreen('home','🌟 عالم الحاسب');
+}
+window.addEventListener('hashchange',openRequestedScreen);
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='kidsworld-open'){
+    const target=e.data.screen||'home';
+    if(target==='lessons'){renderLessons();showScreen('lessons','📚 الدروس');}
+    else if(target==='quiz'){startQuiz();}
+    else if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');}
+    else {renderHome();showScreen('home','🌟 عالم الحاسب');}
+  }
+});
+openRequestedScreen();
 </script>
 </body>
 </html>
