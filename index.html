@@ -91,7 +91,7 @@ body{
 .age .avatar{font-size:31px;margin-bottom:4px}
 .age b{font-size:16px}.age span{font-size:10px}
 
-.features{grid-template-columns:repeat(3,1fr);gap:11px}
+.features{grid-template-columns:repeat(4,1fr);gap:11px}
 .feature{
  min-height:135px;border:1px solid var(--line);border-radius:18px;
  padding:15px;background:#fff;box-shadow:none;
@@ -173,12 +173,10 @@ footer{margin-top:20px;color:#8290a5}
 <div class="ages" id="ages"></div>
 <div class="section-title"><h2>🚀 أنشطتي</h2><span>اختر ما تريد</span></div>
 <div class="features">
-  <button class="feature blue" data-action="chat"><div class="ico">💬</div><h3>تحدث معي</h3><p>اسأل أي سؤال وتحدث مع المساعد الذكي</p><span class="go">←</span></button>
-  <button class="feature orange" data-action="homework"><div class="ico">📚</div><h3>ساعدني في الواجب</h3><p>اشرح لي الدرس وحل معي المسألة خطوة بخطوة</p><span class="go">←</span></button>
-  <button class="feature purple" id="computerTrainingBtn" type="button"><div class="ico">💻</div><h3>تعلم الكمبيوتر</h3><p>تعلم الحاسب والمهارات الرقمية</p><span class="go">←</span></button>
-  <button class="feature green" data-action="games"><div class="ico">🎮</div><h3>ألعاب</h3><p>تعلم والعب</p><span class="go">←</span></button>
-  <button class="feature pink" data-action="creative"><div class="ico">🎨</div><h3>إبداع</h3><p>ارسم وابتكر</p><span class="go">←</span></button>
-  <button class="feature cyan" data-action="stories"><div class="ico">📖</div><h3>قصص</h3><p>قصص ممتعة ومفيدة</p><span class="go">←</span></button>
+  <button class="feature blue" data-action="chat"><div class="ico">💬</div><h3>تحدث معي</h3><p>اسأل وتحدث مع صديقك الذكي</p><span class="go">←</span></button>
+  <button class="feature purple" id="lessonsBtn" type="button"><div class="ico">📚</div><h3>الدروس التعليمية</h3><p>تعلم الحاسب والتقنية خطوة بخطوة</p><span class="go">←</span></button>
+  <button class="feature pink" id="quizBtn" type="button"><div class="ico">🎯</div><h3>اختبر نفسك</h3><p>أسئلة ممتعة لمعرفة ما تعلمته</p><span class="go">←</span></button>
+  <button class="feature orange" id="starsBtn" type="button"><div class="ico">⭐</div><h3>النجوم والإنجازات</h3><p>شاهد نقاطك وشاراتك وتقدمك</p><span class="go">←</span></button>
 </div>
 <div class="settings" id="settings">
   <div class="setting"><div style="display:flex;gap:12px;align-items:center"><div class="sico">🔊</div><div><h3>قراءة الإجابة بصوت</h3><p>يمكن تشغيل أو إيقاف الصوت في أي وقت</p></div></div><button class="switch" id="voiceSwitch" aria-label="الصوت"></button></div>
@@ -209,7 +207,7 @@ function setVoice(on){voiceEnabled=on;$("voiceToggle").textContent=on?"🔊":"�
 function openChat(prompt){$("home").style.display="none";$("chat").style.display="flex";if(!$("messages").children.length)add("مرحبًا! 🌟 عمرك "+age+" سنوات. أنا صديقك الذكي! اسألني أو اضغط 🎤 وتحدث معي.");if(prompt){$("input").value=prompt;$("input").focus()}}
 async function ask(q){if(!q.trim())return;add(q,"user");$("input").value="";$("status").textContent="يفكر... 🧠";let timer;try{const controller=new AbortController();timer=setTimeout(()=>controller.abort(),30000);const r=await fetch(API_BASE_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({age:age,message:q}),signal:controller.signal});let j={};try{j=await r.json()}catch{}if(!r.ok){const code=j.code||"API_ERROR";const msg=code==="MISSING_API_KEY"?"الخدمة الذكية تحتاج إكمال الإعداد.":code==="OPENROUTER_ERROR"?"النموذج الذكي مشغول الآن، سأحاول مرة أخرى بعد قليل.":code==="EMPTY_AI_RESPONSE"?"لم تصل إجابة من النموذج، جرّب السؤال مرة أخرى.":"تعذر الاتصال بالخدمة الذكية الآن.";add(msg);return}const a=j.answer||"لم تصل إجابة، حاول مرة أخرى 😊";add(a);speak(a)}catch(e){add(e.name==="AbortError"?"استغرق الاتصال وقتًا طويلًا. جرّب مرة أخرى.":"تعذر الاتصال بالخدمة الذكية الآن. تأكد من اتصال الإنترنت وحاول مرة أخرى.")}finally{clearTimeout(timer);$("status").textContent=""}}
 $("startChat").onclick=()=>openChat();$("talkBtn").onclick=()=>{openChat();setTimeout(()=>$("mic").click(),200)};$("back").onclick=()=>{$("chat").style.display="none";$("home").style.display="block"};$("voiceToggle").onclick=()=>setVoice(!voiceEnabled);$("voiceSwitch").onclick=()=>setVoice(!voiceEnabled);$("settingsBtn").onclick=()=>document.getElementById("settings").scrollIntoView({behavior:"smooth"});
-document.querySelectorAll(".feature").forEach(b=>b.onclick=()=>{if(b.id==="computerTrainingBtn")return;const a=b.dataset.action;if(a==="games"){openChat("أعطني لعبة تعليمية بسيطة وممتعة تناسب عمري.");return}if(a==="homework"){openChat("ساعدني في واجبي وشرح لي خطوة بخطوة.");return}if(a==="creative"){openChat("أعطني فكرة فنية وإبداعية تناسب عمري.");return}if(a==="stories"){openChat("احكِ لي قصة قصيرة جميلة ومفيدة تناسب عمري.");return}openChat()});
+document.querySelectorAll(".feature[data-action]").forEach(b=>b.onclick=()=>{const a=b.dataset.action;if(a==="games"){openChat("أعطني لعبة تعليمية بسيطة وممتعة تناسب عمري.");return}if(a==="homework"){openChat("ساعدني في واجبي وشرح لي خطوة بخطوة.");return}if(a==="creative"){openChat("أعطني فكرة فنية وإبداعية تناسب عمري.");return}if(a==="stories"){openChat("احكِ لي قصة قصيرة جميلة ومفيدة تناسب عمري.");return}openChat()});
 $("send").onclick=()=>ask($("input").value);$("input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask($("input").value)}});document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>ask(c.textContent));
 $("mic").onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("المتصفح لا يدعم التعرف الصوتي. جرّب Chrome على Android.");return}if(recording){recognition.stop();return}recognition=new SR();recognition.lang="ar-SA";recognition.interimResults=true;recognition.continuous=false;recognition.onstart=()=>{recording=true;$("mic").classList.add("recording");$("status").textContent="أسمعك... تحدث الآن 🎙️"};recognition.onresult=e=>{let t="";for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;$("input").value=t;if(e.results[e.results.length-1].isFinal)ask(t)};recognition.onerror=()=>{$("status").textContent="تعذر استخدام المايكروفون"};recognition.onend=()=>{recording=false;$("mic").classList.remove("recording");setTimeout(()=>$("status").textContent="",500)};recognition.start()};
 const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
@@ -225,11 +223,21 @@ window.addEventListener("appinstalled",()=>{$("install").style.display="none";cl
 if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 
 const trainingModal=document.getElementById('trainingModal');
-const trainingBtn=document.getElementById('computerTrainingBtn');
+const trainingFrame=document.getElementById('trainingFrame');
+const lessonsBtn=document.getElementById('lessonsBtn');
+const quizBtn=document.getElementById('quizBtn');
+const starsBtn=document.getElementById('starsBtn');
 const trainingClose=document.getElementById('trainingClose');
-function openComputerTraining(){trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function openComputerTraining(screen='home'){
+  trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+  const target='./computer-training/index.html'+(screen==='home'?'':'#'+screen);
+  if(trainingFrame.getAttribute('src')!==target) trainingFrame.src=target;
+  else try{trainingFrame.contentWindow.postMessage({type:'kidsworld-open',screen},'*')}catch(e){}
+}
 function closeComputerTraining(){trainingModal.classList.remove('open');trainingModal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
-if(trainingBtn)trainingBtn.addEventListener('click',openComputerTraining);
+if(lessonsBtn)lessonsBtn.addEventListener('click',()=>openComputerTraining('lessons'));
+if(quizBtn)quizBtn.addEventListener('click',()=>openComputerTraining('quiz'));
+if(starsBtn)starsBtn.addEventListener('click',()=>openComputerTraining('stars'));
 if(trainingClose)trainingClose.addEventListener('click',closeComputerTraining);
 trainingModal?.addEventListener('click',e=>{if(e.target===trainingModal)closeComputerTraining()});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&trainingModal?.classList.contains('open'))closeComputerTraining()});
