@@ -228,12 +228,16 @@ const lessonsBtn=document.getElementById('lessonsBtn');
 const quizBtn=document.getElementById('quizBtn');
 const starsBtn=document.getElementById('starsBtn');
 const trainingClose=document.getElementById('trainingClose');
+let pendingTrainingScreen='home';
 function openComputerTraining(screen='home'){
+  pendingTrainingScreen=screen;
   trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
-  const target='./computer-training/index.html'+(screen==='home'?'':'#'+screen);
-  if(trainingFrame.getAttribute('src')!==target) trainingFrame.src=target;
-  else try{trainingFrame.contentWindow.postMessage({type:'kidsworld-open',screen},'*')}catch(e){}
+  const target='./computer-training/index.html?screen='+encodeURIComponent(screen);
+  trainingFrame.src=target;
 }
+trainingFrame.addEventListener('load',()=>{
+  try{trainingFrame.contentWindow.postMessage({type:'kidsworld-open',screen:pendingTrainingScreen},'*')}catch(e){}
+});
 function closeComputerTraining(){trainingModal.classList.remove('open');trainingModal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 if(lessonsBtn)lessonsBtn.addEventListener('click',()=>openComputerTraining('lessons'));
 if(quizBtn)quizBtn.addEventListener('click',()=>openComputerTraining('quiz'));
