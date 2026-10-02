@@ -1,4 +1,4 @@
-const CACHE='kidsworld-v12';
+const CACHE='kidsworld-v14';
 const FILES=['./',  './index.html','./manifest.json','./icon.png','./computer-training/index.html'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)));
@@ -9,10 +9,13 @@ self.addEventListener('activate',e=>{
   self.clients.claim();
 });
 self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
   e.respondWith(
-  caches.match(e.request).then(cached=>{
-    if(cached)return cached;
-    return fetch(e.request);
-  })
-);
+    fetch(e.request).then(response=>{
+      const copy=response.clone();
+      caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});
+      return response;
+    }).catch(()=>caches.match(e.request))
+  );
+});
 });
