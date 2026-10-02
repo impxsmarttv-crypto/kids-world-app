@@ -237,7 +237,7 @@ let pendingTrainingScreen='home';
 function openComputerTraining(screen='home'){
   pendingTrainingScreen=screen;
   trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
-  const target='./computer-training/index.html?screen='+encodeURIComponent(screen)+'&v=14';
+  const target='./computer-training/index.html?screen='+encodeURIComponent(screen)+'&v=15';
   trainingFrame.src=target;
 }
 trainingFrame.addEventListener('load',()=>{
