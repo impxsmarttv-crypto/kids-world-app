@@ -127,7 +127,18 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
 .badge-card.earned{opacity:1}
 .badge-card .bi{font-size:28px}.badge-card .bn{font-size:11px;font-weight:700;margin-top:4px}
 .badge-card .br{font-size:9px;color:rgba(255,255,255,.6);margin-top:2px}
-.result{text-align:center;padding:24px 13px}
+.stories-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.story-card{background:var(--card);border:2px solid var(--purple);border-radius:14px;padding:12px;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.story-card:active{transform:scale(.97)}
+.story-card .story-icon{font-size:30px;float:right;margin-left:9px}
+.story-card h3{font-size:14px;margin:2px 0 5px;color:var(--yellow)}
+.story-card p{font-size:10px;color:#bbb;line-height:1.5}
+.story-lines{background:var(--card);border-radius:16px;padding:13px;margin-bottom:10px}
+.story-lines h2{text-align:center;color:var(--yellow);font-size:19px;margin-bottom:12px}
+.story-line{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.8;color:#eee;padding:5px 3px;border-bottom:1px solid #ffffff12}
+.story-line:last-child{border-bottom:0}
+.story-num{min-width:24px;height:24px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.result{text-align:center;padding:24px 13px
 .result .big{font-size:60px}
 .result h2{font-size:22px;color:var(--yellow);margin:10px 0 6px}
 .result p{font-size:14px;color:#ccc;margin-bottom:16px;line-height:1.7}
@@ -156,6 +167,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI
   <div id="scramble" class="screen"></div>
   <div id="truefalse" class="screen"></div>
   <div id="stars"    class="screen"></div>
+  <div id="stories"  class="screen"></div>
 </div>
 <script>
 const LESSONS = [
@@ -1130,6 +1142,18 @@ const TF_QS=[
  {q:'تشفير الرسائل يعني أن أحداً لا يستطيع قراءتها.',ans:true,ex:'التشفير End-to-End يجعل الرسائل مقروءة فقط للمُرسِل والمستقبل.'},
 ];
 
+const STORIES=[
+{icon:'🌱',title:'البذرة الصغيرة',lines:['وجدت ليان بذرة صغيرة في حديقة البيت.','وضعتها في أصيص جميل وسقتها بالماء.','قالت لأمها: هل ستصبح شجرة كبيرة؟','ابتسمت أمها وقالت: كل شيء يبدأ صغيرًا.','وضعت ليان الأصيص قرب النافذة.','وفي كل صباح كانت تنظر إلى التربة.','مرت أيام ولم يظهر شيء.','شعرت ليان بالحزن لكنها لم تستسلم.','استمرت في العناية بالبذرة كل يوم.','وفي صباح مشمس ظهر برعم أخضر صغير.','فرحت ليان وصفقت من شدة السعادة.','كبر البرعم وأصبح نباتًا جميلاً.','تعلمت ليان أن الأشياء الجميلة تحتاج وقتًا.','وأدركت أن الصبر مع العمل يصنعان الفرق.','ومنذ ذلك اليوم أصبحت تحب زراعة النباتات.']},
+{icon:'🐿️',title:'السنجاب والأمانة',lines:['وجد سنجاب صغير حبة جوز كبيرة تحت الشجرة.','كانت الحبة تكفيه ليوم كامل.','لكن السنجاب رأى عصفورًا يبحث عن طعام.','عرف أن العصفور لم يجد شيئًا.','فكر السنجاب قليلًا ثم قسم حبة الجوز.','أعطى العصفور نصفها بابتسامة.','شكره العصفور وفرح كثيرًا.','بعد قليل هبت رياح قوية.','سقطت حبات كثيرة من الشجرة.','جمع السنجاب والعصفور الطعام معًا.','ثم تقاسما ما جمعاه بالتساوي.','قال العصفور: الأمانة تجعل الأصدقاء يثقون بنا.','أجاب السنجاب: والمشاركة تجعل الخير أكبر.','عادا إلى عشهـما وهما سعيدان.','وتعلما أن الخير يعود لصاحبه.']},
+{icon:'🤖',title:'الروبوت الصغير',lines:['صنع سامي روبوتًا صغيرًا من قطع قديمة.','أطلق عليه اسم برق.','كان برق يستطيع التحرك والضوء فقط.','حاول سامي أن يجعله يحمل الأقلام.','فشل الروبوت وسقطت الأقلام.','لم يغضب سامي من محاولته.','بل فكر في طريقة جديدة.','غيّر مكان العجلات وجرب مرة أخرى.','هذه المرة حمل برق قلمًا واحدًا.','فرح سامي وبدأ يضيف تحسينات صغيرة.','بعد عدة محاولات حمل الروبوت عدة أقلام.','قال سامي: الخطأ يساعدنا على التعلم.','أضاء برق مصباحه وكأنه يوافقه.','احتفل سامي بنجاحه مع أسرته.','وعرف أن الإبداع يحتاج تجربة وصبرًا.']},
+{icon:'🌧️',title:'المظلة الزرقاء',lines:['خرجت نورة إلى المدرسة في صباح مشمس.','حملت معها مظلة زرقاء لأنها تحبها.','في منتصف الطريق بدأت السماء تمطر.','رأت نورة طفلة صغيرة بلا مظلة.','اقتربت منها وقالت: تعالي معي.','وقفت الطفلتان تحت المظلة.','واصلتا الطريق وهما تضحكان.','كانت المظلة صغيرة لكنها حمتهما معًا.','وصلتا إلى المدرسة بسلام.','شكرت الطفلة نورة على مساعدتها.','قالت نورة: عندما نساعد بعضنا نصبح أقوى.','في الفسحة جلستا معًا.','وتعرفتا إلى بعضهما أكثر.','أصبحتا صديقتين منذ ذلك اليوم.','وعرفت نورة أن الخير يبدأ بتصرف بسيط.']},
+{icon:'🦋',title:'الفراشة التي خافت',lines:['كانت فراشة صغيرة تخاف من الطيران.','كانت ترى الفراشات حولها تطير بحرية.','قالت لها أمها: جربي خطوة صغيرة.','خرجت الفراشة من بين الأوراق.','رفرفت بجناحيها قليلًا ثم عادت.','قالت لنفسها: سأحاول مرة أخرى.','رفرفت أعلى من المرة السابقة.','شعرت بالهواء يحملها بلطف.','بدأ خوفها يقل شيئًا فشيئًا.','حلقت فوق زهرة صفراء جميلة.','ثم انتقلت إلى زهرة حمراء.','فرحت لأنها استطاعت الطيران.','قالت أمها: الشجاعة أن نحاول رغم الخوف.','ومنذ ذلك اليوم أصبحت تحب التجربة.','وعرفت أن كل خطوة صغيرة تقربنا من النجاح.']},
+{icon:'📚',title:'الكتاب العجيب',lines:['وجد عمر كتابًا قديمًا على رف المكتبة.','فتح الصفحة الأولى فوجد خريطة ملونة.','قادته الخريطة إلى معلومات عن الفضاء.','تعلم أسماء الكواكب والنجوم.','ثم وجد صفحة عن الحيوانات.','عرف كيف تعيش النحل والنمل معًا.','انتقل إلى صفحة عن البحار.','تعلم لماذا تطفو بعض الأشياء على الماء.','كل صفحة كانت تفتح له فكرة جديدة.','نسي عمر الوقت وهو يقرأ.','قال أمين المكتبة: الكتب مثل الأبواب.','قال له: كلما فتحت بابًا اكتشفت عالمًا.','عاد عمر إلى البيت سعيدًا.','وأخبر أسرته بما تعلمه.','ومنذ ذلك اليوم أصبح يقرأ كل يوم.']},
+{icon:'🐢',title:'السلحفاة المجتهدة',lines:['قررت السلحفاة المشاركة في سباق الجري.','ضحكت بعض الحيوانات لأنها بطيئة.','لكن السلحفاة لم تهتم بكلامهم.','بدأ السباق وتحركت بهدوء.','ركض الأرنب بسرعة كبيرة.','ثم توقف ليرتاح تحت شجرة.','واصلت السلحفاة طريقها دون توقف.','مرت بجانب الأرنب بهدوء.','استمر الأرنب في الراحة طويلًا.','وصلت السلحفاة إلى خط النهاية.','تفاجأت الحيوانات بنتيجتها.','صفق الجميع لها بحرارة.','قالت السلحفاة: السر هو الاستمرار.','تعلم الأرنب أن السرعة وحدها لا تكفي.','واتفق الجميع أن الاجتهاد يصنع النجاح.']},
+{icon:'🌟',title:'نجمة في السماء',lines:['كانت سارة تحب النظر إلى السماء ليلًا.','في ليلة صافية رأت نجمة لامعة.','تمنت أن تعرف لماذا تضيء النجوم.','سألت والدها فأحضر كتابًا عن الفضاء.','تعلمت أن النجوم أجسام ضخمة جدًا.','وأن الشمس أيضًا نجم قريب منا.','شعرت سارة بالدهشة.','قال والدها: العلم يبدأ بسؤال.','كتبت سارة أسئلتها في دفتر صغير.','وفي اليوم التالي بحثت عن الإجابات.','كل إجابة جعلتها تريد معرفة المزيد.','أصبحت تحب العلوم أكثر.','قالت: سأتعلم شيئًا جديدًا كل يوم.','ابتسم والدها وشجعها.','وظلت النجمة تذكرها بأن الفضول جميل.']},
+{icon:'🐝',title:'النحلة النشيطة',lines:['استيقظت نحلة صغيرة مع شروق الشمس.','خرجت تبحث عن الزهور بين الحقول.','جمعت الرحيق من زهرة بنفسجية.','ثم انتقلت إلى زهرة صفراء.','كانت تعمل بهدوء ونشاط.','رأت نحلة أخرى متعبة.','ساعدتها في الوصول إلى الخلية.','شكرتها النحلة وواصلتا العمل معًا.','في الخلية تعاون الجميع.','بعض النحل جمع الرحيق.','وبعضه اهتم بالخلية.','قالت النحلة الصغيرة: لكل واحد دور مهم.','تعلمت أن التعاون يوفر الجهد.','وعرفت أن النجاح يكون أجمل مع الفريق.','وفي المساء عادت سعيدة بما أنجزته.']},
+{icon:'🧩',title:'لغز القطع المفقودة',lines:['كان لدى مازن لغز كبير من قطع ملونة.','بدأ بتركيب القطع لكنه لم ينجح.','بحث عن القطعة الزرقاء التي تناسب الزاوية.','وجدها لكنه اكتشف أنها ليست الصحيحة.','قرر ألا يستسلم.','رتب القطع حسب ألوانها وأشكالها.','بدأت الصورة تظهر شيئًا فشيئًا.','وجد قطعة تناسب مكانًا صغيرًا.','ثم وجد قطعة أخرى بجانبها.','بعد وقت طويل اكتملت نصف الصورة.','شجعته أخته على الاستمرار.','وأخيرًا وجد آخر قطعة.','ظهرت صورة حديقة جميلة.','فرح مازن لأنه حل اللغز بنفسه.','وتعلم أن ترتيب المشكلة يجعل حلها أسهل.']}
+];
 // ══════ STATE ══════
 let score=0,lessonIdx=0,slideIdx=0,curScreen='home',prevScreen='home';
 let quizQs=[],quizIdx=0,quizScore=0;
@@ -1556,12 +1580,22 @@ function renderStars(){
 }
 
 // ══════ INIT ══════
+function renderStories(){
+  $('stories').innerHTML='<div class="pad"><div class="card" style="text-align:center"><h3 style="color:var(--purple);font-size:18px">📖 قصص الأطفال</h3><p style="color:var(--gray);line-height:1.8">10 قصص قصيرة، وكل قصة 15 سطرًا.</p></div><div class="stories-grid">'+STORIES.map((s,i)=>'<div class="story-card" onclick="openStory('+i+')"><div class="story-icon">'+s.icon+'</div><h3>'+s.title+'</h3><p>قصة قصيرة • 15 سطرًا</p></div>').join('')+'</div></div>';
+  showScreen('stories','📖 قصص الأطفال');
+}
+function openStory(index){
+  const s=STORIES[index];
+  $('stories').innerHTML='<div class="pad"><div class="story-lines"><h2>'+s.icon+' '+s.title+'</h2>'+s.lines.map((line,i)=>'<div class="story-line"><span class="story-num">'+(i+1)+'</span><span>'+line+'</span></div>').join('')+'</div><button class="btn purple" onclick="renderStories()">📖 كل القصص</button><button class="btn gray sm" onclick="renderHome();showScreen(\'home\',\'🌟 عالم الحاسب\')">🏠 الرئيسية</button></div>';
+  showScreen('stories','📖 '+s.title);
+}
 function openRequestedScreen(){
   const params=new URLSearchParams(location.search);
   const target=params.get('screen') || (location.hash||'').replace(/^#/,'');
   if(target==='lessons'){renderLessons();showScreen('lessons','📚 الدروس');return;}
   if(target==='quiz'){startQuiz();return;}
   if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');return;}
+  if(target==='stories'){renderStories();return;}
   renderHome();showScreen('home','🌟 عالم الحاسب');
 }
 window.addEventListener('hashchange',openRequestedScreen);
@@ -1571,6 +1605,7 @@ window.addEventListener('message',e=>{
     if(target==='lessons'){renderLessons();showScreen('lessons','📚 الدروس');}
     else if(target==='quiz'){startQuiz();}
     else if(target==='stars'){renderStars();showScreen('stars','⭐ نجومي');}
+    else if(target==='stories'){renderStories();}
     else {renderHome();showScreen('home','🌟 عالم الحاسب');}
   }
 });
