@@ -91,7 +91,7 @@ body{
 .age .avatar{font-size:31px;margin-bottom:4px}
 .age b{font-size:16px}.age span{font-size:10px}
 
-.features{grid-template-columns:repeat(4,1fr);gap:11px}
+.features{grid-template-columns:repeat(5,1fr);gap:11px}
 .feature{
  min-height:135px;border:1px solid var(--line);border-radius:18px;
  padding:15px;background:#fff;box-shadow:none;
@@ -177,6 +177,7 @@ footer{margin-top:20px;color:#8290a5}
   <button class="feature purple" id="lessonsBtn" type="button"><div class="ico">📚</div><h3>الدروس التعليمية</h3><p>تعلم الحاسب والتقنية خطوة بخطوة</p><span class="go">←</span></button>
   <button class="feature pink" id="quizBtn" type="button"><div class="ico">🎯</div><h3>اختبر نفسك</h3><p>أسئلة ممتعة لمعرفة ما تعلمته</p><span class="go">←</span></button>
   <button class="feature orange" id="starsBtn" type="button"><div class="ico">⭐</div><h3>النجوم والإنجازات</h3><p>شاهد نقاطك وشاراتك وتقدمك</p><span class="go">←</span></button>
+  <button class="feature cyan" id="storiesBtn" type="button"><div class="ico">📖</div><h3>قصص الأطفال</h3><p>10 قصص قصيرة وممتعة</p><span class="go">←</span></button>
 </div>
 <div class="settings" id="settings">
   <div class="setting"><div style="display:flex;gap:12px;align-items:center"><div class="sico">🔊</div><div><h3>قراءة الإجابة بصوت</h3><p>يمكن تشغيل أو إيقاف الصوت في أي وقت</p></div></div><button class="switch" id="voiceSwitch" aria-label="الصوت"></button></div>
@@ -227,12 +228,13 @@ const trainingFrame=document.getElementById('trainingFrame');
 const lessonsBtn=document.getElementById('lessonsBtn');
 const quizBtn=document.getElementById('quizBtn');
 const starsBtn=document.getElementById('starsBtn');
+const storiesBtn=document.getElementById('storiesBtn');
 const trainingClose=document.getElementById('trainingClose');
 let pendingTrainingScreen='home';
 function openComputerTraining(screen='home'){
   pendingTrainingScreen=screen;
   trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
-  const target='./computer-training/index.html?screen='+encodeURIComponent(screen);
+  const target='./computer-training/index.html?screen='+encodeURIComponent(screen)+'&v=14';
   trainingFrame.src=target;
 }
 trainingFrame.addEventListener('load',()=>{
@@ -242,6 +244,7 @@ function closeComputerTraining(){trainingModal.classList.remove('open');training
 if(lessonsBtn)lessonsBtn.addEventListener('click',()=>openComputerTraining('lessons'));
 if(quizBtn)quizBtn.addEventListener('click',()=>openComputerTraining('quiz'));
 if(starsBtn)starsBtn.addEventListener('click',()=>openComputerTraining('stars'));
+if(storiesBtn)storiesBtn.addEventListener('click',()=>openComputerTraining('stories'));
 if(trainingClose)trainingClose.addEventListener('click',closeComputerTraining);
 trainingModal?.addEventListener('click',e=>{if(e.target===trainingModal)closeComputerTraining()});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&trainingModal?.classList.contains('open'))closeComputerTraining()});
