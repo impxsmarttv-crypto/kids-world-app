@@ -96,7 +96,29 @@ export default {
       }
 
       let answer = data?.choices?.[0]?.message?.content?.trim();
-      if (!answer) return json({error:"AI returned an empty response",code:"EMPTY_AI_RESPONSE"},502,origin);
+      if (!answer) {
+        // One fallback attempt for providers that return an empty completion.
+        const retry = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method:"POST",
+          headers:{
+            "Authorization":`Bearer ${env.OPENROUTER_API_KEY}`,
+            "Content-Type":"application/json",
+            "HTTP-Referer":env.APP_URL || "https://impxsmarttv-crypto.github.io/kids-world-app/",
+            "X-Title":"Kids World - Safe AI"
+          },
+          body:JSON.stringify({
+            model:"openrouter/free",
+            messages:[{role:"system",content:system+"\\nأرسل الإجابة النهائية فقط كنص واضح، دون تحليل داخلي أو تنسيق Markdown."},{role:"user",content:message}],
+            temperature:0.2,
+            max_tokens:350
+          })
+        });
+        if (retry.ok) {
+          const retryData = await retry.json().catch(()=>({}));
+          answer = retryData?.choices?.[0]?.message?.content?.trim();
+        }
+        if (!answer) return json({error:"AI returned an empty response",code:"EMPTY_AI_RESPONSE"},502,origin);
+      }
 
       // Block leaked reasoning/draft text and retry once with stricter instructions.
       const internalLeak = /(here.s a thinking process|thinking process|analyze user input|identify core question|formulate answer|internal knowledge|chain.of.thought|let me think step by step)/i;
@@ -133,6 +155,8 @@ export default {
         answer="خلّنا نخلي الحديث آمنًا ومفيدًا 😊 وإذا كان سؤالك حساسًا تحدث مع شخص بالغ تثق به.";
       }
 
+      answer = answer.replace(/\\*{1,3}/g,"").replace(/^\\s*(?:assistant|final answer|الإجابة النهائية)\\s*:\\s*/i,"").trim();
+      if (/(user safety\\s*:|here.s a thinking process|analyze user input|identify core question|formulate answer|internal knowledge)/i.test(answer)) answer="عذرًا، لم أستطع تجهيز إجابة واضحة الآن. جرّب سؤالك مرة أخرى بعد قليل 😊";
       return json({answer,model:data?.model || null},200,origin);
     } catch (error) {
       return json({error:"Gateway request failed",code:"GATEWAY_EXCEPTION"},500,origin);
