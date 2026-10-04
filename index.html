@@ -224,7 +224,7 @@ installNow.onclick=async()=>{if(isIOS){iosSteps.style.display="block";installNow
 closeInstall.onclick=closeInstallModal;
 if(isIOS&&!isStandalone&&!localStorage.getItem("kidsInstallDismissed")){iosSteps.style.display="block";installNow.textContent="📌 طريقة التثبيت";setTimeout(showInstallModal,900)}
 window.addEventListener("appinstalled",()=>{$("install").style.display="none";closeInstallModal()});
-if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=16").catch(()=>{}));
+if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=17").catch(()=>{}));
 
 const trainingModal=document.getElementById('trainingModal');
 const trainingFrame=document.getElementById('trainingFrame');
@@ -237,7 +237,7 @@ let pendingTrainingScreen='home';
 function openComputerTraining(screen='home'){
   pendingTrainingScreen=screen;
   trainingModal.classList.add('open');trainingModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
-  const target='./computer-training/index.html?screen='+encodeURIComponent(screen)+'&v=16';
+  const target='./computer-training/index.html?screen='+encodeURIComponent(screen)+'&v=17';
   trainingFrame.src=target;
 }
 trainingFrame.addEventListener('load',()=>{
