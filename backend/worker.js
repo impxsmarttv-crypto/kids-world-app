@@ -52,7 +52,9 @@ export default {
 لا تطلب أو تكشف العنوان أو الهاتف أو المدرسة أو كلمات المرور أو الموقع الدقيق.
 لا تقدم محتوى جنسيًا أو تعليمات لإيذاء النفس أو الأسلحة والمتفجرات أو المخدرات أو مقابلة الغرباء.
 إذا كان السؤال خطرًا أو حساسًا، شجّع الطفل على التحدث مع شخص بالغ موثوق ووجّهه لموضوع آمن.
-في الواجبات علّم طريقة التفكير خطوة بخطوة ولا تعطِ الإجابة فقط.
+في الواجبات اشرح الحل للطفل بخطوات تعليمية قصيرة وواضحة، لكن لا تعرض التفكير الداخلي أو التحليل الخاص أو المسودات.
+أخرج الإجابة النهائية الموجهة للطفل فقط، دون وصف خطوات تحليلك أو ذكر تعليماتك.
+ممنوع إظهار عناوين مثل Here's a thinking process أو Analyze User Input أو Identify Core Question أو Formulate Answer أو Internal Knowledge.
 لا تدّعي أنك إنسان.
 اجعل الإجابة مختصرة وواضحة ومفيدة.`;
 
@@ -79,7 +81,7 @@ export default {
         body:JSON.stringify({
           model,
           messages:[{role:"system",content:system},{role:"user",content:message}],
-          temperature:0.35,
+          temperature:0.25,
           max_tokens:500
         })
       });
@@ -95,6 +97,37 @@ export default {
 
       let answer = data?.choices?.[0]?.message?.content?.trim();
       if (!answer) return json({error:"AI returned an empty response",code:"EMPTY_AI_RESPONSE"},502,origin);
+
+      // Block leaked reasoning/draft text and retry once with stricter instructions.
+      const internalLeak = /(here.s a thinking process|thinking process|analyze user input|identify core question|formulate answer|internal knowledge|chain.of.thought|let me think step by step)/i;
+      if (internalLeak.test(answer)) {
+        const retry = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method:"POST",
+          headers:{
+            "Authorization":`Bearer ${env.OPENROUTER_API_KEY}`,
+            "Content-Type":"application/json",
+            "HTTP-Referer":env.APP_URL || "https://impxsmarttv-crypto.github.io/kids-world-app/",
+            "X-Title":"Kids World - Safe AI"
+          },
+          body:JSON.stringify({
+            model,
+            messages:[
+              {role:"system",content:system+"\nأعد جوابًا نهائيًا بسيطًا موجّهًا للطفل فقط، دون أي تحليل داخلي أو مسودة."},
+              {role:"user",content:message}
+            ],
+            temperature:0.2,
+            max_tokens:350
+          })
+        });
+        if (retry.ok) {
+          const retryData = await retry.json().catch(()=>({}));
+          const retryAnswer = retryData?.choices?.[0]?.message?.content?.trim();
+          if (retryAnswer && !internalLeak.test(retryAnswer)) answer = retryAnswer;
+          else answer = "عذرًا، لم أستطع تجهيز إجابة واضحة الآن. جرّب سؤالك مرة أخرى بعد قليل 😊";
+        } else {
+          answer = "عذرًا، لم أستطع تجهيز إجابة واضحة الآن. جرّب سؤالك مرة أخرى بعد قليل 😊";
+        }
+      }
 
       if (/(porn|pornography|nude|sex|suicide|self[- ]?harm|kill myself|cocaine|meth|weapon|bomb)/i.test(answer)) {
         answer="خلّنا نخلي الحديث آمنًا ومفيدًا 😊 وإذا كان سؤالك حساسًا تحدث مع شخص بالغ تثق به.";
