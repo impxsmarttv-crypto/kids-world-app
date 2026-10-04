@@ -1,5 +1,5 @@
-const CACHE='kidsworld-v16';
-const FILES=['./',  './index.html','./manifest.json','./icon.png','./computer-training/index.html?v=16'];
+const CACHE='kidsworld-v17';
+const FILES=['./',  './index.html','./manifest.json','./icon.png','./computer-training/index.html?v=17'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)));
   self.skipWaiting();
